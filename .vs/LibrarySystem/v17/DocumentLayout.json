@@ -1,0 +1,717 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\HAUI\\CSDL\\LibrarySystem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\services\\auth\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\services\\auth\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\infrastructure\\mongodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\infrastructure\\mongodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\infrastructure\\dbseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\infrastructure\\dbseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\backgroundjobs\\overduenotificationjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\backgroundjobs\\overduenotificationjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\mappings\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\mappings\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\validators\\registervalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\validators\\registervalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\controllers\\borrowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\controllers\\borrowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\services\\borrowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\services\\borrowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\services\\iborrowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\services\\iborrowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\services\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\services\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\services\\ibookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\services\\ibookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\dtos\\common\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\dtos\\common\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\dtos\\book\\bookresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\dtos\\book\\bookresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\dtos\\book\\bookupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\dtos\\book\\bookupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\dtos\\book\\bookcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\dtos\\book\\bookcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\services\\auth\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\services\\auth\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\services\\auth\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\services\\auth\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\services\\rediscacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\services\\rediscacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\dtos\\auth\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\dtos\\auth\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\dtos\\auth\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\dtos\\auth\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\dtos\\auth\\tokenresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\dtos\\auth\\tokenresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\repositories\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\repositories\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\repositories\\ibookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\repositories\\ibookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\infrastructure\\mongodbsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\infrastructure\\mongodbsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\domain\\entities\\borrowcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\domain\\entities\\borrowcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\domain\\entities\\auditlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\domain\\entities\\auditlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\domain\\entities\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\domain\\entities\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\domain\\entities\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\domain\\entities\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\domain\\enums\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\domain\\enums\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\domain\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\domain\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|c:\\haui\\csdl\\librarysystem\\libraryapi\\domain\\entities\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40EF5C0C-6E60-4936-95AE-6E85D1D22577}|LibraryAPI\\LibraryAPI.csproj|solutionrelative:libraryapi\\domain\\entities\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Program.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Program.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Program.cs",
+              "RelativeToolTip": "LibraryAPI\\Program.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAA0AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:26:34.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "LibraryAPI\\appsettings.json",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\appsettings.json",
+              "RelativeToolTip": "LibraryAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-23T14:18:09.998Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Domain\\Entities\\BaseEntity.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\BaseEntity.cs",
+              "RelativeToolTip": "LibraryAPI\\Domain\\Entities\\BaseEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:14:13.235Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "OverdueNotificationJob.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\BackgroundJobs\\OverdueNotificationJob.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\BackgroundJobs\\OverdueNotificationJob.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\BackgroundJobs\\OverdueNotificationJob.cs",
+              "RelativeToolTip": "LibraryAPI\\BackgroundJobs\\OverdueNotificationJob.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:13:40.123Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ExceptionMiddleware.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Middlewares\\ExceptionMiddleware.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Middlewares\\ExceptionMiddleware.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Middlewares\\ExceptionMiddleware.cs",
+              "RelativeToolTip": "LibraryAPI\\Middlewares\\ExceptionMiddleware.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:13:29.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MappingProfile.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Mappings\\MappingProfile.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Mappings\\MappingProfile.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Mappings\\MappingProfile.cs",
+              "RelativeToolTip": "LibraryAPI\\Mappings\\MappingProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:13:19.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RegisterValidator.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Validators\\RegisterValidator.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Validators\\RegisterValidator.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Validators\\RegisterValidator.cs",
+              "RelativeToolTip": "LibraryAPI\\Validators\\RegisterValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:13:08.158Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BorrowController.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Controllers\\BorrowController.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Controllers\\BorrowController.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Controllers\\BorrowController.cs",
+              "RelativeToolTip": "LibraryAPI\\Controllers\\BorrowController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:12:55.522Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BooksController.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Controllers\\BooksController.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Controllers\\BooksController.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Controllers\\BooksController.cs",
+              "RelativeToolTip": "LibraryAPI\\Controllers\\BooksController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAwwDEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:12:44.168Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "LibraryAPI\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:12:32.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "PagedResult.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Common\\PagedResult.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\DTOs\\Common\\PagedResult.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Common\\PagedResult.cs",
+              "RelativeToolTip": "LibraryAPI\\DTOs\\Common\\PagedResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:12:19.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "BookResponseDto.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Book\\BookResponseDto.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\DTOs\\Book\\BookResponseDto.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Book\\BookResponseDto.cs",
+              "RelativeToolTip": "LibraryAPI\\DTOs\\Book\\BookResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:12:08.421Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "BookUpdateDto.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Book\\BookUpdateDto.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\DTOs\\Book\\BookUpdateDto.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Book\\BookUpdateDto.cs",
+              "RelativeToolTip": "LibraryAPI\\DTOs\\Book\\BookUpdateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:11:58.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "BookCreateDto.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Book\\BookCreateDto.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\DTOs\\Book\\BookCreateDto.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Book\\BookCreateDto.cs",
+              "RelativeToolTip": "LibraryAPI\\DTOs\\Book\\BookCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:11:50.619Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "TokenResponseDto.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Auth\\TokenResponseDto.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\DTOs\\Auth\\TokenResponseDto.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Auth\\TokenResponseDto.cs",
+              "RelativeToolTip": "LibraryAPI\\DTOs\\Auth\\TokenResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:11:38.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Auth\\LoginDto.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\DTOs\\Auth\\LoginDto.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Auth\\LoginDto.cs",
+              "RelativeToolTip": "LibraryAPI\\DTOs\\Auth\\LoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:11:11.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "RegisterDto.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Auth\\RegisterDto.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\DTOs\\Auth\\RegisterDto.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\DTOs\\Auth\\RegisterDto.cs",
+              "RelativeToolTip": "LibraryAPI\\DTOs\\Auth\\RegisterDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:11:00.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "RedisCacheService.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\RedisCacheService.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Services\\RedisCacheService.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\RedisCacheService.cs",
+              "RelativeToolTip": "LibraryAPI\\Services\\RedisCacheService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:09:24.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BorrowService.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\BorrowService.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Services\\BorrowService.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\BorrowService.cs",
+              "RelativeToolTip": "LibraryAPI\\Services\\BorrowService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:09:10.167Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IBorrowService.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\IBorrowService.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Services\\IBorrowService.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\IBorrowService.cs",
+              "RelativeToolTip": "LibraryAPI\\Services\\IBorrowService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:08:46.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "BookService.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\BookService.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Services\\BookService.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\BookService.cs",
+              "RelativeToolTip": "LibraryAPI\\Services\\BookService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAwwDIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:08:37.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IBookService.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\IBookService.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Services\\IBookService.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\IBookService.cs",
+              "RelativeToolTip": "LibraryAPI\\Services\\IBookService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:08:30.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\Auth\\TokenService.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Services\\Auth\\TokenService.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\Auth\\TokenService.cs",
+              "RelativeToolTip": "LibraryAPI\\Services\\Auth\\TokenService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:06:28.126Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\Auth\\AuthService.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Services\\Auth\\AuthService.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\Auth\\AuthService.cs",
+              "RelativeToolTip": "LibraryAPI\\Services\\Auth\\AuthService.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAcwDEAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:06:18.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\Auth\\IAuthService.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Services\\Auth\\IAuthService.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Services\\Auth\\IAuthService.cs",
+              "RelativeToolTip": "LibraryAPI\\Services\\Auth\\IAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:06:09.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Repositories\\UserRepository.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "LibraryAPI\\Repositories\\UserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:05:59.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Repositories\\IUserRepository.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\IUserRepository.cs",
+              "RelativeToolTip": "LibraryAPI\\Repositories\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:05:51.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "BookRepository.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\BookRepository.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Repositories\\BookRepository.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\BookRepository.cs",
+              "RelativeToolTip": "LibraryAPI\\Repositories\\BookRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:05:42.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "IBookRepository.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\IBookRepository.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Repositories\\IBookRepository.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\IBookRepository.cs",
+              "RelativeToolTip": "LibraryAPI\\Repositories\\IBookRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:05:31.947Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Repository.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\Repository.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Repositories\\Repository.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\Repository.cs",
+              "RelativeToolTip": "LibraryAPI\\Repositories\\Repository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:05:23.301Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\IRepository.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Repositories\\IRepository.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Repositories\\IRepository.cs",
+              "RelativeToolTip": "LibraryAPI\\Repositories\\IRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:05:13.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DbSeeder.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Infrastructure\\DbSeeder.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Infrastructure\\DbSeeder.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Infrastructure\\DbSeeder.cs",
+              "RelativeToolTip": "LibraryAPI\\Infrastructure\\DbSeeder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:04:44.99Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "MongoDbSettings.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Infrastructure\\MongoDbSettings.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Infrastructure\\MongoDbSettings.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Infrastructure\\MongoDbSettings.cs",
+              "RelativeToolTip": "LibraryAPI\\Infrastructure\\MongoDbSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:04:32.499Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MongoDbContext.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Infrastructure\\MongoDbContext.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Infrastructure\\MongoDbContext.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Infrastructure\\MongoDbContext.cs",
+              "RelativeToolTip": "LibraryAPI\\Infrastructure\\MongoDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:04:22.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Roles.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Enums\\Roles.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Domain\\Enums\\Roles.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Enums\\Roles.cs",
+              "RelativeToolTip": "LibraryAPI\\Domain\\Enums\\Roles.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:04:12.136Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "AuditLog.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\AuditLog.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Domain\\Entities\\AuditLog.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\AuditLog.cs",
+              "RelativeToolTip": "LibraryAPI\\Domain\\Entities\\AuditLog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:04:02.243Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "RefreshToken.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\RefreshToken.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Domain\\Entities\\RefreshToken.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\RefreshToken.cs",
+              "RelativeToolTip": "LibraryAPI\\Domain\\Entities\\RefreshToken.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:02:49.587Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "BorrowCard.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\BorrowCard.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Domain\\Entities\\BorrowCard.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\BorrowCard.cs",
+              "RelativeToolTip": "LibraryAPI\\Domain\\Entities\\BorrowCard.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:02:39.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Domain\\Entities\\User.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\User.cs",
+              "RelativeToolTip": "LibraryAPI\\Domain\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:02:28.329Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "Book.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\Book.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Domain\\Entities\\Book.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\Book.cs",
+              "RelativeToolTip": "LibraryAPI\\Domain\\Entities\\Book.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAA0wCkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:02:19.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "Class.cs",
+              "DocumentMoniker": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\Class.cs",
+              "RelativeDocumentMoniker": "LibraryAPI\\Domain\\Entities\\Class.cs",
+              "ToolTip": "C:\\HAUI\\CSDL\\LibrarySystem\\LibraryAPI\\Domain\\Entities\\Class.cs",
+              "RelativeToolTip": "LibraryAPI\\Domain\\Entities\\Class.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T14:02:10.48Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
