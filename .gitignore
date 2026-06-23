@@ -1,0 +1,57 @@
+# Đây là file cấu hình .gitignore mẫu để chặn (deny) push các file không mong muốn lên Git
+
+# 1. Chặn các file cấu hình môi trường, bảo mật (Chứa mật khẩu, API keys)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.secret
+
+# 2. Chặn thư mục chứa thư viện phụ thuộc (Dependencies) của các ngôn ngữ
+node_modules/
+bower_components/
+vendor/
+.venv/
+venv/
+env/
+lib/
+lib64/
+
+# 3. Chặn các file cache và file hệ thống tự động sinh ra
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+*.tmp
+*.bak
+*.swp
+
+# 4. Chặn các thư mục build / đầu ra của dự án (Kích thước lớn, không cần quản lý mã nguồn)
+dist/
+build/
+out/
+bin/
+obj/
+target/
+.next/
+.nuxt/
+
+# 5. Chặn file cấu hình của IDE / Trình soạn thảo mã nguồn cá nhân
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+# Trình cấu hình Visual Studio
+.vs/
+
+# Thư mục build của .NET
+[Oo]bj/
+[Bb]in/

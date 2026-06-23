@@ -13,6 +13,9 @@ using LibraryAPI.Validators;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using StackExchange.Redis;
+using Hangfire.Mongo;
+using Hangfire.Mongo.Migration.Strategies;
+using Hangfire.Mongo.Migration.Strategies.Backup;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,7 +64,21 @@ builder.Services.AddAuthorization();
 
 // 7. Hangfire (Background Job với Mongo storage)
 builder.Services.AddHangfire(config =>
-    config.UseMongoStorage(builder.Configuration["MongoDbSettings:ConnectionString"], "hangfire"));
+    config.UseMongoStorage(
+        builder.Configuration["MongoDbSettings:ConnectionString"],
+        "hangfire",
+        new MongoStorageOptions
+        {
+            MigrationOptions = new MongoMigrationOptions
+            {
+                MigrationStrategy = new MigrateMongoMigrationStrategy(),
+                BackupStrategy = new CollectionMongoBackupStrategy()
+            },
+            CheckQueuedJobsStrategy = CheckQueuedJobsStrategy.TailNotificationsCollection
+        }
+    )
+);
+
 builder.Services.AddHangfireServer();
 
 // 8. Controllers + Swagger + CORS + HealthCheck
@@ -82,11 +99,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseCors("AllowFE");
 app.UseAuthentication();
 app.UseAuthorization();
