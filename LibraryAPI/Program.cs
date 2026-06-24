@@ -32,12 +32,20 @@ builder.Services.AddSingleton<RedisCacheService>();
 // 3. Repositories
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IStockTransactionRepository, StockTransactionRepository>();
+builder.Services.AddScoped<IInventoryCheckRepository, InventoryCheckRepository>();
+
 
 // 4. Services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBorrowService, BorrowService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IStockTransactionService, StockTransactionService>();
+builder.Services.AddScoped<IInventoryCheckService, InventoryCheckService>();
+
 
 // 5. AutoMapper + FluentValidation
 builder.Services.AddAutoMapper(typeof(MappingProfile));

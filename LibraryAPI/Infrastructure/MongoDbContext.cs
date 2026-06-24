@@ -20,4 +20,14 @@ public class MongoDbContext
     public IMongoCollection<BorrowCard> BorrowCards => Database.GetCollection<BorrowCard>("borrow_cards");
     public IMongoCollection<RefreshToken> RefreshTokens => Database.GetCollection<RefreshToken>("refresh_tokens");
     public IMongoCollection<AuditLog> AuditLogs => Database.GetCollection<AuditLog>("audit_logs");
+    public IMongoCollection<Category> Categories
+    => Database.GetCollection<Category>("categories");
+
+    public IMongoCollection<StockTransaction> StockTransactions
+    => Database.GetCollection<StockTransaction>("stock_transactions");
+
+    public IMongoCollection<InventoryCheck> InventoryChecks
+    => Database.GetCollection<InventoryCheck>("inventory_checks");
+
+
 }

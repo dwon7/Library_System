@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace LibraryAPI.Domain.Entities;
 
@@ -30,6 +31,11 @@ public class Book : BaseEntity
 
     [BsonElement("so_luong_con")]
     public int SoLuongCon { get; set; }
+
+    [BsonElement("danh_muc_id")]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string? DanhMucId { get; set; }
+
 }
 
 public class Author

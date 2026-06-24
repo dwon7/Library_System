@@ -42,5 +42,51 @@ public class DbSeeder
                 new Book { MaSach="S002", TenTaiLieu="MongoDB toàn tập", TheLoai=new(){"Cơ sở dữ liệu"}, NamXuatBan=2024, LoaiTaiLieu="Sách giấy", TongSoLuong=3, SoLuongCon=3 }
             });
         }
+
+
+        // 4. Tạo Index cho 3 Collection mới
+        var categoryIndex = new CreateIndexModel<Category>(
+            Builders<Category>.IndexKeys.Ascending(c => c.MaDanhMuc),
+            new CreateIndexOptions { Unique = true });
+        await _ctx.Categories.Indexes.CreateOneAsync(categoryIndex);
+
+        var transactionIndex = new CreateIndexModel<StockTransaction>(
+            Builders<StockTransaction>.IndexKeys.Ascending(t => t.MaGiaoDich),
+            new CreateIndexOptions { Unique = true });
+        await _ctx.StockTransactions.Indexes.CreateOneAsync(transactionIndex);
+
+        // Index tìm kiếm phiếu theo ngày
+        var transDateIndex = new CreateIndexModel<StockTransaction>(
+            Builders<StockTransaction>.IndexKeys.Descending(t => t.NgayThucHien));
+        await _ctx.StockTransactions.Indexes.CreateOneAsync(transDateIndex);
+
+        var inventoryIndex = new CreateIndexModel<InventoryCheck>(
+            Builders<InventoryCheck>.IndexKeys.Ascending(i => i.MaPhieuKiemKe),
+            new CreateIndexOptions { Unique = true });
+        await _ctx.InventoryChecks.Indexes.CreateOneAsync(inventoryIndex);
+
+        // 5. Seed danh mục mẫu
+        var hasCat = await _ctx.Categories.Find(_ => true).AnyAsync();
+        if (!hasCat)
+        {
+            await _ctx.Categories.InsertManyAsync(new List<Category>
+    {
+        new Category
+        {
+            MaDanhMuc = "DM-CNTT",
+            TenDanhMuc = "Công nghệ thông tin",
+            MoTa = "Sách, giáo trình và tài liệu nghiên cứu về CNTT",
+            ViTriKhuVuc = "Khu vực tầng 2 - Dãy kệ số 4"
+        },
+        new Category
+        {
+            MaDanhMuc = "DM-KTKT",
+            TenDanhMuc = "Kinh tế - Kế toán",
+            MoTa = "Tài liệu về kinh tế, tài chính, kế toán",
+            ViTriKhuVuc = "Khu vực tầng 3 - Dãy kệ số 1"
+        }
+    });
+        }
+
     }
 }
