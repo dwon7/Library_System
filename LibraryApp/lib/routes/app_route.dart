@@ -1,0 +1,144 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/bindings_interface.dart' show BindingsBuilder;
+import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:library_app/features/book_detail/book_detail_controller.dart';
+import 'package:library_app/features/book_detail/book_detail_provider.dart';
+import 'package:library_app/features/book_detail/book_detail_view.dart';
+import 'package:library_app/features/borrow_card_detail/borrow_card_detail_controller.dart';
+import 'package:library_app/features/borrow_card_detail/borrow_card_detail_provider.dart';
+import 'package:library_app/features/borrow_card_detail/borrow_card_detail_view.dart';
+import 'package:library_app/features/borrow_cards/borrow_cards_controller.dart';
+import 'package:library_app/features/borrow_cards/borrow_cards_provider.dart';
+import 'package:library_app/features/borrow_cards/borrow_cards_view.dart';
+import 'package:library_app/features/home/home_controller.dart';
+import 'package:library_app/features/home/home_provider.dart';
+import 'package:library_app/features/home/home_view.dart';
+import 'package:library_app/features/new_borrow_card/new_borrow_card_controller.dart';
+import 'package:library_app/features/new_borrow_card/new_borrow_card_provider.dart';
+import 'package:library_app/features/inventory_audits/inventory_audits_controller.dart';
+import 'package:library_app/features/inventory_audits/inventory_audits_provider.dart';
+import 'package:library_app/features/inventory_audits/inventory_audits_view.dart';
+import 'package:library_app/features/inventory_ledger_detail/inventory_ledger_detail_controller.dart';
+import 'package:library_app/features/inventory_ledger_detail/inventory_ledger_detail_provider.dart';
+import 'package:library_app/features/inventory_ledger_detail/inventory_ledger_detail_view.dart';
+import 'package:library_app/features/inventory_ledgers/inventory_ledgers_controller.dart';
+import 'package:library_app/features/inventory_ledgers/inventory_ledgers_provider.dart';
+import 'package:library_app/features/inventory_ledgers/inventory_ledgers_view.dart';
+import 'package:library_app/features/new_borrow_card/new_borrow_card_controller.dart';
+import 'package:library_app/features/new_borrow_card/new_borrow_card_provider.dart';
+import 'package:library_app/features/new_borrow_card/new_borrow_card_view.dart';
+import 'package:library_app/features/new_inventory_ledger/new_inventory_ledger_controller.dart';
+import 'package:library_app/features/new_inventory_ledger/new_inventory_ledger_provider.dart';
+import 'package:library_app/features/new_inventory_ledger/new_inventory_ledger_view.dart';
+import 'package:library_app/features/new_inventory_audit/new_inventory_audit_controller.dart';
+import 'package:library_app/features/new_inventory_audit/new_inventory_audit_provider.dart';
+import 'package:library_app/features/new_inventory_audit/new_inventory_audit_view.dart';
+import 'app_pages.dart';
+
+class AppRoute {
+  AppRoute._();
+
+  static final List<GetPage> routes = [
+    GetPage(
+      name: AppPages.home,
+      page: () => HomeView(),
+      binding: BindingsBuilder(() {
+        final provider = HomeProvider();
+        Get.lazyPut<HomeProvider>(() => provider);
+        Get.lazyPut<HomeController>(() => HomeController(provider));
+      }),
+    ),
+    GetPage(
+      name: AppPages.bookDetail,
+      page: () => const BookDetailView(),
+      binding: BindingsBuilder(() {
+        final bookId = Get.arguments as String? ?? '';
+        final provider = BookDetailProvider();
+        Get.lazyPut<BookDetailProvider>(() => provider);
+        Get.lazyPut<BookDetailController>(
+          () => BookDetailController(provider, bookId: bookId),
+        );
+      }),
+    ),
+    GetPage(
+      name: AppPages.borrowCards,
+      page: () => const BorrowCardsView(),
+      binding: BindingsBuilder(() {
+        final provider = BorrowCardsProvider();
+        Get.lazyPut<BorrowCardsProvider>(() => provider);
+        Get.lazyPut<BorrowCardsController>(() => BorrowCardsController(provider));
+      }),
+    ),
+    GetPage(
+      name: AppPages.borrowCardDetail,
+      page: () => const BorrowCardDetailView(),
+      binding: BindingsBuilder(() {
+        final cardId = Get.arguments as String? ?? '';
+        final provider = BorrowCardDetailProvider();
+        Get.lazyPut<BorrowCardDetailProvider>(() => provider);
+        Get.lazyPut<BorrowCardDetailController>(
+          () => BorrowCardDetailController(provider, cardId: cardId),
+        );
+      }),
+    ),
+    GetPage(
+      name: AppPages.newBorrowCard,
+      page: () => const NewBorrowCardView(),
+      binding: BindingsBuilder(() {
+        final provider = NewBorrowCardProvider();
+        Get.lazyPut<NewBorrowCardProvider>(() => provider);
+        Get.lazyPut<NewBorrowCardController>(() => NewBorrowCardController(provider));
+      }),
+    ),
+    GetPage(
+      name: AppPages.inventoryLedgers,
+      page: () => const InventoryLedgersView(),
+      binding: BindingsBuilder(() {
+        final provider = InventoryLedgersProvider();
+        Get.lazyPut<InventoryLedgersProvider>(() => provider);
+        Get.lazyPut<InventoryLedgersController>(() => InventoryLedgersController(provider));
+      }),
+    ),
+    GetPage(
+      name: AppPages.inventoryLedgerDetail,
+      page: () => const InventoryLedgerDetailView(),
+      binding: BindingsBuilder(() {
+        final ledgerId = Get.arguments as String? ?? '';
+        final provider = InventoryLedgerDetailProvider();
+        Get.lazyPut<InventoryLedgerDetailProvider>(() => provider);
+        Get.lazyPut<InventoryLedgerDetailController>(
+          () => InventoryLedgerDetailController(provider, ledgerId: ledgerId),
+        );
+      }),
+    ),
+    GetPage(
+      name: AppPages.newInventoryLedger,
+      page: () => const NewInventoryLedgerView(),
+      binding: BindingsBuilder(() {
+        final provider = NewInventoryLedgerProvider();
+        Get.lazyPut<NewInventoryLedgerProvider>(() => provider);
+        Get.lazyPut<NewInventoryLedgerController>(() => NewInventoryLedgerController(provider));
+      }),
+    ),
+    GetPage(
+      name: AppPages.inventoryAudits,
+      page: () => const InventoryAuditsView(),
+      binding: BindingsBuilder(() {
+        final provider = InventoryAuditsProvider();
+        Get.lazyPut<InventoryAuditsProvider>(() => provider);
+        Get.lazyPut<InventoryAuditsController>(() => InventoryAuditsController(provider));
+      }),
+    ),
+    GetPage(
+      name: AppPages.newInventoryAudit,
+      page: () => const NewInventoryAuditView(),
+      binding: BindingsBuilder(() {
+        final provider = NewInventoryAuditProvider();
+        Get.lazyPut<NewInventoryAuditProvider>(() => provider);
+        Get.lazyPut<NewInventoryAuditController>(() => NewInventoryAuditController(provider));
+      }),
+    ),
+  ];
+}

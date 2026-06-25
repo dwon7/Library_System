@@ -17,7 +17,6 @@ vendor/
 .venv/
 venv/
 env/
-lib/
 lib64/
 
 # 3. Chặn các file cache và file hệ thống tự động sinh ra
