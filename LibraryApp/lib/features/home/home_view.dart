@@ -13,7 +13,7 @@ import '../books/books_provider.dart';
 import '../borrow_cards/borrow_cards_controller.dart';
 import '../borrow_cards/borrow_cards_provider.dart';
 import '../dashboard/dashboard_view.dart';
-import '../dashboard/dasshboard_provider.dart';
+import '../dashboard/dashboard_provider.dart';
 import '../inventory_audits/inventory_audits_controller.dart';
 import '../inventory_audits/inventory_audits_provider.dart';
 import '../inventory_ledgers/inventory_ledgers_controller.dart';
