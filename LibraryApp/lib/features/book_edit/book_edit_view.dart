@@ -10,14 +10,19 @@ class BookEditView extends GetView<BookEditController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppHeader(title: "Chỉnh sửa sách"),
-      body: Obx(() {
-        final book = controller.book.value;
-        if (book == null) return const SizedBox.shrink();
-        return _buildForm(book);
-      }),
-      bottomNavigationBar: _buildBottomButtons(),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppHeader(title: "Chỉnh sửa sách"),
+        body: Obx(() {
+          final book = controller.book.value;
+          if (book == null) return const SizedBox.shrink();
+          return _buildForm(book);
+        }),
+        bottomNavigationBar: _buildBottomButtons(context),
+      ),
     );
   }
 
@@ -88,9 +93,9 @@ class BookEditView extends GetView<BookEditController> {
     );
   }
 
-  Widget _buildBottomButtons() {
+  Widget _buildBottomButtons(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 36),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -105,7 +110,7 @@ class BookEditView extends GetView<BookEditController> {
         children: [
           Expanded(
             child: OutlinedButton(
-              onPressed: () => _confirmDelete(),
+              onPressed: () => _confirmDelete(context),
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.red,
                 side: const BorderSide(color: Colors.red),
@@ -137,7 +142,7 @@ class BookEditView extends GetView<BookEditController> {
     );
   }
 
-  void _confirmDelete() {
+  void _confirmDelete(BuildContext context) {
     Get.defaultDialog(
       title: "Xác nhận xoá",
       middleText: "Bạn có chắc chắn muốn xoá sách này?",
@@ -146,7 +151,7 @@ class BookEditView extends GetView<BookEditController> {
       confirmTextColor: Colors.white,
       onConfirm: () {
         Get.back();
-        controller.delete();
+        controller.delete(context);
       },
     );
   }
