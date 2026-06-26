@@ -1,19 +1,16 @@
-﻿namespace LibraryAPI.DTOs.Category;
+namespace LibraryAPI.DTOs.Category;
 
 public class CategoryCreateDto
 {
-    public string MaDanhMuc { get; set; } = null!;
-    public string TenDanhMuc { get; set; } = null!;
-    public string? MoTa { get; set; }
-    public string? ViTriKhuVuc { get; set; }
+    public string CategoryName { get; set; } = null!;
+    public string? Description { get; set; }
+    public string? StorageLocation { get; set; }
 }
 
 public class CategoryResponseDto
 {
-    public string Id { get; set; } = null!;
-    public string MaDanhMuc { get; set; } = null!;
-    public string TenDanhMuc { get; set; } = null!;
-    public string? MoTa { get; set; }
-    public string? ViTriKhuVuc { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public string CategoryId { get; set; } = null!;      // _id (ObjectId) — used by books as filter key
+    public string CategoryName { get; set; } = null!;    // ten_danh_muc
+    public string? Description { get; set; }             // mo_ta
+    public string? StorageLocation { get; set; }         // vi_tri_khu_vuc
 }

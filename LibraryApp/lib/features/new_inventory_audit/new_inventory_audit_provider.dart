@@ -1,33 +1,35 @@
 import 'package:get/get.dart';
+import 'package:library_app/core/api_client.dart';
 
 import '../../mock_data/storage_service.dart';
-import '../../models/ressponses/inventory_audit_detail_res.dart';
 import '../../models/ressponses/book_detail_res.dart';
+import '../../models/ressponses/inventory_audit_detail_res.dart';
 
 class NewInventoryAuditProvider {
+  final ApiClient _client = Get.find<ApiClient>();
   final StorageService _storageService = Get.find<StorageService>();
 
-  // TODO: generateAuditId | Input: — | Output: String | Sinh mã phiếu kiểm kê tự động KK-XXX
+  // API #20: generateAuditId | GET /api/inventorychecks/generate-id
   Future<String> generateAuditId() async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    if (_storageService.inventoryAudits.isEmpty) return "KK-001";
-    final list = _storageService.inventoryAudits.toList();
-    list.sort((a, b) => (b.auditId ?? "").compareTo(a.auditId ?? ""));
-    final lastId = list.first.auditId ?? "KK-000";
-    final num = int.parse(lastId.substring(3)) + 1;
-    return "KK-${num.toString().padLeft(3, '0')}";
+    final response = await _client.dio.get('/inventorychecks/generate-id');
+    return ApiClient.asString(response.data);
   }
 
-  // TODO: getBooks | Input: — | Output: List<BookDetailRes> | Lấy toàn bộ danh sách sách
+  // API #1: getBooks | GET /api/books/search?page=1&pageSize=100
   Future<List<BookDetailRes>> getBooks() async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    return _storageService.books.toList();
+    final response = await _client.dio.get('/books/search', queryParameters: {
+      'page': 1,
+      'pageSize': 100,
+    });
+    final data = ApiClient.asList(response.data);
+    final books = data.map((e) => BookDetailRes.fromJson(e)).toList();
+    _storageService.books.assignAll(books);
+    return books;
   }
 
-  // TODO: addAudit | Input: InventoryAuditDetailRes audit | Output: bool | Thêm phiếu kiểm kê mới
+  // API #23: addAudit | POST /api/inventorychecks
   Future<bool> addAudit(InventoryAuditDetailRes audit) async {
-    await Future.delayed(const Duration(milliseconds: 500));
-    _storageService.addAudit(audit);
-    return true;
+    final response = await _client.dio.post('/inventorychecks', data: audit.toJson());
+    return ApiClient.asSuccess(response.data);
   }
 }

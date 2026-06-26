@@ -1,51 +1,77 @@
+import 'package:get/get.dart';
+import 'package:library_app/core/api_client.dart';
 import 'package:library_app/features/dashboard/chart_models.dart';
 
 class DashboardProvider {
-  // TODO: getBorrowCountByYear | Input: int year | Output: List<MonthlyBorrowCount> | Đếm số phiếu mượn theo 12 tháng trong năm
+  final ApiClient _client = Get.find<ApiClient>();
+
+  // API #15: getBorrowCountByYear | GET /api/dashboard/borrow-by-year?year=
   Future<List<MonthlyBorrowCount>> getBorrowCountByYear(int year) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    return [
-      MonthlyBorrowCount(month: 1, count: 12),
-      MonthlyBorrowCount(month: 2, count: 18),
-      MonthlyBorrowCount(month: 3, count: 8),
-      MonthlyBorrowCount(month: 4, count: 15),
-      MonthlyBorrowCount(month: 5, count: 22),
-      MonthlyBorrowCount(month: 6, count: 10),
-      MonthlyBorrowCount(month: 7, count: 5),
-      MonthlyBorrowCount(month: 8, count: 9),
-      MonthlyBorrowCount(month: 9, count: 25),
-      MonthlyBorrowCount(month: 10, count: 14),
-      MonthlyBorrowCount(month: 11, count: 20),
-      MonthlyBorrowCount(month: 12, count: 17),
-    ];
+    final response = await _client.dio.get(
+      '/dashboard/borrow-by-year',
+      queryParameters: {'year': year},
+    );
+    final data = ApiClient.asList(response.data);
+    final result = data
+        .map((e) => MonthlyBorrowCount(
+              month: e['month'] as int,
+              count: e['count'] as int,
+            ))
+        .toList();
+    // Đảm bảo đủ 12 tháng, tháng chưa có mượn thì count = 0
+    final monthMap = {for (final m in result) m.month: m.count};
+    return List.generate(
+      12,
+      (i) => MonthlyBorrowCount(month: i + 1, count: monthMap[i + 1] ?? 0),
+    );
   }
 
-  // TODO: getCategoryBorrowRatio | Input: int month, int year | Output: List<CategoryRatio> | Tỉ lệ danh mục sách mượn trong tháng (mock)
+  // API #16: getCategoryBorrowRatio | GET /api/dashboard/category-ratio?month=&year=
   Future<List<CategoryRatio>> getCategoryBorrowRatio(int month, int year) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    return [
-      CategoryRatio(categoryName: 'Công nghệ thông tin', count: 18, percentage: 40),
-      CategoryRatio(categoryName: 'Kinh tế & Quản trị', count: 12, percentage: 27),
-      CategoryRatio(categoryName: 'Văn học', count: 10, percentage: 22),
-      CategoryRatio(categoryName: 'Ngoại ngữ', count: 5, percentage: 11),
-    ];
+    final response = await _client.dio.get(
+      '/dashboard/category-ratio',
+      queryParameters: {'month': month, 'year': year},
+    );
+    final data = ApiClient.asList(response.data);
+    return data
+        .map((e) => CategoryRatio(
+              categoryName: (e['categoryName'] as String?) ?? '',
+              count: (e['count'] as num?)?.toInt() ?? 0,
+              percentage: (e['percentage'] as num?)?.toDouble() ?? 0.0,
+            ))
+        .toList();
   }
 
-  // TODO: getBorrowStatusRatio | Input: int month, int year | Output: BorrowStatusRatio | Số phiếu theo 3 trạng thái: hoàn thành, đang mượn, quá hạn trong tháng
+  // API #17: getBorrowStatusRatio | GET /api/dashboard/borrow-status?month=&year=
   Future<BorrowStatusRatio> getBorrowStatusRatio(int month, int year) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    return BorrowStatusRatio(completed: 30, borrowing: 12, overdue: 8);
+    final response = await _client.dio.get(
+      '/dashboard/borrow-status',
+      queryParameters: {'month': month, 'year': year},
+    );
+    final d = response.data as Map<String, dynamic>;
+    // Hỗ trợ cả { completed, borrowing, overdue } và { done, notDone, total }
+    final completed = (d['completed'] ?? d['done'] ?? 0) as int;
+    final borrowing = (d['borrowing'] ?? 0) as int;
+    final overdue = (d['overdue'] ?? 0) as int;
+    return BorrowStatusRatio(
+      completed: completed,
+      borrowing: borrowing,
+      overdue: overdue,
+    );
   }
 
-  // TODO: getTopBorrowers | Input: int month, int year | Output: List<BorrowerStat> | Top 5 độc giả mượn nhiều nhất trong tháng
+  // API #18: getTopBorrowers | GET /api/dashboard/top-borrowers?month=&year=
   Future<List<BorrowerStat>> getTopBorrowers(int month, int year) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    return [
-      BorrowerStat(userName: 'Nguyễn Văn A', count: 15),
-      BorrowerStat(userName: 'Trần Thị B', count: 12),
-      BorrowerStat(userName: 'Lê Văn C', count: 9),
-      BorrowerStat(userName: 'Phạm Thị D', count: 7),
-      BorrowerStat(userName: 'Hoàng Văn E', count: 5),
-    ];
+    final response = await _client.dio.get(
+      '/dashboard/top-borrowers',
+      queryParameters: {'month': month, 'year': year},
+    );
+    final data = ApiClient.asList(response.data);
+    return data
+        .map((e) => BorrowerStat(
+              userName: (e['fullName'] ?? e['userName'] ?? '') as String,
+              count: (e['totalBorrows'] ?? e['count'] ?? 0) as int,
+            ))
+        .toList();
   }
 }

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:library_app/core/api_client.dart';
 
 import '../../mock_data/storage_service.dart';
 import '../../models/entities/book_detail_entity.dart';
@@ -8,48 +8,38 @@ import '../../models/ressponses/book_detail_res.dart';
 import '../../models/ressponses/category_detail_res.dart';
 
 class BooksProvider {
-  // Tìm kho lưu trữ toàn cục
+  final ApiClient _client = Get.find<ApiClient>();
   final StorageService _storageService = Get.find<StorageService>();
 
-  // TODO: getCategories | Input: — | Output: List<CategoryEntity> | Lấy toàn bộ danh mục sách
+  // API #3: getCategories | GET /api/categories
   Future<List<CategoryEntity>> getCategories() async {
-    // Giả lập mạng chậm 800ms
-    await Future.delayed(const Duration(milliseconds: 800));
-
-    return _storageService.categories
-        .map((e) => CategoryEntity.fromModel(e))
-        .toList();
+    final response = await _client.dio.get('/categories');
+    final data = ApiClient.asList(response.data);
+    final cats = data.map((e) => CategoryDetailRes.fromJson(e)).toList();
+    _storageService.categories.assignAll(cats);
+    return cats.map((e) => CategoryEntity.fromModel(e)).toList();
   }
 
-  // TODO: getBooksByCategoryId | Input: String categoryId, String textSearch | Output: List<BookDetailEntity> | Lọc sách theo danh mục ("-1"=all) + từ khóa
+  // API #5: getBooksByCategoryId | GET /api/books/search?categoryId=&keyword=&page=1&pageSize=100
+  // API #1: getBooks (categoryId="-1", textSearch="")
   Future<List<BookDetailEntity>> getBooksByCategoryId(
     String categoryId,
     String textSearch,
   ) async {
-    // Giảm độ trễ xuống 500ms để trải nghiệm gõ tìm kiếm (Search) mượt mà hơn
-    await Future.delayed(const Duration(milliseconds: 500));
+    final params = <String, dynamic>{
+      'page': 1,
+      'pageSize': 100,
+    };
+    if (categoryId != '-1') params['categoryId'] = categoryId;
+    if (textSearch.trim().isNotEmpty) params['keyword'] = textSearch.trim();
 
-    // Lấy toàn bộ sách từ kho lưu trữ toàn cục ra để lọc
-    List<BookDetailRes> allBooks = _storageService.books;
-
-    // 1. Lọc theo Danh mục (categoryId)
-    List<BookDetailRes> filteredBooks = categoryId == "-1"
-        ? allBooks
-        : allBooks.where((book) => book.categoryId == categoryId).toList();
-
-    // 2. Lọc theo từ khóa tìm kiếm (textSearch)
-    if (textSearch.trim() != "") {
-      final query = textSearch.trim().toLowerCase();
-      filteredBooks = filteredBooks.where((book) {
-        final title = (book.title ?? "").toLowerCase();
-        final bookId = (book.bookId ?? "").toLowerCase();
-        return title.contains(query) || bookId.contains(query);
-      }).toList();
+    final response = await _client.dio.get('/books/search', queryParameters: params);
+    final data = ApiClient.asList(response.data);
+    final books = data.map((e) => BookDetailRes.fromJson(e)).toList();
+    // Cập nhật cache để các provider khác dùng (lookup theo bookId)
+    if (categoryId == '-1' && textSearch.isEmpty) {
+      _storageService.books.assignAll(books);
     }
-    List<BookDetailEntity> result = filteredBooks
-        .map((e) => BookDetailEntity.fromModel(e))
-        .toList();
-
-    return result;
+    return books.map((e) => BookDetailEntity.fromModel(e)).toList();
   }
 }

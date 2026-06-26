@@ -45,18 +45,34 @@ class DashboardController extends GetxController {
   }
 
   Future<void> loadChart1() async {
-    chart1Data.value = await provider.getBorrowCountByYear(chart1Year.value);
+    try {
+      chart1Data.value = await provider.getBorrowCountByYear(chart1Year.value);
+    } catch (_) {
+      chart1Data.value = [];
+    }
   }
 
   Future<void> loadChart2() async {
-    chart2Data.value = await provider.getCategoryBorrowRatio(chart2Month.value, chart2Year.value);
+    try {
+      chart2Data.value = await provider.getCategoryBorrowRatio(chart2Month.value, chart2Year.value);
+    } catch (_) {
+      chart2Data.value = [];
+    }
   }
 
   Future<void> loadChart3() async {
-    chart3Data.value = await provider.getBorrowStatusRatio(chart3Month.value, chart3Year.value);
+    try {
+      chart3Data.value = await provider.getBorrowStatusRatio(chart3Month.value, chart3Year.value);
+    } catch (_) {
+      chart3Data.value = null;
+    }
   }
 
   Future<void> loadChart4() async {
-    chart4Data.value = await provider.getTopBorrowers(chart4Month.value, chart4Year.value);
+    try {
+      chart4Data.value = await provider.getTopBorrowers(chart4Month.value, chart4Year.value);
+    } catch (_) {
+      chart4Data.value = [];
+    }
   }
 }

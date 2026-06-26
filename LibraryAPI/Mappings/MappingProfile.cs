@@ -1,13 +1,6 @@
-﻿using AutoMapper;
-using LibraryAPI.Domain.Entities;
-using LibraryAPI.DTOs.Book;
+using AutoMapper;
 namespace LibraryAPI.Mappings;
 public class MappingProfile : Profile
 {
-    public MappingProfile()
-    {
-        CreateMap<BookCreateDto, Book>();
-        CreateMap<BookUpdateDto, Book>();
-        CreateMap<Book, BookResponseDto>();
-    }
+    public MappingProfile() { }
 }

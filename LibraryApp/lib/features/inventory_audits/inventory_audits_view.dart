@@ -17,6 +17,7 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
     return Scaffold(
       appBar: const AppHeader(title: "Kiểm kê"),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'fab-inventory-audits',
         backgroundColor: Colors.black87,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),

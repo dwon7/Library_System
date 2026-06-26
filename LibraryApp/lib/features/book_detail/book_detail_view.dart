@@ -47,7 +47,7 @@ class BookDetailView extends GetView<BookDetailController> {
           const SizedBox(height: 20),
 
           // Mã sách
-          _buildRow("Mã sách", book.bookId),
+          _buildRow("Mã sách", book.bookCode),
           _buildDivider(),
           // Tiêu đề
           _buildRow("Tiêu đề", book.title),

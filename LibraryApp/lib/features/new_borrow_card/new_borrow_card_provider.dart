@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:library_app/core/api_client.dart';
 
 import '../../mock_data/storage_service.dart';
 import '../../models/ressponses/book_detail_res.dart';
@@ -6,35 +7,39 @@ import '../../models/ressponses/borrow_card_detail_res.dart';
 import '../../models/ressponses/user_detail_res.dart';
 
 class NewBorrowCardProvider {
+  final ApiClient _client = Get.find<ApiClient>();
   final StorageService _storageService = Get.find<StorageService>();
 
-  // TODO: generateCardId | Input: — | Output: String | Sinh mã phiếu mượn tự động PM-XXX
+  // API #19: generateCardId | GET /api/borrow/generate-id
   Future<String> generateCardId() async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    if (_storageService.borrowCards.isEmpty) return "PM-001";
-    final cards = _storageService.borrowCards;
-    cards.sort((a, b) => (b.cardId ?? "").compareTo(a.cardId ?? ""));
-    final lastId = cards.first.cardId ?? "PM-000";
-    final num = int.parse(lastId.substring(3)) + 1;
-    return "PM-${num.toString().padLeft(3, '0')}";
+    final response = await _client.dio.get('/borrow/generate-id');
+    return ApiClient.asString(response.data);
   }
 
-  // TODO: getBooks | Input: — | Output: List<BookDetailRes> | Lấy toàn bộ danh sách sách
+  // API #1: getBooks | GET /api/books/search?page=1&pageSize=100
   Future<List<BookDetailRes>> getBooks() async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    return _storageService.books.toList();
+    final response = await _client.dio.get('/books/search', queryParameters: {
+      'page': 1,
+      'pageSize': 100,
+    });
+    final data = ApiClient.asList(response.data);
+    final books = data.map((e) => BookDetailRes.fromJson(e)).toList();
+    _storageService.books.assignAll(books);
+    return books;
   }
 
-  // TODO: getUsers | Input: — | Output: List<UserDetailRes> | Lấy toàn bộ danh sách độc giả
+  // API #2: getUsers | GET /api/users
   Future<List<UserDetailRes>> getUsers() async {
-    await Future.delayed(const Duration(milliseconds: 300));
-    return _storageService.users.toList();
+    final response = await _client.dio.get('/users');
+    final data = ApiClient.asList(response.data);
+    final users = data.map((e) => UserDetailRes.fromJson(e)).toList();
+    _storageService.users.assignAll(users);
+    return users;
   }
 
-  // TODO: addBorrowCard | Input: BorrowCardDetailRes card | Output: bool | Thêm phiếu mượn mới
+  // API #22: addBorrowCard | POST /api/borrow
   Future<bool> addBorrowCard(BorrowCardDetailRes card) async {
-    await Future.delayed(const Duration(milliseconds: 500));
-    _storageService.addBorrowCard(card);
-    return true;
+    final response = await _client.dio.post('/borrow', data: card.toJson());
+    return ApiClient.asSuccess(response.data);
   }
 }

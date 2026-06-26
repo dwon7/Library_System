@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:library_app/common/widgets/loading_overlay.dart';
 
 import '../../models/entities/borrow_card_detail_entity.dart';
+import '../../models/ressponses/borrow_card_detail_res.dart';
 import '../../mock_data/storage_service.dart';
 import 'borrow_cards_provider.dart';
 
@@ -31,6 +32,8 @@ class BorrowCardsController extends GetxController {
   void loadData() async {
     try {
       LoadingOverlay.show();
+      // Load users vào cache trước để _mapCards resolve tên độc giả
+      await provider.getAndCacheUsers();
       await Future.wait([
         _loadDueToday(),
         _loadAll(),
@@ -76,11 +79,15 @@ class BorrowCardsController extends GetxController {
   List<BorrowCardDetailEntity> _mapCards(List<dynamic> cards) {
     final storageService = Get.find<StorageService>();
     return cards.map((c) {
-      final user = storageService.users.firstWhere(
-        (u) => u.userId == c.userId,
-        orElse: () => storageService.users.first,
-      );
-      return BorrowCardDetailEntity.fromModel(c, userName: user.fullName);
+      // Ưu tiên userName từ API response, sau đó lookup từ cache
+      String resolvedName = (c as BorrowCardDetailRes).userName ?? '';
+      if (resolvedName.isEmpty && storageService.users.isNotEmpty) {
+        try {
+          final user = storageService.users.firstWhere((u) => u.userId == c.userId);
+          resolvedName = user.fullName ?? '';
+        } catch (_) {}
+      }
+      return BorrowCardDetailEntity.fromModel(c, userName: resolvedName);
     }).toList();
   }
 }

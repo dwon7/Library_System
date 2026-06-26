@@ -1,35 +1,53 @@
-﻿namespace LibraryAPI.DTOs.StockTransaction;
+namespace LibraryAPI.DTOs.StockTransaction;
 
 public class StockTransactionCreateDto
 {
-    public string MaGiaoDich { get; set; } = null!;
-    public DateTime NgayThucHien { get; set; } = DateTime.UtcNow;
-    public string CanBoPhuTrach { get; set; } = null!;
-    public string? CanBoId { get; set; }
-    public string TenDoiTac { get; set; } = null!;
-    public string? MaSoThueHoacMssv { get; set; }
-    public string? GhiChu { get; set; }
-    public List<TransactionDetailDto> ChiTietGiaoDich { get; set; } = new();
+    public string LedgerId { get; set; } = null!;
+    public int LedgerType { get; set; }                 // 1=Import, 2=Export
+    public DateTime? TransactionDate { get; set; }
+    public string StaffInCharge { get; set; } = null!;
+    public PartnerDto Partner { get; set; } = new();
+    public List<LedgerDetailCreateDto> LedgerDetails { get; set; } = new();
+    public decimal? GrandTotal { get; set; }
+    public string? Notes { get; set; }
 }
 
-public class TransactionDetailDto
+public class PartnerDto
 {
-    public string SachId { get; set; } = null!;
-    public int SoLuong { get; set; }
-    public decimal DonGia { get; set; }
+    public string PartnerName { get; set; } = null!;
+    public string? TaxOrStudentId { get; set; }
+}
+
+public class LedgerDetailCreateDto
+{
+    public string BookId { get; set; } = null!;
+    public int Quantity { get; set; }
+    public decimal UnitPrice { get; set; }
+    public decimal TotalAmount { get; set; }
 }
 
 public class StockTransactionResponseDto
 {
-    public string Id { get; set; } = null!;
-    public string MaGiaoDich { get; set; } = null!;
-    public int LoaiPhieu { get; set; }
-    public string LoaiPhieuText { get; set; } = null!;
-    public DateTime NgayThucHien { get; set; }
-    public string CanBoPhuTrach { get; set; } = null!;
-    public string TenDoiTac { get; set; } = null!;
-    public decimal TongTien { get; set; }
-    public string? GhiChu { get; set; }
-    public int SoLuongDauSach { get; set; }
-    public int TongSoLuongSach { get; set; }
+    public string LedgerId { get; set; } = null!;           // ma_giao_dich (e.g. NK-001)
+    public int LedgerType { get; set; }                      // loai_phieu
+    public DateTime TransactionDate { get; set; }            // ngay_thuc_hien
+    public string StaffInCharge { get; set; } = null!;      // can_bo_phu_trach
+    public PartnerResponseDto Partner { get; set; } = new();
+    public List<LedgerDetailResponseDto> LedgerDetails { get; set; } = new();
+    public decimal GrandTotal { get; set; }                  // tong_tien
+    public string? Notes { get; set; }                       // ghi_chu
+}
+
+public class PartnerResponseDto
+{
+    public string PartnerName { get; set; } = null!;
+    public string? TaxOrStudentId { get; set; }
+}
+
+public class LedgerDetailResponseDto
+{
+    public string BookId { get; set; } = null!;
+    public int Quantity { get; set; }
+    public decimal UnitPrice { get; set; }
+    public decimal TotalAmount { get; set; }
 }

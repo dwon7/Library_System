@@ -1,3 +1,4 @@
+import '../../common/utils/app_utils.dart';
 import '../ressponses/borrow_card_detail_res.dart';
 
 class BorrowCardDetailEntity {
@@ -22,8 +23,8 @@ class BorrowCardDetailEntity {
       cardId: model.cardId,
       userId: model.userId,
       userName: userName,
-      borrowDate: model.borrowDate,
-      dueDate: model.dueDate,
+      borrowDate: AppUtils.formatDate(model.borrowDate),
+      dueDate: AppUtils.formatDate(model.dueDate),
       status: model.status ?? 2,
     );
   }
