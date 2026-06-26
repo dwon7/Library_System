@@ -1,7 +1,6 @@
 
 
 class BorrowCardDetailRes {
-  String? id;
   String? cardId;
   String? userId; // Link ID độc giả
   String? borrowDate;
@@ -12,7 +11,6 @@ class BorrowCardDetailRes {
   String? userName;  // resolved from users
 
   BorrowCardDetailRes({
-    this.id,
     this.cardId,
     this.userId,
     this.userName,
@@ -23,7 +21,6 @@ class BorrowCardDetailRes {
   });
 
   factory BorrowCardDetailRes.fromJson(Map<String, dynamic> json) => BorrowCardDetailRes(
-    id: json['_id']?.toString(),
     cardId: json['cardId'],
     userId: json['userId']?.toString(),
     userName: json['userName'],
@@ -36,7 +33,6 @@ class BorrowCardDetailRes {
   );
 
   Map<String, dynamic> toJson() => {
-    if (id != null) '_id': id,
     'cardId': cardId,
     'userId': userId,
     'userName': userName,

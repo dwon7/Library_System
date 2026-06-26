@@ -3,7 +3,6 @@
 // lib/data/models/inventory_ledger_model.dart
 
 class InventoryLedgerDetailRes {
-  String? id;
   String? ledgerId;
   int? ledgerType; // 1: Nhập kho, 2: Xuất kho
   String? transactionDate;
@@ -14,7 +13,6 @@ class InventoryLedgerDetailRes {
   String? notes;
 
   InventoryLedgerDetailRes({
-    this.id,
     this.ledgerId,
     this.ledgerType,
     this.transactionDate,
@@ -26,7 +24,6 @@ class InventoryLedgerDetailRes {
   });
 
   factory InventoryLedgerDetailRes.fromJson(Map<String, dynamic> json) => InventoryLedgerDetailRes(
-    id: json['_id']?.toString(),
     ledgerId: json['ledgerId'],
     ledgerType: json['ledgerType'],
     transactionDate: json['transactionDate'],
@@ -40,7 +37,6 @@ class InventoryLedgerDetailRes {
   );
 
   Map<String, dynamic> toJson() => {
-    if (id != null) '_id': id,
     'ledgerId': ledgerId,
     'ledgerType': ledgerType,
     'transactionDate': transactionDate,

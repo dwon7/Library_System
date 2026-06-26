@@ -18,11 +18,14 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
       appBar: const AppHeader(title: "Kiểm kê"),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black87,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
         onPressed: () async {
           final result = await Get.toNamed(AppPages.newInventoryAudit);
           if (result == true) controller.loadData();
         },
-        child: const Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white, size: 40),
       ),
       body: RefreshIndicator(
         onRefresh: () async => controller.loadData(),

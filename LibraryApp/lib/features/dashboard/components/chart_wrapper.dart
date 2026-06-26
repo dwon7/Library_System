@@ -7,6 +7,7 @@ class ChartWrapper extends StatelessWidget {
   final ValueChanged<int> onMonthChanged;
   final ValueChanged<int> onYearChanged;
   final bool showMonthDropdown;
+  final String? title;
 
   const ChartWrapper({
     super.key,
@@ -16,6 +17,7 @@ class ChartWrapper extends StatelessWidget {
     required this.onMonthChanged,
     required this.onYearChanged,
     this.showMonthDropdown = true,
+    this.title,
   });
 
   List<int> get _years =>
@@ -57,6 +59,14 @@ class ChartWrapper extends StatelessWidget {
             padding: const EdgeInsets.only(right: 4),
             child: chart,
           )),
+          if (title != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              title!,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+            ),
+          ],
         ],
       ),
     );

@@ -1,7 +1,6 @@
 
 
 class BookDetailRes {
-  String? id;
   String? bookId;
   String? title;
   String? categoryId;
@@ -11,9 +10,10 @@ class BookDetailRes {
   String? documentType; // "Physical" hoặc "Digital"
   PhysicalInfo? physicalInfo;
   DigitalInfo? digitalInfo;
+  double? price;
+  String? status; // "available", "borrowed", "maintenance"
 
   BookDetailRes({
-    this.id,
     this.bookId,
     this.title,
     this.categoryId,
@@ -23,10 +23,11 @@ class BookDetailRes {
     this.documentType,
     this.physicalInfo,
     this.digitalInfo,
+    this.price,
+    this.status,
   });
 
   factory BookDetailRes.fromJson(Map<String, dynamic> json) => BookDetailRes(
-    id: json['_id']?.toString(),
     bookId: json['bookId'],
     title: json['title'],
     categoryId: json['categoryId']?.toString(),
@@ -42,10 +43,11 @@ class BookDetailRes {
     digitalInfo: json['digitalInfo'] != null
         ? DigitalInfo.fromJson(json['digitalInfo'])
         : null,
+    price: (json['price'] as num?)?.toDouble(),
+    status: json['status'],
   );
 
   Map<String, dynamic> toJson() => {
-    if (id != null) '_id': id,
     'bookId': bookId,
     'title': title,
     'categoryId': categoryId,
@@ -55,6 +57,8 @@ class BookDetailRes {
     'documentType': documentType,
     if (physicalInfo != null) 'physicalInfo': physicalInfo!.toJson(),
     if (digitalInfo != null) 'digitalInfo': digitalInfo!.toJson(),
+    'price': price,
+    'status': status,
   };
 }
 
