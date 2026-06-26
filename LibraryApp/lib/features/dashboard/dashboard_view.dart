@@ -33,7 +33,7 @@ class DashboardView extends GetView<DashboardController> {
   Widget _buildChart1() {
     return Obx(() {
       return ChartWrapper(
-        chart: BorrowCountByYearChart(data: controller.chart1Data),
+        chart: BorrowCountByYearChart(data: controller.chart1Data.value),
         selectedMonth: 1,
         selectedYear: controller.chart1Year.value,
         onMonthChanged: (_) {},
@@ -50,7 +50,7 @@ class DashboardView extends GetView<DashboardController> {
   Widget _buildChart2() {
     return Obx(() {
       return ChartWrapper(
-        chart: CategoryRatioChart(data: controller.chart2Data),
+        chart: CategoryRatioChart(data: controller.chart2Data.value),
         selectedMonth: controller.chart2Month.value,
         selectedYear: controller.chart2Year.value,
         onMonthChanged: (m) {
@@ -91,7 +91,7 @@ class DashboardView extends GetView<DashboardController> {
   Widget _buildChart4() {
     return Obx(() {
       return ChartWrapper(
-        chart: TopBorrowersChart(data: controller.chart4Data),
+        chart: TopBorrowersChart(data: controller.chart4Data.value),
         selectedMonth: controller.chart4Month.value,
         selectedYear: controller.chart4Year.value,
         onMonthChanged: (m) {

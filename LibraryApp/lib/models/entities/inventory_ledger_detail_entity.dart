@@ -1,3 +1,4 @@
+import '../../common/utils/app_utils.dart';
 import '../ressponses/inventory_ledger_detail_res.dart';
 
 class InventoryLedgerDetailEntity {
@@ -21,7 +22,7 @@ class InventoryLedgerDetailEntity {
     return InventoryLedgerDetailEntity(
       ledgerId: model.ledgerId,
       ledgerType: model.ledgerType ?? 1,
-      transactionDate: model.transactionDate,
+      transactionDate: AppUtils.formatDate(model.transactionDate),
       staffInCharge: model.staffInCharge,
       partnerName: model.partner?.partnerName,
       grandTotal: model.grandTotal ?? 0,

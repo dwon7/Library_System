@@ -1,36 +1,40 @@
 import 'package:get/get.dart';
+import 'package:library_app/core/api_client.dart';
 
 import '../../mock_data/storage_service.dart';
 import '../../models/ressponses/borrow_card_detail_res.dart';
+import '../../models/ressponses/user_detail_res.dart';
 
 class BorrowCardsProvider {
+  final ApiClient _client = Get.find<ApiClient>();
   final StorageService _storageService = Get.find<StorageService>();
 
-  String get _today {
-    final now = DateTime.now();
-    return "${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
+  // Tải và cache users để _mapCards trong controller dùng được
+  Future<void> getAndCacheUsers() async {
+    try {
+      final response = await _client.dio.get('/users');
+      final data = ApiClient.asList(response.data);
+      final users = data.map((e) => UserDetailRes.fromJson(e)).toList();
+      _storageService.users.assignAll(users);
+    } catch (_) {}
   }
 
-  // TODO: getDueTodayCount | Input: — | Output: int | Đếm số phiếu mượn đến hạn hôm nay
+  // API #8: getDueTodayCount | GET /api/borrow/due-today
   Future<int> getDueTodayCount() async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    return _storageService.borrowCards.where((c) => c.dueDate == _today).length;
+    final response = await _client.dio.get('/borrow/due-today');
+    return ApiClient.asInt(response.data);
   }
 
-  // TODO: getCountByStatus | Input: int status | Output: int | Đếm số item theo trạng thái (BorrowCard: 0=all,1=done,2=borrowing,3=overdue)
+  // API #9a: getCountByStatus (BC) | GET /api/borrow/count?status=
   Future<int> getCountByStatus(int status) async {
-    await Future.delayed(const Duration(milliseconds: 300));
-    if (status == 0) return _storageService.borrowCards.length;
-    return _storageService.borrowCards.where((c) => c.status == status).length;
+    final response = await _client.dio.get('/borrow/count', queryParameters: {'status': status});
+    return ApiClient.asInt(response.data);
   }
 
-  // TODO: getCardsByStatus | Input: int status | Output: List<BorrowCardDetailRes> | Lấy tối đa 4 phiếu mượn theo status, sắp xếp borrowDate giảm
+  // API #10: getCardsByStatus | GET /api/borrow/list?status=
   Future<List<BorrowCardDetailRes>> getCardsByStatus(int status) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    final cards = status == 0
-        ? _storageService.borrowCards.toList()
-        : _storageService.borrowCards.where((c) => c.status == status).toList();
-    cards.sort((a, b) => (b.borrowDate ?? "").compareTo(a.borrowDate ?? ""));
-    return cards.take(4).toList();
+    final response = await _client.dio.get('/borrow/list', queryParameters: {'status': status});
+    final data = ApiClient.asList(response.data);
+    return data.map((e) => BorrowCardDetailRes.fromJson(e)).toList();
   }
 }

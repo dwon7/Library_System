@@ -32,7 +32,7 @@ class InventoryLedgerDetailRes {
     ledgerDetails: json['ledgerDetails'] != null
         ? List<LedgerDetail>.from(json['ledgerDetails'].map((x) => LedgerDetail.fromJson(x)))
         : null,
-    grandTotal: json['grandTotal'],
+    grandTotal: (json['grandTotal'] as num?)?.toInt(),
     notes: json['notes'],
   );
 

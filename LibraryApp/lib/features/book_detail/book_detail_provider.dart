@@ -1,21 +1,19 @@
 import 'package:get/get.dart';
+import 'package:library_app/core/api_client.dart';
 
-import '../../mock_data/storage_service.dart';
 import '../../models/ressponses/book_detail_res.dart';
 
 class BookDetailProvider {
-  final StorageService _storageService = Get.find<StorageService>();
+  final ApiClient _client = Get.find<ApiClient>();
 
-  // TODO: getBookById | Input: String bookId | Output: BookDetailRes? | Lấy chi tiết 1 sách theo mã. null nếu không thấy
+  // API #4: getBookById | GET /api/books/{bookId}
   Future<BookDetailRes?> getBookById(String bookId) async {
-    await Future.delayed(const Duration(milliseconds: 500));
-
     try {
-      return _storageService.books.firstWhere(
-        (book) => book.bookId == bookId,
-      );
-    } catch (_) {
-      return null;
+      final response = await _client.dio.get('/books/$bookId');
+      return BookDetailRes.fromJson(response.data);
+    } on Exception catch (e) {
+      if (e.toString().contains('404')) return null;
+      rethrow;
     }
   }
 }

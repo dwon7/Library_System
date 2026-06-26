@@ -1,22 +1,20 @@
 import 'package:get/get.dart';
+import 'package:library_app/core/api_client.dart';
 
-import '../../mock_data/storage_service.dart';
 import '../../models/ressponses/book_detail_res.dart';
 import '../../models/ressponses/inventory_ledger_detail_res.dart';
 
 class InventoryLedgerDetailProvider {
-  final StorageService _storageService = Get.find<StorageService>();
+  final ApiClient _client = Get.find<ApiClient>();
 
-  // TODO: getLedgerById | Input: String ledgerId | Output: InventoryLedgerDetailRes? | Lấy chi tiết 1 phiếu nhập/xuất theo mã
+  // API #12: getLedgerById | GET /api/stocktransactions/{ledgerId}
   Future<InventoryLedgerDetailRes?> getLedgerById(String ledgerId) async {
-    await Future.delayed(const Duration(milliseconds: 500));
-
     try {
-      return _storageService.inventoryLedgers.firstWhere(
-        (l) => l.ledgerId == ledgerId,
-      );
-    } catch (_) {
-      return null;
+      final response = await _client.dio.get('/stocktransactions/$ledgerId');
+      return InventoryLedgerDetailRes.fromJson(response.data);
+    } on Exception catch (e) {
+      if (e.toString().contains('404')) return null;
+      rethrow;
     }
   }
 

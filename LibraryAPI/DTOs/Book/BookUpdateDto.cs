@@ -1,6 +1,3 @@
-﻿namespace LibraryAPI.DTOs.Book
-{
-    public class BookUpdateDto : BookCreateDto
-    {
-    }
-}
+namespace LibraryAPI.DTOs.Book;
+
+public class BookUpdateDto : BookCreateDto { }

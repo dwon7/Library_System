@@ -1,75 +1,50 @@
-﻿using MongoDB.Bson;
+﻿using LibraryAPI.Domain.Entities;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace LibraryAPI.Domain.Entities;
+using MongoDB.Bson;
 
 /// <summary>
-/// Phiếu nhập/xuất sách — Collection: stock_transactions
-/// Quan hệ:
-///   - LINK sang Book qua chi_tiet_giao_dich[].sach_id
-///   - EMBED doi_tac (thông tin đối tác ít biến động, nhúng trực tiếp)
-///   - LINK sang User qua can_bo_id (cán bộ phụ trách)
+/// Phieu nhap/xuat kho — Collection: stock_transactions
+/// EMBED: doi_tac (it bien dong, gan voi phieu)
+/// LINK: can_bo_id -> users, chi_tiet[].sach_id -> books
 /// </summary>
-
 public class StockTransaction : BaseEntity
 {
-    [BsonElement("ma_giao_dich")]
-    public string MaGiaoDich { get; set; } = null!;
-
-    /// <summary>1: Nhập kho, 2: Xuất kho</summary>
-    [BsonElement("loai_phieu")]
-    public int LoaiPhieu { get; set; }
-
+    [BsonElement("ma_giao_dich")] 
+    public string MaGiaoDich { get; set; } = null!;  // NK-XXX / XK-XXX
+    [BsonElement("loai_phieu")] 
+    public int LoaiPhieu { get; set; }  // 1=Nhap, 2=Xuat
     [BsonElement("ngay_thuc_hien")]
     public DateTime NgayThucHien { get; set; } = DateTime.UtcNow;
-
-    /// <summary>LINK sang Collection users — cán bộ thực hiện</summary>
+    // LINK -> users
     [BsonElement("can_bo_id")]
     [BsonRepresentation(BsonType.ObjectId)]
     public string? CanBoId { get; set; }
-
-    [BsonElement("can_bo_phu_trach")]
+    [BsonElement("can_bo_phu_trach")] 
     public string CanBoPhuTrach { get; set; } = null!;
-
-    /// <summary>EMBED — Thông tin đối tác (nhà cung cấp hoặc sinh viên)</summary>
+    // EMBED — thong tin doi tac nha cung cap / sinh vien
     [BsonElement("doi_tac")]
     public DoiTacInfo DoiTac { get; set; } = new();
-
-    /// <summary>EMBED mảng chi tiết + LINK sang books qua sach_id</summary>
-    [BsonElement("chi_tiet_giao_dich")]
+    // EMBED array + LINK -> books
+    [BsonElement("chi_tiet_giao_dich")] 
     public List<TransactionDetail> ChiTietGiaoDich { get; set; } = new();
-
-    [BsonElement("tong_tien")]
+    [BsonElement("tong_tien")] 
     public decimal TongTien { get; set; }
-
-    [BsonElement("ghi_chu")]
+    [BsonElement("ghi_chu")] 
     public string? GhiChu { get; set; }
 }
-
-/// <summary>EMBED — Thông tin đối tác (không tách collection riêng)</summary>
-public class DoiTacInfo
-{
-    [BsonElement("ten_doi_tac")]
+public class DoiTacInfo { 
     public string TenDoiTac { get; set; } = null!;
-
-    [BsonElement("ma_so_thue_hoac_mssv")]
     public string? MaSoThueHoacMssv { get; set; }
 }
-
-/// <summary>EMBED trong StockTransaction + LINK sang Book</summary>
 public class TransactionDetail
 {
-    /// <summary>LINK sang Collection books</summary>
-    [BsonElement("sach_id")]
-    [BsonRepresentation(BsonType.ObjectId)]
+    [BsonElement("sach_id")][BsonRepresentation(BsonType.ObjectId)] 
     public string SachId { get; set; } = null!;
-
-    [BsonElement("so_luong")]
+    [BsonElement("so_luong")] 
     public int SoLuong { get; set; }
-
-    [BsonElement("don_gia")]
+    [BsonElement("don_gia")] 
     public decimal DonGia { get; set; }
-
-    [BsonElement("thanh_tien")]
+    [BsonElement("thanh_tien")] 
     public decimal ThanhTien { get; set; }
 }

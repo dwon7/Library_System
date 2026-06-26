@@ -1,24 +1,21 @@
 import 'package:get/get.dart';
+import 'package:library_app/core/api_client.dart';
 
-import '../../mock_data/storage_service.dart';
 import '../../models/ressponses/inventory_audit_detail_res.dart';
 
 class InventoryAuditsProvider {
-  final StorageService _storageService = Get.find<StorageService>();
+  final ApiClient _client = Get.find<ApiClient>();
 
-  // TODO: getCountByStatus | Input: int status | Output: int | Đếm số item theo trạng thái (Audit: 1=done,2=incomplete)
+  // API #9b: getCountByStatus (IC) | GET /api/inventorychecks/count?status=
   Future<int> getCountByStatus(int status) async {
-    await Future.delayed(const Duration(milliseconds: 300));
-    return _storageService.inventoryAudits.where((a) => a.status == status).length;
+    final response = await _client.dio.get('/inventorychecks/count', queryParameters: {'status': status});
+    return ApiClient.asInt(response.data);
   }
 
-  // TODO: getAuditsByStatus | Input: int status | Output: List<InventoryAuditDetailRes> | Lấy tối đa 4 phiếu kiểm kê theo status, sắp xếp auditDate giảm
+  // API #11: getAuditsByStatus | GET /api/inventorychecks/list?status=
   Future<List<InventoryAuditDetailRes>> getAuditsByStatus(int status) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    final list = _storageService.inventoryAudits
-        .where((a) => a.status == status)
-        .toList();
-    list.sort((a, b) => (b.auditDate ?? "").compareTo(a.auditDate ?? ""));
-    return list.take(4).toList();
+    final response = await _client.dio.get('/inventorychecks/list', queryParameters: {'status': status});
+    final data = ApiClient.asList(response.data);
+    return data.map((e) => InventoryAuditDetailRes.fromJson(e)).toList();
   }
 }

@@ -16,6 +16,7 @@ class BorrowCardsView extends GetView<BorrowCardsController> {
     return Scaffold(
       appBar: AppHeader(title: "Phiếu mượn"),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'fab-borrow-cards',
         backgroundColor: Colors.black87,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),

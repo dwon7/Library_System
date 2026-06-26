@@ -18,6 +18,41 @@ class BorrowCardDetailView extends GetView<BorrowCardDetailController> {
         if (card == null) return const SizedBox.shrink();
         return _buildContent(card);
       }),
+      floatingActionButton: Obx(() {
+        final status = controller.card.value?.status;
+        // Chỉ hiển thị nút Trả sách khi đang mượn (2) hoặc quá hạn (3)
+        if (status == 2 || status == 3) {
+          return FloatingActionButton.extended(
+            heroTag: 'fab-return-book',
+            onPressed: () => _confirmReturn(context),
+            icon: const Icon(Icons.assignment_return_outlined),
+            label: const Text("Trả sách"),
+            backgroundColor: Colors.green,
+          );
+        }
+        return const SizedBox.shrink();
+      }),
+    );
+  }
+
+  void _confirmReturn(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text("Xác nhận trả sách"),
+        content: const Text("Xác nhận độc giả đã trả toàn bộ sách trong phiếu này?"),
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: const Text("Huỷ")),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+            onPressed: () {
+              Get.back();
+              controller.returnBook();
+            },
+            child: const Text("Xác nhận", style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
     );
   }
 
@@ -35,18 +70,30 @@ class BorrowCardDetailView extends GetView<BorrowCardDetailController> {
           _buildDivider(),
           _buildRow("Tên độc giả", controller.userName.value),
           _buildDivider(),
-          _buildRow("Ngày mượn", card.borrowDate),
+          _buildRow("Ngày mượn", _formatDate(card.borrowDate)),
           _buildDivider(),
-          _buildRow("Ngày hẹn trả", card.dueDate),
+          _buildRow("Ngày hẹn trả", _formatDate(card.dueDate)),
           _buildDivider(),
 
           if (card.borrowDetails != null && card.borrowDetails!.isNotEmpty) ...[
             _buildSectionTitle("Danh sách sách mượn"),
             ...card.borrowDetails!.map((d) => _buildBorrowDetail(d)),
           ],
+          const SizedBox(height: 80), // space for FAB
         ],
       ),
     );
+  }
+
+  /// Parse ISO8601 datetime từ API → dd/MM/yyyy
+  String? _formatDate(String? raw) {
+    if (raw == null || raw.isEmpty) return null;
+    final dt = DateTime.tryParse(raw);
+    if (dt == null) return raw;
+    final local = dt.toLocal();
+    return "${local.day.toString().padLeft(2, '0')}/"
+        "${local.month.toString().padLeft(2, '0')}/"
+        "${local.year}";
   }
 
   Widget _buildStatusBadge(int? status) {
@@ -75,11 +122,7 @@ class BorrowCardDetailView extends GetView<BorrowCardDetailController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildRow("Mã sách", detail.bookId),
-          const SizedBox(height: 4),
           _buildRow("Tên sách", detail.bookName),
-          const SizedBox(height: 4),
-          _buildRow("Giá", detail.bookPrice != null ? "${detail.bookPrice!} đ" : null),
           const SizedBox(height: 4),
           _buildRow("Số lượng", detail.quantity?.toString()),
         ],

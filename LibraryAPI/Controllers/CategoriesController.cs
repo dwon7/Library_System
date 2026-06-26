@@ -34,7 +34,7 @@ public class CategoriesController : ControllerBase
         Ok(await _service.GetBooksByCategoryAsync(id));
 
     /// <summary>POST /api/categories — Tạo danh mục (Admin/Librarian)</summary>
-    [Authorize(Roles = Roles.Admin + "," + Roles.Librarian)]
+
     [HttpPost]
     public async Task<IActionResult> Create(CategoryCreateDto dto)
     {
@@ -43,7 +43,7 @@ public class CategoriesController : ControllerBase
     }
 
     /// <summary>PUT /api/categories/{id} — Cập nhật danh mục (Admin/Librarian)</summary>
-    [Authorize(Roles = Roles.Admin + "," + Roles.Librarian)]
+
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(string id, CategoryCreateDto dto)
     {
@@ -52,7 +52,6 @@ public class CategoriesController : ControllerBase
     }
 
     /// <summary>DELETE /api/categories/{id} — Xóa danh mục (Admin)</summary>
-    [Authorize(Roles = Roles.Admin)]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
