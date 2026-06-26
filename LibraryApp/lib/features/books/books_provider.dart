@@ -11,7 +11,7 @@ class BooksProvider {
   // Tìm kho lưu trữ toàn cục
   final StorageService _storageService = Get.find<StorageService>();
 
-  /// 1. API fake lấy danh sách toàn bộ danh mục sách
+  // TODO: getCategories | Input: — | Output: List<CategoryEntity> | Lấy toàn bộ danh mục sách
   Future<List<CategoryEntity>> getCategories() async {
     // Giả lập mạng chậm 800ms
     await Future.delayed(const Duration(milliseconds: 800));
@@ -21,7 +21,7 @@ class BooksProvider {
         .toList();
   }
 
-  /// 2. CẬP NHẬT: API lấy danh sách sách theo ID danh mục và từ khóa tìm kiếm
+  // TODO: getBooksByCategoryId | Input: String categoryId, String textSearch | Output: List<BookDetailEntity> | Lọc sách theo danh mục ("-1"=all) + từ khóa
   Future<List<BookDetailEntity>> getBooksByCategoryId(
     String categoryId,
     String textSearch,

@@ -7,6 +7,7 @@ import '../../models/ressponses/inventory_ledger_detail_res.dart';
 class NewInventoryLedgerProvider {
   final StorageService _storageService = Get.find<StorageService>();
 
+  // TODO: generateLedgerId | Input: int ledgerType | Output: String | Sinh mã phiếu nhập/xuất: 1→NK-XXX, 2→XK-XXX
   Future<String> generateLedgerId(int ledgerType) async {
     await Future.delayed(const Duration(milliseconds: 200));
     final prefix = ledgerType == 1 ? "NK" : "XK";
@@ -20,11 +21,13 @@ class NewInventoryLedgerProvider {
     return "$prefix-${num.toString().padLeft(3, '0')}";
   }
 
+  // TODO: getBooks | Input: — | Output: List<BookDetailRes> | Lấy toàn bộ danh sách sách
   Future<List<BookDetailRes>> getBooks() async {
     await Future.delayed(const Duration(milliseconds: 400));
     return _storageService.books.toList();
   }
 
+  // TODO: addLedger | Input: InventoryLedgerDetailRes ledger | Output: bool | Thêm phiếu nhập/xuất kho mới
   Future<bool> addLedger(InventoryLedgerDetailRes ledger) async {
     await Future.delayed(const Duration(milliseconds: 500));
     _storageService.addLedger(ledger);

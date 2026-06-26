@@ -1,6 +1,7 @@
 import 'package:library_app/features/dashboard/chart_models.dart';
 
 class DashboardProvider {
+  // TODO: getBorrowCountByYear | Input: int year | Output: List<MonthlyBorrowCount> | Đếm số phiếu mượn theo 12 tháng trong năm
   Future<List<MonthlyBorrowCount>> getBorrowCountByYear(int year) async {
     await Future.delayed(const Duration(milliseconds: 400));
     return [
@@ -19,6 +20,7 @@ class DashboardProvider {
     ];
   }
 
+  // TODO: getCategoryBorrowRatio | Input: int month, int year | Output: List<CategoryRatio> | Tỉ lệ danh mục sách mượn trong tháng (mock)
   Future<List<CategoryRatio>> getCategoryBorrowRatio(int month, int year) async {
     await Future.delayed(const Duration(milliseconds: 400));
     return [
@@ -29,11 +31,13 @@ class DashboardProvider {
     ];
   }
 
+  // TODO: getBorrowStatusRatio | Input: int month, int year | Output: BorrowStatusRatio | Số phiếu theo 3 trạng thái: hoàn thành, đang mượn, quá hạn trong tháng
   Future<BorrowStatusRatio> getBorrowStatusRatio(int month, int year) async {
     await Future.delayed(const Duration(milliseconds: 400));
     return BorrowStatusRatio(completed: 30, borrowing: 12, overdue: 8);
   }
 
+  // TODO: getTopBorrowers | Input: int month, int year | Output: List<BorrowerStat> | Top 5 độc giả mượn nhiều nhất trong tháng
   Future<List<BorrowerStat>> getTopBorrowers(int month, int year) async {
     await Future.delayed(const Duration(milliseconds: 400));
     return [

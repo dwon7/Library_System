@@ -6,6 +6,7 @@ import '../../models/ressponses/inventory_ledger_detail_res.dart';
 class InventoryLedgerDetailProvider {
   final StorageService _storageService = Get.find<StorageService>();
 
+  // TODO: getLedgerById | Input: String ledgerId | Output: InventoryLedgerDetailRes? | Lấy chi tiết 1 phiếu nhập/xuất theo mã
   Future<InventoryLedgerDetailRes?> getLedgerById(String ledgerId) async {
     await Future.delayed(const Duration(milliseconds: 500));
 
