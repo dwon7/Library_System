@@ -58,6 +58,9 @@ class BookDetailView extends GetView<BookDetailController> {
           // Nhà xuất bản
           _buildRow("Nhà xuất bản", book.publisher),
           _buildDivider(),
+          // Giá sách
+          _buildRow("Giá sách", (book.price ?? "—").toString()),
+          _buildDivider(),
           // Tác giả
           _buildAuthors(book.authors),
           _buildDivider(),

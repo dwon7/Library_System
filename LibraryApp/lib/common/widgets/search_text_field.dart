@@ -16,7 +16,7 @@ class SearchTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      autofocus: true,
+      autofocus: false,
       onChanged: onChanged,
       onTapOutside: (_) => onTapOutside?.call(),
       decoration: InputDecoration(

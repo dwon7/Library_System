@@ -23,6 +23,7 @@ class BooksView extends GetView<BooksController> {
               onChanged: (v) => controller.onSearchChanged(v),
             ),
           ),
+          const SizedBox(height: 10),
           _buildCategoryList(),
           const SizedBox(height: 12),
           Expanded(child: _buildBookGrid()),

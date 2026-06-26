@@ -97,6 +97,7 @@ class BookEditController extends GetxController {
       LoadingOverlay.show();
       final ok = await provider.updateBook(current);
       if (ok) {
+        LoadingOverlay.hide();
         Get.back();
         Get.snackbar("Thành công", "Đã cập nhật sách");
       } else {
@@ -109,12 +110,13 @@ class BookEditController extends GetxController {
     }
   }
 
-  void delete() async {
+  void delete(BuildContext context) async {
     try {
       LoadingOverlay.show();
       final ok = await provider.deleteBook(bookId);
       if (ok) {
-        Get.back();
+        LoadingOverlay.hide();
+        Navigator.pushNamed(context, '/details');
         Get.snackbar("Thành công", "Đã xoá sách");
       } else {
         Get.snackbar("Lỗi", "Xoá thất bại");
