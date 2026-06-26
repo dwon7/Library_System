@@ -14,4 +14,5 @@ class AppPages {
   static const String inventoryLedgers = '/inventoryLedgers';
   static const String inventoryLedgerDetail = '/inventoryLedgers/detail';
   static const String newInventoryLedger = '/inventoryLedgers/new';
+  static const String bookEdit = '/books/edit';
 }

@@ -4,7 +4,6 @@
 // lib/data/models/inventory_audit_model.dart
 
 class InventoryAuditDetailRes {
-  String? id;
   String? auditId;
   String? auditDate;
   List<AuditBoardMember>? auditBoard;
@@ -14,7 +13,6 @@ class InventoryAuditDetailRes {
   String? notes;
 
   InventoryAuditDetailRes({
-    this.id,
     this.auditId,
     this.auditDate,
     this.auditBoard,
@@ -25,7 +23,6 @@ class InventoryAuditDetailRes {
   });
 
   factory InventoryAuditDetailRes.fromJson(Map<String, dynamic> json) => InventoryAuditDetailRes(
-    id: json['_id']?.toString(),
     auditId: json['auditId'],
     auditDate: json['auditDate'],
     auditBoard: json['auditBoard'] != null
@@ -40,7 +37,6 @@ class InventoryAuditDetailRes {
   );
 
   Map<String, dynamic> toJson() => {
-    if (id != null) '_id': id,
     'auditId': auditId,
     'auditDate': auditDate,
     'auditBoard': auditBoard?.map((x) => x.toJson()).toList(),

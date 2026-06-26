@@ -18,11 +18,14 @@ class InventoryLedgersView extends GetView<InventoryLedgersController> {
       appBar: const AppHeader(title: "Nhập xuất kho"),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black87,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
         onPressed: () async {
           final result = await Get.toNamed(AppPages.newInventoryLedger);
           if (result == true) controller.loadData();
         },
-        child: const Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white, size: 40),
       ),
       body: RefreshIndicator(
         onRefresh: () async => controller.loadData(),

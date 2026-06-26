@@ -9,9 +9,6 @@ Dưới đây là cấu trúc chi tiết của toàn bộ 6 bộ sưu tập (Col
 
 ###  Sách (books)
 {
-  // Mã ID tự sinh của tài liệu: ObjectId
-  "_id": ObjectId("66741abcf123456789abcdef"),
-  
   // Mã quản lý sách của thư viện: String
   "bookId": "MS-2026-01",
   
@@ -27,6 +24,9 @@ Dưới đây là cấu trúc chi tiết của toàn bộ 6 bộ sưu tập (Col
   // Nhà xuất bản: String
   "publisher": "NXB Bách Khoa",
   
+  // Giá sách: double
+  "price": 150000,
+  
   // Danh sách các tác giả tham gia viết sách (Mối quan hệ 1 - Nhiều dạng EMBED)
   "authors": [
     {
@@ -39,6 +39,9 @@ Dưới đây là cấu trúc chi tiết của toàn bộ 6 bộ sưu tập (Col
   
   // Loại hình tài liệu học liệu: String (Ví dụ: "Physical" hoặc "Digital")
   "documentType": "Physical",
+  
+  // Trạng thái sách: String (Ví dụ: "available", "borrowed", "maintenance")
+  "status": "available",
   
   // Thuộc tính riêng của Sách giấy (Chỉ xuất hiện khi documentType là "Physical")
   "physicalInfo": {
@@ -67,9 +70,6 @@ Dưới đây là cấu trúc chi tiết của toàn bộ 6 bộ sưu tập (Col
 
 ### Độc giả (users)
 {
-  // Mã ID tự sinh của độc giả: ObjectId
-  "_id": ObjectId("66742cdba987654321fedcba"),
-  
   // Mã số sinh viên/độc giả: String
   "userId": "2016700051",
   
@@ -93,9 +93,6 @@ Dưới đây là cấu trúc chi tiết của toàn bộ 6 bộ sưu tập (Col
 
 ### Phiếu mượn trả (borrow_cards)
 {
-  // Mã ID tự sinh của phiếu mượn trả: ObjectId
-  "_id": ObjectId("66743edff321654987abcdef"),
-  
   // Mã quản lý phiếu mượn: String
   "cardId": "PM-2026-99999",
   
@@ -128,9 +125,6 @@ Dưới đây là cấu trúc chi tiết của toàn bộ 6 bộ sưu tập (Col
 
 ### Danh mục sách (categories)
 {
-  // Mã ID tự sinh của danh mục: ObjectId
-  "_id": ObjectId("66744abcdef1234567890001"),
-  
   // Mã quản lý danh mục: String
   "categoryId": "DM-CNTT",
   
@@ -147,9 +141,6 @@ Dưới đây là cấu trúc chi tiết của toàn bộ 6 bộ sưu tập (Col
 
 ### Phiếu nhập/xuất kho (inventory_ledgers)
 {
-  // Mã ID tự sinh của giao dịch kho: ObjectId
-  "_id": ObjectId("66745abcdef1234567890002"),
-  
   // Mã quản lý phiếu nhập xuất kho: String
   "ledgerId": "PNX-2026-0012",
   
@@ -194,9 +185,6 @@ Dưới đây là cấu trúc chi tiết của toàn bộ 6 bộ sưu tập (Col
 
 ### Phiếu kiểm kê sách (inventory_audits)
 {
-  // Mã ID tự sinh của phiếu kiểm kê: ObjectId
-  "_id": ObjectId("66746abcdef1234567890003"),
-  
   // Mã quản lý phiếu kiểm kê: String
   "auditId": "KK-2026-T06",
   

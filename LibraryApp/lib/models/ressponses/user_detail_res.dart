@@ -3,7 +3,6 @@
 // lib/data/models/user_model.dart
 
 class UserDetailRes {
-  String? id;
   String? userId;
   String? fullName;
   String? email;
@@ -12,7 +11,6 @@ class UserDetailRes {
   int? totalBorrowCount;
 
   UserDetailRes({
-    this.id,
     this.userId,
     this.fullName,
     this.email,
@@ -22,7 +20,6 @@ class UserDetailRes {
   });
 
   factory UserDetailRes.fromJson(Map<String, dynamic> json) => UserDetailRes(
-    id: json['_id']?.toString(),
     userId: json['userId'],
     fullName: json['fullName'],
     email: json['email'],
@@ -32,7 +29,6 @@ class UserDetailRes {
   );
 
   Map<String, dynamic> toJson() => {
-    if (id != null) '_id': id,
     'userId': userId,
     'fullName': fullName,
     'email': email,

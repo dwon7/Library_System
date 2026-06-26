@@ -13,8 +13,8 @@ class BookDetailView extends GetView<BookDetailController> {
     return Scaffold(
       appBar: AppHeader(
         title: "Chi tiết sách",
-        // icon: Icons.arrow_back,
-        // onTap: () => Get.back(),
+        icon: Icons.edit_outlined,
+        onTap: () => Get.toNamed('/books/edit', arguments: controller.bookId),
       ),
       body: Obx(() {
         final book = controller.book.value;

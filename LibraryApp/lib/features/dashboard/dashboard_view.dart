@@ -18,13 +18,13 @@ class DashboardView extends GetView<DashboardController> {
       body: ListView(
         padding: const EdgeInsets.all(12),
         children: [
-          SizedBox(height: 280, child: _buildChart1()),
-          const SizedBox(height: 12),
-          SizedBox(height: 280, child: _buildChart2()),
-          const SizedBox(height: 12),
-          SizedBox(height: 280, child: _buildChart3()),
-          const SizedBox(height: 12),
-          SizedBox(height: 280, child: _buildChart4()),
+          SizedBox(height: 310, child: _buildChart1()),
+          const SizedBox(height: 24),
+          SizedBox(height: 310, child: _buildChart2()),
+          const SizedBox(height: 24),
+          SizedBox(height: 310, child: _buildChart3()),
+          const SizedBox(height: 24),
+          SizedBox(height: 310, child: _buildChart4()),
         ],
       ),
     );
@@ -42,6 +42,7 @@ class DashboardView extends GetView<DashboardController> {
           controller.loadChart1();
         },
         showMonthDropdown: false,
+        title: 'Số lượt mượn theo năm',
       );
     });
   }
@@ -60,6 +61,7 @@ class DashboardView extends GetView<DashboardController> {
           controller.chart2Year.value = y;
           controller.loadChart2();
         },
+        title: 'Tỷ lệ mượn theo thể loại',
       );
     });
   }
@@ -81,6 +83,7 @@ class DashboardView extends GetView<DashboardController> {
           controller.chart3Year.value = y;
           controller.loadChart3();
         },
+        title: 'Tỷ lệ trạng thái mượn trả',
       );
     });
   }
@@ -99,6 +102,7 @@ class DashboardView extends GetView<DashboardController> {
           controller.chart4Year.value = y;
           controller.loadChart4();
         },
+        title: 'Top người mượn nhiều nhất',
       );
     });
   }

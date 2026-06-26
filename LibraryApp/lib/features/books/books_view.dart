@@ -13,41 +13,20 @@ class BooksView extends GetView<BooksController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppHeader(
-        title: "Danh sách sách",
-        icon: Icons.search_outlined,
-        onTap: () => controller.toggleSearch(),
-      ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-          if (controller.isSearching.value && controller.searchText.value.isEmpty) {
-            controller.toggleSearch();
-          }
-        },
-        child: Column(
-          children: [
-            Obx(() {
-              if (controller.isSearching.value)
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-                  child: SearchTextField(
-                    controller: TextEditingController(text: controller.searchText.value),
-                    onChanged: (v) => controller.onSearchChanged(v),
-                    onTapOutside: () {
-                      if (controller.searchText.value.isEmpty) {
-                        controller.toggleSearch();
-                      }
-                    },
-                  ),
-                );
-              return const SizedBox.shrink();
-            }),
-            _buildCategoryList(),
-            const SizedBox(height: 12),
-            Expanded(child: _buildBookGrid()),
-          ],
-        ),
+      appBar: AppHeader(title: "Danh sách sách"),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+            child: SearchTextField(
+              controller: TextEditingController(text: controller.searchText.value),
+              onChanged: (v) => controller.onSearchChanged(v),
+            ),
+          ),
+          _buildCategoryList(),
+          const SizedBox(height: 12),
+          Expanded(child: _buildBookGrid()),
+        ],
       ),
     );
   }
