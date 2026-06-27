@@ -30,4 +30,17 @@ class InventoryLedgerDetailProvider {
       return null;
     }
   }
+
+  // TODO: getBooksByIds | Input: List<String> bookIds | Output: List<BookDetailRes>? | Lấy chi tiết 1 sách theo mã. null nếu không thấy
+  Future<List<BookDetailRes>?> getBooksByIds(List<String> bookIds) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    try {
+      return _storageService.books.where(
+            (book) => bookIds.contains(book.bookId),
+      ).toList();
+    } catch (_) {
+      return null;
+    }
+  }
 }
