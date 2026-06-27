@@ -11,7 +11,7 @@ public class OverdueNotificationJob
     public async Task ScanOverdueAsync()
     {
         var overdue = await _ctx.BorrowCards
-            .Find(c => c.TrangThaiMuon == "Đang mượn" && c.NgayHenTra < DateTime.UtcNow)
+            .Find(c => c.TrangThai == 2 && c.NgayHenTra < DateTime.UtcNow)
             .ToListAsync();
         _logger.LogInformation($"Có {overdue.Count} phiếu mượn quá hạn cần nhắc nhở");
         // TODO: ghi vào collection notifications hoặc gửi email

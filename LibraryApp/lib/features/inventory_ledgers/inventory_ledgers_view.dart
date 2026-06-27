@@ -17,6 +17,7 @@ class InventoryLedgersView extends GetView<InventoryLedgersController> {
     return Scaffold(
       appBar: const AppHeader(title: "Nhập xuất kho"),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'fab-inventory-ledgers',
         backgroundColor: Colors.black87,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),

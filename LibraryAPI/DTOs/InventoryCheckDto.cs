@@ -1,46 +1,59 @@
-﻿namespace LibraryAPI.DTOs.InventoryCheck;
+namespace LibraryAPI.DTOs.InventoryCheck;
 
 public class InventoryCheckCreateDto
 {
-    public string MaPhieuKiemKe { get; set; } = null!;
-    public DateTime NgayKiemKe { get; set; }
-    public string? GhiChu { get; set; }
-    public List<HoiDongDto> HoiDong { get; set; } = new();
-    public List<InventoryDetailDto> KetQua { get; set; } = new();
+    public string AuditId { get; set; } = null!;
+    public DateTime? AuditDate { get; set; }
+    public List<AuditBoardMemberDto> AuditBoard { get; set; } = new();
+    public int Status { get; set; } = 2;
+    public List<AuditDetailDto> AuditDetails { get; set; } = new();
+    public int? TotalAuditedQuantity { get; set; }
+    public string? Notes { get; set; }
 }
 
-public class HoiDongDto
+public class AuditBoardMemberDto
 {
-    public string HoTen { get; set; } = null!;
-    public string VaiTro { get; set; } = null!;
+    public string FullName { get; set; } = null!;
+    public string Role { get; set; } = null!;
 }
 
-public class InventoryDetailDto
+public class AuditDetailDto
 {
-    public string SachId { get; set; } = null!;
-    public int SoLuong { get; set; }
-    public int TinhTrangSach { get; set; } = 1;
+    public string BookId { get; set; } = null!;
+    public int Quantity { get; set; }
+    public int ConditionType { get; set; } = 1;   // 1=good, 2=damaged, 3=lost
 }
 
 public class InventoryCheckResponseDto
 {
-    public string Id { get; set; } = null!;
-    public string MaPhieuKiemKe { get; set; } = null!;
-    public DateTime NgayKiemKe { get; set; }
-    public int TrangThai { get; set; }
-    public string TrangThaiText { get; set; } = null!;
-    public int TongSoLuongKiemKe { get; set; }
-    public int SoThanhVienHoiDong { get; set; }
-    public string? GhiChu { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public string AuditId { get; set; } = null!;          // ma_phieu_kiem_ke (e.g. KK-001)
+    public DateTime AuditDate { get; set; }               // ngay_kiem_ke
+    public List<AuditBoardMemberResponseDto> AuditBoard { get; set; } = new();
+    public int Status { get; set; }                        // 1=completed, 2=in-progress
+    public List<AuditDetailResponseDto> AuditDetails { get; set; } = new();
+    public int TotalAuditedQuantity { get; set; }         // tong_so_luong_kiem_ke
+    public string? Notes { get; set; }                    // ghi_chu
+}
+
+public class AuditBoardMemberResponseDto
+{
+    public string FullName { get; set; } = null!;
+    public string Role { get; set; } = null!;
+}
+
+public class AuditDetailResponseDto
+{
+    public string BookId { get; set; } = null!;
+    public int Quantity { get; set; }
+    public int ConditionType { get; set; }
 }
 
 public class InventoryStatDto
 {
-    public string MaPhieuKiemKe { get; set; } = null!;
-    public int TongSoLuong { get; set; }
-    public int SoLuongConDung { get; set; }
-    public int SoLuongHong { get; set; }
-    public int SoLuongMat { get; set; }
-    public int SoDauSachKiemKe { get; set; }
+    public string AuditId { get; set; } = null!;
+    public int TotalQuantity { get; set; }
+    public int GoodQuantity { get; set; }
+    public int DamagedQuantity { get; set; }
+    public int LostQuantity { get; set; }
+    public int UniqueBookCount { get; set; }
 }

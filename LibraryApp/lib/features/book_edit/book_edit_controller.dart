@@ -116,7 +116,7 @@ class BookEditController extends GetxController {
       final ok = await provider.deleteBook(bookId);
       if (ok) {
         LoadingOverlay.hide();
-        Navigator.pushNamed(context, '/details');
+        Get.until((route) => route.isFirst);
         Get.snackbar("Thành công", "Đã xoá sách");
       } else {
         Get.snackbar("Lỗi", "Xoá thất bại");

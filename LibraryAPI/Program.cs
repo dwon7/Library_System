@@ -129,7 +129,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddCors(o => o.AddPolicy("AllowFE", p =>
-    p.WithOrigins("http://localhost:3000", "http://localhost:5173").AllowAnyHeader().AllowAnyMethod()));
+    p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 builder.Services.AddHealthChecks();
 
 var app = builder.Build();

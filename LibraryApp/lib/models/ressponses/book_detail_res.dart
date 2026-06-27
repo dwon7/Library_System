@@ -1,7 +1,7 @@
 
-
 class BookDetailRes {
   String? bookId;
+  String? bookCode; // ma_sach (e.g. S001)
   String? title;
   String? categoryId;
   int? publicationYear;
@@ -15,6 +15,7 @@ class BookDetailRes {
 
   BookDetailRes({
     this.bookId,
+    this.bookCode,
     this.title,
     this.categoryId,
     this.publicationYear,
@@ -29,6 +30,7 @@ class BookDetailRes {
 
   factory BookDetailRes.fromJson(Map<String, dynamic> json) => BookDetailRes(
     bookId: json['bookId'],
+    bookCode: json['bookCode'],
     title: json['title'],
     categoryId: json['categoryId']?.toString(),
     publicationYear: json['publicationYear'],

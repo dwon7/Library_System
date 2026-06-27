@@ -1,3 +1,4 @@
+import '../../common/utils/app_utils.dart';
 import '../ressponses/inventory_audit_detail_res.dart';
 
 class InventoryAuditDetailEntity {
@@ -22,7 +23,7 @@ class InventoryAuditDetailEntity {
     );
     return InventoryAuditDetailEntity(
       auditId: model.auditId,
-      auditDate: model.auditDate,
+      auditDate: AppUtils.formatDate(model.auditDate),
       boardChief: chief?.fullName,
       status: model.status ?? 2,
       totalAuditedQuantity: model.totalAuditedQuantity ?? 0,

@@ -1,4 +1,3 @@
-﻿using AutoMapper;
 using LibraryAPI.Domain.Entities;
 using LibraryAPI.DTOs.Book;
 using LibraryAPI.DTOs.Common;
@@ -7,15 +6,14 @@ namespace LibraryAPI.Services;
 public class BookService : IBookService
 {
     private readonly IBookRepository _repo;
-    private readonly IMapper _mapper;
-    public BookService(IBookRepository repo, IMapper mapper) { _repo = repo; _mapper = mapper; }
+    public BookService(IBookRepository repo) => _repo = repo;
 
-    public async Task<PagedResult<BookResponseDto>> SearchAsync(string? keyword, string? theLoai, int? nam, int page, int pageSize)
+    public async Task<PagedResult<BookResponseDto>> SearchAsync(string? keyword, string? categoryId, int page, int pageSize)
     {
-        var (items, total) = await _repo.SearchAsync(keyword, theLoai, nam, page, pageSize);
+        var (items, total) = await _repo.SearchAsync(keyword, categoryId, page, pageSize);
         return new PagedResult<BookResponseDto>
         {
-            Items = _mapper.Map<List<BookResponseDto>>(items),
+            Items = items.Select(MapToDto).ToList(),
             Total = total,
             Page = page,
             PageSize = pageSize
@@ -25,26 +23,58 @@ public class BookService : IBookService
     public async Task<BookResponseDto?> GetByIdAsync(string id)
     {
         var book = await _repo.GetByIdAsync(id);
-        return book == null ? null : _mapper.Map<BookResponseDto>(book);
+        return book == null ? null : MapToDto(book);
     }
 
     public async Task<BookResponseDto> CreateAsync(BookCreateDto dto, string userId)
     {
-        var book = _mapper.Map<Book>(dto);
-        book.SoLuongCon = dto.TongSoLuong;
-        book.CreatedBy = userId;
+        var qty = dto.GetTotalQuantity();
+        var book = new Book
+        {
+            MaSach = $"SACH-{Guid.NewGuid().ToString("N")[..6].ToUpper()}",
+            TenTaiLieu = dto.Title,
+            DanhMucId = dto.CategoryId,
+            NamXuatBan = dto.PublicationYear,
+            NhaXuatBan = dto.Publisher,
+            TacGia = dto.Authors.Select(a => new Author { HoTen = a.FullName, HocHam = a.Degree }).ToList(),
+            LoaiTaiLieu = dto.DocumentType ?? "Sách giấy",
+            TongSoLuong = qty,
+            SoLuongCon = qty,
+            CreatedBy = userId
+        };
         await _repo.CreateAsync(book);
-        return _mapper.Map<BookResponseDto>(book);
+        return MapToDto(book);
     }
 
     public async Task<bool> UpdateAsync(string id, BookUpdateDto dto, string userId)
     {
         var book = await _repo.GetByIdAsync(id);
         if (book == null) return false;
-        _mapper.Map(dto, book);
+        var qty = dto.GetTotalQuantity();
+        book.TenTaiLieu = dto.Title;
+        book.DanhMucId = dto.CategoryId;
+        book.NamXuatBan = dto.PublicationYear;
+        book.NhaXuatBan = dto.Publisher;
+        book.TacGia = dto.Authors?.Select(a => new Author { HoTen = a.FullName, HocHam = a.Degree }).ToList() ?? book.TacGia;
+        book.LoaiTaiLieu = dto.DocumentType ?? book.LoaiTaiLieu;
+        if (qty > 0) book.TongSoLuong = qty;
         book.UpdatedBy = userId;
         return await _repo.UpdateAsync(id, book);
     }
 
     public async Task<bool> DeleteAsync(string id, string userId) => await _repo.SoftDeleteAsync(id);
+
+    public static BookResponseDto MapToDto(Book b) => new()
+    {
+        BookId = b.Id!,
+        BookCode = b.MaSach,
+        Title = b.TenTaiLieu,
+        CategoryId = b.DanhMucId,
+        PublicationYear = b.NamXuatBan,
+        Publisher = b.NhaXuatBan,
+        Authors = b.TacGia.Select(a => new AuthorResponseDto { FullName = a.HoTen, Degree = a.HocHam }).ToList(),
+        DocumentType = b.LoaiTaiLieu,
+        PhysicalInfo = new PhysicalInfoDto { TotalQuantity = b.TongSoLuong, AvailableQuantity = b.SoLuongCon },
+        Status = b.SoLuongCon > 0 ? "available" : "unavailable"
+    };
 }
