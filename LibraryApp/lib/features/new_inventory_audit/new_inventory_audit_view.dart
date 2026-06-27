@@ -36,16 +36,16 @@ class NewInventoryAuditView extends GetView<NewInventoryAuditController> {
                     },
                   ),
                   const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      const Text("Trạng thái", style: TextStyle(fontSize: 14)),
-                      const Spacer(),
-                      _buildStatusBtn(1, "Đã hoàn thành"),
-                      const SizedBox(width: 8),
-                      _buildStatusBtn(2, "Chưa hoàn thành"),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
+                  // Row(
+                  //   children: [
+                  //     const Text("Trạng thái", style: TextStyle(fontSize: 14)),
+                  //     const Spacer(),
+                  //     _buildStatusBtn(1, "Đã hoàn thành"),
+                  //     const SizedBox(width: 8),
+                  //     _buildStatusBtn(2, "Chưa hoàn thành"),
+                  //   ],
+                  // ),
+                  // const SizedBox(height: 12),
                   TextFormField(
                     decoration: const InputDecoration(labelText: "Ghi chú", border: OutlineInputBorder()),
                     onChanged: (v) => controller.notes.value = v,
@@ -68,13 +68,13 @@ class NewInventoryAuditView extends GetView<NewInventoryAuditController> {
                   // Danh sách sách
                   Row(
                     children: [
-                      const Text("Danh sách sách", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      const Text("Tổng số sách cần kiểm kê", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                       const Spacer(),
-                      IconButton(icon: const Icon(Icons.add_circle, color: Colors.black87, size: 28), onPressed: () => controller.addAuditDetail()),
+                      Obx(() => Text("${controller.books.value.length} sách")) // IconButton(icon: const Icon(Icons.add_circle, color: Colors.black87, size: 28), onPressed: () => controller.addAuditDetail()),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  ...controller.auditDetails.asMap().entries.map((e) => _buildDetailBlock(e.key, e.value)),
+                  // ...controller.auditDetails.asMap().entries.map((e) => _buildDetailBlock(e.key, e.value)),
                 ],
               )),
             ),
