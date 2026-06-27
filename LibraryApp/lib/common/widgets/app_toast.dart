@@ -10,14 +10,14 @@ class AppToast {
       messageText: Text(
         message,
         textAlign: TextAlign.center,
-        style: const TextStyle(color: Colors.white, fontSize: 14),
+        style: const TextStyle(color: Colors.white, fontSize: 18),
       ),
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.black54,
       borderRadius: 8,
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       duration: const Duration(seconds: 2),
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
     );
   }
 }
