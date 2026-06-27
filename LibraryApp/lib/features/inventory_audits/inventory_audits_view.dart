@@ -15,15 +15,14 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppHeader(title: "Kiểm kê"),
+      appBar: const AppHeader(title: "Kiểm kê sách"),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black87,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
-        onPressed: () async {
-          final result = await Get.toNamed(AppPages.newInventoryAudit);
-          if (result == true) controller.loadData();
+        onPressed: () {
+          _showDeleteDialog(context);
         },
         child: const Icon(Icons.add, color: Colors.white, size: 40),
       ),
@@ -37,8 +36,8 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
             children: [
               _buildStatusRow(),
               const SizedBox(height: 24),
-              _buildSection("Đã hoàn thành", controller.completedAudits, controller.completedCount, 1),
               _buildSection("Chưa hoàn thành", controller.incompleteAudits, controller.incompleteCount, 2),
+              _buildSection("Đã hoàn thành", controller.completedAudits, controller.completedCount, 1),
             ],
           ),
         ),
@@ -100,6 +99,70 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
             const SizedBox(height: 16),
         ],
       );
+    });
+  }
+
+  void _showDeleteDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      // Ngăn người dùng tắt dialog khi bấm ra ngoài vùng trống
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.warning_amber_rounded, color: Colors.red),
+              SizedBox(width: 8),
+              Text('Cảnh báo'),
+            ],
+          ),
+          content: const Text('Bạn đang có phiếu kiểm kê sách chưa hoàn thành, bạn có chắc chắn muốn tạo mới phiếu kiểm kê hay không?'),
+          actions: <Widget>[
+            // NÚT KHÔNG: Style nhẹ nhàng, viền xám, chữ xám
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.grey[700],
+                side: BorderSide(color: Colors.grey[400]!),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+              ),
+              onPressed: () {
+                // Đóng dialog và trả về giá trị false
+                Navigator.of(context).pop(false);
+              },
+              child: const Text('Không'),
+            ),
+
+            // NÚT ĐỒNG Ý: Style nổi bật, nền đỏ, chữ trắng để cảnh báo
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                elevation: 0,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+              ),
+              onPressed: () {
+                // Đóng dialog và trả về giá trị true
+                Navigator.of(context).pop(true);
+              },
+              child: const Text('Đồng ý'),
+            ),
+          ],
+        );
+      },
+    ).then((value) async {
+      // Xử lý kết quả sau khi dialog đóng
+      if (value == true) {
+        final result = await Get.toNamed(AppPages.newInventoryAudit);
+        if (result == true) controller.loadData();
+      } else {
+        print("Người dùng đã chọn: KHÔNG XOÁ");
+      }
     });
   }
 }
