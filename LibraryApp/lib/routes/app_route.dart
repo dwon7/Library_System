@@ -38,6 +38,9 @@ import 'package:library_app/features/book_edit/book_edit_view.dart';
 import 'package:library_app/features/new_inventory_audit/new_inventory_audit_controller.dart';
 import 'package:library_app/features/new_inventory_audit/new_inventory_audit_provider.dart';
 import 'package:library_app/features/new_inventory_audit/new_inventory_audit_view.dart';
+import '../features/qr_scanner/qr_scanner_controller.dart';
+import '../features/qr_scanner/qr_scanner_provider.dart';
+import '../features/qr_scanner/qr_scanner_view.dart';
 import 'app_pages.dart';
 
 class AppRoute {
@@ -152,6 +155,18 @@ class AppRoute {
         Get.lazyPut<BookEditProvider>(() => provider);
         Get.lazyPut<BookEditController>(
           () => BookEditController(provider, bookId: bookId),
+        );
+      }),
+    ),
+    GetPage(
+      name: AppPages.qrscanner,
+      page: () => const QrScannerView(),
+      binding: BindingsBuilder(() {
+        final bookId = Get.arguments as String? ?? '';
+        final provider = QrScannerProvider();
+        Get.lazyPut<QrScannerProvider>(() => provider);
+        Get.lazyPut<QrScannerController>(
+              () => QrScannerController(provider),
         );
       }),
     ),

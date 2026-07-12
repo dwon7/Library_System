@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:library_app/core/api_client.dart';
 
+import '../../models/ressponses/book_detail_res.dart';
 import '../../models/ressponses/inventory_ledger_detail_res.dart';
 
 class InventoryLedgerDetailProvider {
@@ -22,9 +23,7 @@ class InventoryLedgerDetailProvider {
     await Future.delayed(const Duration(milliseconds: 500));
 
     try {
-      return _storageService.books.where(
-            (book) => bookIds.contains(book.bookId),
-      ).toList();
+      return [];
     } catch (_) {
       return null;
     }
