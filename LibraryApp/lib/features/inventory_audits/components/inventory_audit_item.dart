@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../models/entities/inventory_audit_detail_entity.dart';
 import '../../../models/enum/audit_status.dart';
+import '../../../routes/app_pages.dart';
 
 class InventoryAuditItem extends StatelessWidget {
   final InventoryAuditDetailEntity item;
@@ -10,7 +12,15 @@ class InventoryAuditItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final status = AuditStatus.fromValue(item.status);
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        if (status == AuditStatus.incomplete) {
+          Get.toNamed(AppPages.qrscanner, arguments: item.auditId);
+        } else {
+          Get.toNamed(AppPages.inventoryAuditDetail, arguments: item.auditId);
+        }
+      },
+      child: Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: status.color.withOpacity(0.08),
@@ -52,6 +62,7 @@ class InventoryAuditItem extends StatelessWidget {
             ],
           ),
         ],
+      ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/app_toast.dart';
 import 'package:library_app/common/widgets/loading_overlay.dart';
+import 'package:library_app/routes/app_pages.dart';
 
 import '../../models/ressponses/book_detail_res.dart';
 import '../../models/ressponses/inventory_audit_detail_res.dart';
@@ -118,7 +119,7 @@ class NewInventoryAuditController extends GetxController {
       LoadingOverlay.hide();
       AppToast.show("Thêm phiếu kiểm kê thành công");
       await Future.delayed(const Duration(milliseconds: 1500));
-      Get.back(result: true);
+      Get.offNamed(AppPages.qrscanner, arguments: auditId.value);
     } catch (e) {
       LoadingOverlay.hide();
       AppToast.show("Lỗi thêm phiếu kiểm kê");

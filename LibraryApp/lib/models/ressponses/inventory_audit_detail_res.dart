@@ -68,6 +68,7 @@ class AuditDetail {
   String? bookId; // Link ID cuốn sách
   int? quantity;
   int? conditionType; // 1: Còn sử dụng, 2: Rách nát, 3: Mất
+  // TODO: thêm conditionType = 4: Chưa kiểm kê
 
   AuditDetail({this.bookId, this.quantity, this.conditionType});
 

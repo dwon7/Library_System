@@ -1,10 +1,81 @@
 
-
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 import 'package:library_app/features/qr_scanner/qr_scanner_provider.dart';
+import 'package:library_app/models/enum/book_condition.dart';
+import 'package:library_app/models/ressponses/book_detail_res.dart';
 
 class QrScannerController extends GetxController {
   final QrScannerProvider provider;
+  final String auditId;
 
-  QrScannerController(this.provider);
+  QrScannerController(this.provider, {required this.auditId});
+
+  final isShowMessage = false.obs;
+  final message = "".obs;
+  final canScan = true.obs;
+  final scannedCount = 0.obs;
+  final totalCount = 0.obs;
+  final books = <BookDetailRes>[].obs;
+  final selectedBook = Rx<BookDetailRes?>(null);
+  final selectedCondition = BookCondition.usable.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    ever(canScan, (value) {
+      if (value == true) {
+        isShowMessage.value = false;
+      }
+    });
+  }
+
+  void loadData() async {
+    try {
+      final result = await provider.getAuditStats(auditId);
+      scannedCount.value = result[0];
+      totalCount.value = result[1];
+    } catch (_) {}
+  }
+
+  void getBooks() async {
+    try {
+      books.value = await provider.getBooks();
+    } catch (_) {}
+  }
+
+  void updateBookStatus() async {
+    final book = selectedBook.value;
+    if (book == null || book.bookId == null) return;
+    try {
+      final success = await provider.updateBookStatus(
+          auditId, book.bookId!, selectedCondition.value.value);
+      if (success) {
+        message.value = "Cập nhật thành công";
+      } else {
+        message.value = "Cập nhật thất bại";
+      }
+    } catch (_) {
+      message.value = "Cập nhật thất bại";
+    }
+    isShowMessage.value = true;
+  }
+
+  void scanQR(String value) async {
+    if (!canScan.value) return;
+
+    canScan.value = false;
+
+    try {
+      final result = await provider.scanQR(value);
+      message.value = result == 1 ? "Quét thành công" : "Mã QR không hợp lệ";
+    } catch (_) {
+      message.value = "Mã QR không hợp lệ";
+    }
+
+    isShowMessage.value = true;
+
+    Future.delayed(const Duration(seconds: 3), () {
+      canScan.value = true;
+    });
+  }
 }

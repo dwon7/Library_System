@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/app_header.dart';
+import 'package:library_app/models/enum/book_condition.dart';
+import 'package:library_app/models/ressponses/book_detail_res.dart';
+import 'package:library_app/routes/app_pages.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 // Giả định bạn đã tạo file controller
@@ -19,15 +22,39 @@ class QrScannerView extends GetView<QrScannerController> {
           Expanded(
             child: Stack(
               children: [
-                // Phần thông báo
+                // Phần thông báo dạng toast
                 Positioned(
-                    child: child,
+                  top: 10,
+                  left: 0,
+                  right: 0,
+                  child: Obx(
+                    () => Container(
+                      height: 50,
+                      color: controller.isShowMessage.value
+                          ? Colors.black54
+                          : Colors.transparent,
+                      alignment: Alignment.center,
+                      child: controller.isShowMessage.value
+                          ? Text(
+                              controller.message.value,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            )
+                          : const SizedBox(),
+                    ),
+                  ),
                 ),
 
                 // 1. Camera Scanner (vẫn giữ nguyên)
                 MobileScanner(
                   onDetect: (capture) {
-                    // Action xử lý sau
+                    final barcode = capture.barcodes.firstOrNull;
+                    if (barcode != null && barcode.rawValue != null) {
+                      controller.scanQR(barcode.rawValue!);
+                    }
                   },
                 ),
 
@@ -41,9 +68,7 @@ class QrScannerView extends GetView<QrScannerController> {
                   right: 0,
                   child: Center(
                     child: ElevatedButton.icon(
-                      onPressed: () {
-                        // Action nhập mã thủ công
-                      },
+                      onPressed: () => _showManualEntryDialog(),
                       icon: const Icon(Icons.keyboard),
                       label: const Text(
                         'Nhập mã/tên sách',
@@ -52,7 +77,7 @@ class QrScannerView extends GetView<QrScannerController> {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         elevation: 4,
                       ),
@@ -77,16 +102,100 @@ class QrScannerView extends GetView<QrScannerController> {
                 )
               ],
             ),
-            child: const Center(
-              child: Text(
-                'Di chuyển camera vào vùng mã QR/Barcode của sách',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
+            child: Row(
+              children: [
+                const SizedBox(width: 16),
+                Obx(() => Text(
+                  '${controller.scannedCount.value}/${controller.totalCount.value}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )),
+                const Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    final auditId = Get.arguments as String? ?? '';
+                    Get.toNamed(AppPages.inventoryAuditDetail,
+                        arguments: auditId);
+                  },
+                  child: const Text(
+                    'Xem chi tiết >',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(width: 16),
+              ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showManualEntryDialog() {
+    controller.getBooks();
+    controller.selectedBook.value = null;
+    controller.selectedCondition.value = BookCondition.usable;
+
+    Get.dialog(
+      AlertDialog(
+        title: const Text("Kiểm kê thủ công"),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Obx(() => DropdownButtonFormField<BookDetailRes>(
+                    value: controller.selectedBook.value,
+                    decoration: const InputDecoration(
+                      labelText: "Tên/mã sách",
+                      border: OutlineInputBorder(),
+                    ),
+                    items: controller.books
+                        .map((b) => DropdownMenuItem(
+                              value: b,
+                              child: Text(b.title ?? b.bookCode ?? ""),
+                            ))
+                        .toList(),
+                    onChanged: (val) =>
+                        controller.selectedBook.value = val,
+                  )),
+              const SizedBox(height: 12),
+              Obx(() => DropdownButtonFormField<BookCondition>(
+                    value: controller.selectedCondition.value,
+                    decoration: const InputDecoration(
+                      labelText: "Trạng thái sách",
+                      border: OutlineInputBorder(),
+                    ),
+                    items: BookCondition.values
+                        .map((c) => DropdownMenuItem(
+                              value: c,
+                              child: Text(c.label),
+                            ))
+                        .toList(),
+                    onChanged: (val) =>
+                        controller.selectedCondition.value = val!,
+                  )),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text("Huỷ"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              controller.updateBookStatus();
+              Get.back();
+            },
+            child: const Text("Cập nhật"),
           ),
         ],
       ),

@@ -41,6 +41,9 @@ import 'package:library_app/features/new_inventory_audit/new_inventory_audit_vie
 import '../features/qr_scanner/qr_scanner_controller.dart';
 import '../features/qr_scanner/qr_scanner_provider.dart';
 import '../features/qr_scanner/qr_scanner_view.dart';
+import '../features/inventory_audit_detail/inventory_audit_detail_controller.dart';
+import '../features/inventory_audit_detail/inventory_audit_detail_provider.dart';
+import '../features/inventory_audit_detail/inventory_audit_detail_view.dart';
 import 'app_pages.dart';
 
 class AppRoute {
@@ -162,11 +165,23 @@ class AppRoute {
       name: AppPages.qrscanner,
       page: () => const QrScannerView(),
       binding: BindingsBuilder(() {
-        final bookId = Get.arguments as String? ?? '';
+        final auditId = Get.arguments as String? ?? '';
         final provider = QrScannerProvider();
         Get.lazyPut<QrScannerProvider>(() => provider);
         Get.lazyPut<QrScannerController>(
-              () => QrScannerController(provider),
+              () => QrScannerController(provider, auditId: auditId),
+        );
+      }),
+    ),
+    GetPage(
+      name: AppPages.inventoryAuditDetail,
+      page: () => const InventoryAuditDetailView(),
+      binding: BindingsBuilder(() {
+        final auditId = Get.arguments as String? ?? '';
+        final provider = InventoryAuditDetailProvider();
+        Get.lazyPut<InventoryAuditDetailProvider>(() => provider);
+        Get.lazyPut<InventoryAuditDetailController>(
+          () => InventoryAuditDetailController(provider, auditId: auditId),
         );
       }),
     ),

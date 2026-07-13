@@ -16,4 +16,5 @@ class AppPages {
   static const String newInventoryLedger = '/inventoryLedgers/new';
   static const String bookEdit = '/books/edit';
   static const String qrscanner = '/qrscanner';
+  static const String inventoryAuditDetail = '/inventoryAudits/detail';
 }
