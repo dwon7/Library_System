@@ -1,12 +1,19 @@
 using LibraryAPI.Domain.Entities;
 using LibraryAPI.DTOs.Book;
 using LibraryAPI.DTOs.Common;
+using LibraryAPI.Infrastructure;
 using LibraryAPI.Repositories;
+using MongoDB.Driver;
 namespace LibraryAPI.Services;
 public class BookService : IBookService
 {
     private readonly IBookRepository _repo;
-    public BookService(IBookRepository repo) => _repo = repo;
+    private readonly MongoDbContext _ctx;
+    public BookService(IBookRepository repo, MongoDbContext ctx)
+    {
+        _repo = repo;
+        _ctx = ctx;
+    }
 
     public async Task<PagedResult<BookResponseDto>> SearchAsync(string? keyword, string? categoryId, int page, int pageSize)
     {
@@ -29,9 +36,12 @@ public class BookService : IBookService
     public async Task<BookResponseDto> CreateAsync(BookCreateDto dto, string userId)
     {
         var qty = dto.GetTotalQuantity();
+        var count = await _ctx.Books.CountDocumentsAsync(_ => true);
+        var qrCode = $"QRSACH{count + 1:D3}";
         var book = new Book
         {
             MaSach = $"SACH-{Guid.NewGuid().ToString("N")[..6].ToUpper()}",
+            QrCode = qrCode,
             TenTaiLieu = dto.Title,
             DanhMucId = dto.CategoryId,
             NamXuatBan = dto.PublicationYear,
@@ -68,6 +78,7 @@ public class BookService : IBookService
     {
         BookId = b.Id!,
         BookCode = b.MaSach,
+        QrCode = b.QrCode,
         Title = b.TenTaiLieu,
         CategoryId = b.DanhMucId,
         PublicationYear = b.NamXuatBan,

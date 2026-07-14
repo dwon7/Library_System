@@ -6,6 +6,7 @@ namespace LibraryAPI.Domain.Entities;
 public class Book : BaseEntity
 {
     [BsonElement("ma_sach")] public string MaSach { get; set; } = null!;
+    [BsonElement("qr_code")] public string? QrCode { get; set; }
     [BsonElement("ten_tai_lieu")] public string TenTaiLieu { get; set; } = null!;
     [BsonElement("the_loai")] public List<string> TheLoai { get; set; } = new();
     [BsonElement("nam_xuat_ban")] public int NamXuatBan { get; set; }

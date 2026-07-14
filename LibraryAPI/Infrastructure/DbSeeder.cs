@@ -37,6 +37,9 @@ public class DbSeeder
             Builders<Book>.IndexKeys.Ascending(b => b.MaSach),
             new CreateIndexOptions { Unique = true })));
         await TryCreateIndex(() => _ctx.Books.Indexes.CreateOneAsync(new CreateIndexModel<Book>(
+            Builders<Book>.IndexKeys.Ascending(b => b.QrCode),
+            new CreateIndexOptions { Unique = true, Sparse = true })));
+        await TryCreateIndex(() => _ctx.Books.Indexes.CreateOneAsync(new CreateIndexModel<Book>(
             Builders<Book>.IndexKeys.Ascending(b => b.DanhMucId))));
         await TryCreateIndex(() => _ctx.Books.Indexes.CreateOneAsync(new CreateIndexModel<Book>(
             Builders<Book>.IndexKeys.Text(b => b.TenTaiLieu))));
@@ -158,29 +161,29 @@ public class DbSeeder
         var bookIds = new List<string>();
         var books = new[]
         {
-            ("S001", "Lập trình C# cơ bản", "DM-CNTT", 2023, "NXB ĐHQG", "Sách giấy", 10,
+            ("S001", "QRSACH001", "Lập trình C# cơ bản", "DM-CNTT", 2023, "NXB ĐHQG", "Sách giấy", 10,
                 new[] { ("Nguyễn Thanh Sơn", "PGS.TS") }),
-            ("S002", "MongoDB toàn tập", "DM-CNTT", 2024, "NXB Thông tin", "Sách giấy", 5,
+            ("S002", "QRSACH002", "MongoDB toàn tập", "DM-CNTT", 2024, "NXB Thông tin", "Sách giấy", 5,
                 new[] { ("Trần Minh Tuấn", "ThS") }),
-            ("S003", "Flutter & GetX thực chiến", "DM-CNTT", 2024, "NXB KHKT", "Sách giấy", 8,
+            ("S003", "QRSACH003", "Flutter & GetX thực chiến", "DM-CNTT", 2024, "NXB KHKT", "Sách giấy", 8,
                 new[] { ("Lê Văn Dũng", "ThS"), ("Phạm Anh Tuấn", "TS") }),
-            ("S004", "Python cho khoa học dữ liệu", "DM-CNTT", 2023, "NXB ĐHQG", "Ebook", 0,
+            ("S004", "QRSACH004", "Python cho khoa học dữ liệu", "DM-CNTT", 2023, "NXB ĐHQG", "Ebook", 0,
                 new[] { ("Hoàng Thị Lan", "TS") }),
-            ("S005", "Kinh tế học vi mô", "DM-KTKT", 2022, "NXB Giáo dục", "Sách giấy", 12,
+            ("S005", "QRSACH005", "Kinh tế học vi mô", "DM-KTKT", 2022, "NXB Giáo dục", "Sách giấy", 12,
                 new[] { ("Nguyễn Văn Hùng", "GS.TS") }),
-            ("S006", "Nguyên lý kế toán", "DM-KTKT", 2023, "NXB Tài chính", "Sách giấy", 7,
+            ("S006", "QRSACH006", "Nguyên lý kế toán", "DM-KTKT", 2023, "NXB Tài chính", "Sách giấy", 7,
                 new[] { ("Trần Thị Minh", "PGS.TS") }),
-            ("S007", "Truyện Kiều", "DM-VH", 2020, "NXB Văn học", "Sách giấy", 20,
+            ("S007", "QRSACH007", "Truyện Kiều", "DM-VH", 2020, "NXB Văn học", "Sách giấy", 20,
                 new[] { ("Nguyễn Du", "") }),
-            ("S008", "Số đỏ", "DM-VH", 2021, "NXB Văn học", "Sách giấy", 15,
+            ("S008", "QRSACH008", "Số đỏ", "DM-VH", 2021, "NXB Văn học", "Sách giấy", 15,
                 new[] { ("Vũ Trọng Phụng", "") }),
-            ("S009", "English Grammar In Use", "DM-NN", 2022, "Cambridge", "Sách giấy", 25,
+            ("S009", "QRSACH009", "English Grammar In Use", "DM-NN", 2022, "Cambridge", "Sách giấy", 25,
                 new[] { ("Raymond Murphy", "PhD") }),
-            ("S010", "TOEIC 990", "DM-NN", 2023, "NXB ĐHQG", "Sách giấy", 18,
+            ("S010", "QRSACH010", "TOEIC 990", "DM-NN", 2023, "NXB ĐHQG", "Sách giấy", 18,
                 new[] { ("Kim Daeyeon", "MA") }),
         };
 
-        foreach (var (maSach, ten, catMa, nam, nxb, loai, soLuong, tacGias) in books)
+        foreach (var (maSach, qrCode, ten, catMa, nam, nxb, loai, soLuong, tacGias) in books)
         {
             var existing = await _ctx.Books.Find(b => b.MaSach == maSach).FirstOrDefaultAsync();
             if (existing == null)
@@ -188,6 +191,7 @@ public class DbSeeder
                 var book = new Book
                 {
                     MaSach = maSach,
+                    QrCode = qrCode,
                     TenTaiLieu = ten,
                     DanhMucId = catIds.TryGetValue(catMa, out var catId) ? catId : null,
                     NamXuatBan = nam,
@@ -203,12 +207,14 @@ public class DbSeeder
             }
             else
             {
-                // Update existing books to add danh_muc_id if missing
+                var updates = new List<UpdateDefinition<Book>>();
                 if (existing.DanhMucId == null && catIds.TryGetValue(catMa, out var catId))
-                {
-                    var upd = Builders<Book>.Update.Set(b => b.DanhMucId, catId);
-                    await _ctx.Books.UpdateOneAsync(b => b.Id == existing.Id, upd);
-                }
+                    updates.Add(Builders<Book>.Update.Set(b => b.DanhMucId, catId));
+                if (existing.QrCode == null)
+                    updates.Add(Builders<Book>.Update.Set(b => b.QrCode, qrCode));
+                if (updates.Count > 0)
+                    await _ctx.Books.UpdateOneAsync(b => b.Id == existing.Id,
+                        Builders<Book>.Update.Combine(updates));
                 bookIds.Add(existing.Id!);
             }
         }

@@ -66,7 +66,7 @@ class QrScannerController extends GetxController {
     canScan.value = false;
 
     try {
-      final result = await provider.scanQR(value);
+      final result = await provider.scanQR(auditId, value);
       message.value = result == 1 ? "Quét thành công" : "Mã QR không hợp lệ";
     } catch (_) {
       message.value = "Mã QR không hợp lệ";

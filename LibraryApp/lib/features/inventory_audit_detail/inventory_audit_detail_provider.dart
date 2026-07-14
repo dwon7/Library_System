@@ -1,25 +1,37 @@
+import 'package:get/get.dart';
+import 'package:library_app/core/api_client.dart';
 import 'package:library_app/models/ressponses/inventory_audit_detail_res.dart';
 
 class InventoryAuditDetailProvider {
-  // TODO: Gọi API lây thông kê kiêm kê
-  // Input: auditId (String) - ID phiêu kiêm kê
-  // Output: List<int> - [0] = scannedCount - Số lượng sách đã kiểm kê, [1] = totalCount - Tổng số sách cần kiểm kê
+  final ApiClient _client = Get.find<ApiClient>();
+
+  // API: GET /api/inventorychecks/{auditId}/progress
+  // Output: [scannedCount, totalCount]
   Future<List<int>> getAuditStats(String auditId) async {
-    throw UnimplementedError('getAuditStats not implemented yet');
+    final response = await _client.dio.get('/inventorychecks/$auditId/progress');
+    final data = response.data;
+    if (data is List && data.length >= 2) {
+      return [data[0] as int, data[1] as int];
+    }
+    return [0, 0];
   }
 
-  // TODO: Gọi API lây danh sách sách theo trang thái
-  // Input: auditId (String) - ID phiêu kiêm kê, status (int) - 1 (đã kiêm kê) / 2 (chua kiêm kê)
+  // API: GET /api/inventorychecks/{auditId}/books?status={status}
+  // status: 1 = đã kiểm kê, 2 = chưa kiểm kê
   // Output: List<AuditDetail>
-  Future<List<AuditDetail>> getBooksByStatus(
-      String auditId, int status) async {
-    throw UnimplementedError('getBooksByStatus not implemented yet');
+  Future<List<AuditDetail>> getBooksByStatus(String auditId, int status) async {
+    final response = await _client.dio.get(
+      '/inventorychecks/$auditId/books',
+      queryParameters: {'status': status},
+    );
+    final data = ApiClient.asList(response.data);
+    return data.map((e) => AuditDetail.fromJson(e)).toList();
   }
 
-  // TODO: Gọi API xoá phiếu kiểm kê
-  // Input: auditId (String) - ID phiếu kiểm kê
-  // Output: bool - true nếu xoá thành công
+  // API: DELETE /api/inventorychecks/{auditId}
+  // Output: true nếu xoá thành công
   Future<bool> deleteAudit(String auditId) async {
-    throw UnimplementedError('deleteAudit not implemented yet');
+    final response = await _client.dio.delete('/inventorychecks/$auditId');
+    return ApiClient.asSuccess(response.data);
   }
 }

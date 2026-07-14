@@ -57,3 +57,13 @@ public class InventoryStatDto
     public int LostQuantity { get; set; }
     public int UniqueBookCount { get; set; }
 }
+
+public class ScanQRDto
+{
+    public string QrValue { get; set; } = null!;
+}
+
+public class UpdateBookConditionDto
+{
+    public int ConditionType { get; set; }
+}
