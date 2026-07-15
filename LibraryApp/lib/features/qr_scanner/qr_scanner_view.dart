@@ -22,34 +22,10 @@ class QrScannerView extends GetView<QrScannerController> {
           Expanded(
             child: Stack(
               children: [
-                // Phần thông báo dạng toast
-                Positioned(
-                  top: 10,
-                  left: 0,
-                  right: 0,
-                  child: Obx(
-                    () => Container(
-                      height: 50,
-                      color: controller.isShowMessage.value
-                          ? Colors.black54
-                          : Colors.transparent,
-                      alignment: Alignment.center,
-                      child: controller.isShowMessage.value
-                          ? Text(
-                              controller.message.value,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            )
-                          : const SizedBox(),
-                    ),
-                  ),
-                ),
 
                 // 1. Camera Scanner (vẫn giữ nguyên)
                 MobileScanner(
+                  controller:controller.cameraController,
                   onDetect: (capture) {
                     final barcode = capture.barcodes.firstOrNull;
                     if (barcode != null && barcode.rawValue != null) {
@@ -81,6 +57,32 @@ class QrScannerView extends GetView<QrScannerController> {
                         ),
                         elevation: 4,
                       ),
+                    ),
+                  ),
+                ),
+
+                // Phần thông báo dạng toast
+                Positioned(
+                  top: 10,
+                  left: 0,
+                  right: 0,
+                  child: Obx(
+                        () => Container(
+                      height: 50,
+                      color: controller.isShowMessage.value
+                          ? Colors.black54
+                          : Colors.transparent,
+                      alignment: Alignment.center,
+                      child: controller.isShowMessage.value
+                          ? Text(
+                        controller.message.value,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      )
+                          : const SizedBox(),
                     ),
                   ),
                 ),

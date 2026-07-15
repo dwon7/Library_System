@@ -20,10 +20,6 @@ import '../inventory_ledgers/inventory_ledgers_controller.dart';
 import '../inventory_ledgers/inventory_ledgers_provider.dart';
 import 'home_controller.dart';
 
-// Import giao diện, controller, provider thực tế của 5 phân hệ
-// import '../overview/ui.dart';
-// import '../books/ui.dart'; ...
-
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
 

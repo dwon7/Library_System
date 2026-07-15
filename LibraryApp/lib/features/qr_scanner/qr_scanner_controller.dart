@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:library_app/features/qr_scanner/qr_scanner_provider.dart';
 import 'package:library_app/models/enum/book_condition.dart';
 import 'package:library_app/models/ressponses/book_detail_res.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrScannerController extends GetxController {
   final QrScannerProvider provider;
@@ -19,9 +20,15 @@ class QrScannerController extends GetxController {
   final selectedBook = Rx<BookDetailRes?>(null);
   final selectedCondition = BookCondition.usable.obs;
 
+  late MobileScannerController cameraController;
+
   @override
   void onInit() {
     super.onInit();
+    cameraController = MobileScannerController(
+      formats: [BarcodeFormat.qrCode],
+      detectionSpeed: DetectionSpeed.unrestricted,
+    );
     ever(canScan, (value) {
       if (value == true) {
         isShowMessage.value = false;
@@ -66,8 +73,10 @@ class QrScannerController extends GetxController {
     canScan.value = false;
 
     try {
+      print("value: $value , $auditId ");
       final result = await provider.scanQR(auditId, value);
       message.value = result == 1 ? "Quét thành công" : "Mã QR không hợp lệ";
+      print('result scan: ${result.toString()}');
     } catch (_) {
       message.value = "Mã QR không hợp lệ";
     }

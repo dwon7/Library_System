@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
       
-        initialRoute: AppPages.qrscanner,
+        initialRoute: AppPages.home,
         getPages: AppRoute.routes,
         debugShowCheckedModeBanner: false,
       ),

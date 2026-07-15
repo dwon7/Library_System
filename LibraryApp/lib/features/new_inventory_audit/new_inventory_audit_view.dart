@@ -74,7 +74,7 @@ class NewInventoryAuditView extends GetView<NewInventoryAuditController> {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  // ...controller.auditDetails.asMap().entries.map((e) => _buildDetailBlock(e.key, e.value)),
+                  ...controller.auditDetails.asMap().entries.map((e) => _buildDetailBlock(e.key, e.value)),
                 ],
               )),
             ),
