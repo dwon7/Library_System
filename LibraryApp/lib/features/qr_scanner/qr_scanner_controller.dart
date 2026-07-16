@@ -75,7 +75,7 @@ class QrScannerController extends GetxController {
     try {
       print("value: $value , $auditId ");
       final result = await provider.scanQR(auditId, value);
-      message.value = result == 1 ? "Quét thành công" : "Mã QR không hợp lệ";
+      message.value = result == 1 ? "Quét thành công! \n Sách đã được cập nhật ở trạng thái Còn sử dung" : "Mã QR không hợp lệ";
       print('result scan: ${result.toString()}');
     } catch (_) {
       message.value = "Mã QR không hợp lệ";

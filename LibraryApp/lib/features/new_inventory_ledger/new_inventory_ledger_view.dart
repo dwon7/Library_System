@@ -110,7 +110,7 @@ class NewInventoryLedgerView extends GetView<NewInventoryLedgerController> {
             decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, -2))]),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.black87, padding: const EdgeInsets.symmetric(vertical: 14), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-              onPressed: () => controller.submit(),
+              onPressed: () => _showConfirmDialog(),
               child: const Text("Tạo phiếu kho", style: TextStyle(fontSize: 16, color: Colors.white)),
             ),
           ),
@@ -119,8 +119,56 @@ class NewInventoryLedgerView extends GetView<NewInventoryLedgerController> {
     );
   }
 
-  Widget _buildTypeOption(int type, String label) {
-    return Obx(() => GestureDetector(
+  void _showConfirmDialog() {
+    if (!controller.validate()) return;
+
+    final rows = controller.ledgerDetails.where((e) => e.selectedBook != null).map((e) {
+      final qty = int.tryParse(e.quantityController.text) ?? 0;
+      final price = int.tryParse(e.unitPriceController.text) ?? 0;
+      return (title: e.selectedBook!.title ?? "", qty: qty, amount: qty * price);
+    }).toList();
+    final grandTotal = rows.fold<int>(0, (sum, r) => sum + r.amount);
+
+    Get.dialog(
+      AlertDialog(
+        title: const Text("Xác nhận tạo phiếu kho"),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("Đối tác: ${controller.partnerName.value}"),
+              Text("Ngày lập: ${controller.transactionDate.value}"),
+              const SizedBox(height: 12),
+              const Text("Chi tiết phiếu", style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 4),
+              ...rows.map((r) => Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Text("${r.title} - SL: ${r.qty} - Thành tiền: ${r.amount}"),
+              )),
+              const Divider(),
+              Text("Tổng tiền: $grandTotal", style: const TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          ),
+        ),
+        actions: [
+          OutlinedButton(
+            onPressed: () => Get.back(),
+            child: const Text("Huỷ"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Get.back();
+              controller.submit();
+            },
+            child: const Text("Xác nhận"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTypeOption(int type, String label) {    return Obx(() => GestureDetector(
       onTap: () => controller.onLedgerTypeChanged(type),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
@@ -187,6 +235,21 @@ class NewInventoryLedgerView extends GetView<NewInventoryLedgerController> {
                   onPressed: () => controller.removeLedgerDetail(index),
                 ),
             ],
+          ),
+          const SizedBox(height: 8),
+          AnimatedBuilder(
+            animation: Listenable.merge([entry.quantityController, entry.unitPriceController]),
+            builder: (_, __) {
+              final qty = int.tryParse(entry.quantityController.text) ?? 0;
+              final price = int.tryParse(entry.unitPriceController.text) ?? 0;
+              return Row(
+                children: [
+                  const Text("Thành tiền", style: TextStyle(fontSize: 14)),
+                  const Spacer(),
+                  Text("${qty * price}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                ],
+              );
+            },
           ),
         ],
       ),
