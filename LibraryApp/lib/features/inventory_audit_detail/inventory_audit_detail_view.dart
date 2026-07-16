@@ -208,7 +208,7 @@ class InventoryAuditDetailView
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(book.bookId ?? "",
+                Text(_findBookName(book.bookId),
                     style: const TextStyle(fontWeight: FontWeight.w600)),
                 Text("SL: ${book.quantity ?? 0}",
                     style:
@@ -221,6 +221,12 @@ class InventoryAuditDetailView
         ],
       ),
     );
+  }
+
+  String _findBookName(String? bookId) {
+    if (bookId == null) return "";
+    final book = controller.books.firstWhereOrNull((b) => b.bookId == bookId);
+    return book?.title ?? bookId;
   }
 
   String _conditionLabel(int? conditionType) {

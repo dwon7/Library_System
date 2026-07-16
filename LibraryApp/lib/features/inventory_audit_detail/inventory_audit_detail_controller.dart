@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/app_toast.dart';
 import 'package:library_app/features/inventory_audit_detail/inventory_audit_detail_provider.dart';
+import 'package:library_app/models/ressponses/book_detail_res.dart';
 import 'package:library_app/models/ressponses/inventory_audit_detail_res.dart';
 
 class InventoryAuditDetailController extends GetxController {
@@ -13,6 +14,7 @@ class InventoryAuditDetailController extends GetxController {
   final totalCount = 0.obs;
   final inventoriedBooks = <AuditDetail>[].obs;
   final uninventoriedBooks = <AuditDetail>[].obs;
+  final books = <BookDetailRes>[].obs;
 
   bool get isCompleted => totalCount.value > 0 && scannedCount.value >= totalCount.value;
 
@@ -24,6 +26,8 @@ class InventoryAuditDetailController extends GetxController {
 
   void loadData() async {
     try {
+      books.value = await provider.getBooks();
+
       final stats = await provider.getAuditStats(auditId);
       scannedCount.value = stats[0];
       totalCount.value = stats[1];

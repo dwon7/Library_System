@@ -44,12 +44,24 @@ import '../features/qr_scanner/qr_scanner_view.dart';
 import '../features/inventory_audit_detail/inventory_audit_detail_controller.dart';
 import '../features/inventory_audit_detail/inventory_audit_detail_provider.dart';
 import '../features/inventory_audit_detail/inventory_audit_detail_view.dart';
+import '../features/login/login_controller.dart';
+import '../features/login/login_provider.dart';
+import '../features/login/login_view.dart';
 import 'app_pages.dart';
 
 class AppRoute {
   AppRoute._();
 
   static final List<GetPage> routes = [
+    GetPage(
+      name: AppPages.login,
+      page: () => const LoginView(),
+      binding: BindingsBuilder(() {
+        final provider = LoginProvider();
+        Get.lazyPut<LoginProvider>(() => provider);
+        Get.lazyPut<LoginController>(() => LoginController(provider));
+      }),
+    ),
     GetPage(
       name: AppPages.home,
       page: () => HomeView(),

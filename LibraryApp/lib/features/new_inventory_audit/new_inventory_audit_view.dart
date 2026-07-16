@@ -146,7 +146,7 @@ class NewInventoryAuditView extends GetView<NewInventoryAuditController> {
             value: entry.selectedBook,
             decoration: const InputDecoration(labelText: "Tên sách", border: OutlineInputBorder(), contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
             items: controller.books.map((b) => DropdownMenuItem(value: b, child: Text(b.title ?? "", overflow: TextOverflow.ellipsis))).toList(),
-            onChanged: (val) => controller.onBookSelected(index, val),
+            onChanged: null,
           ),
           const SizedBox(height: 8),
           Row(
@@ -180,6 +180,7 @@ class NewInventoryAuditView extends GetView<NewInventoryAuditController> {
               _buildCondBtn(index, entry, 1, "Còn SD"),
               _buildCondBtn(index, entry, 2, "Rách nát"),
               _buildCondBtn(index, entry, 3, "Mất"),
+              _buildCondBtn(index, entry, 4, "Chưa kiểm kê"),
             ],
           ),
           if (controller.auditDetails.length > 1)

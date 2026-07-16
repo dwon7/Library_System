@@ -55,6 +55,7 @@ class NewInventoryAuditController extends GetxController {
       LoadingOverlay.show();
       auditId.value = await provider.generateAuditId();
       books.value = await provider.getBooks();
+      auditDetails.value = books.map((b) => AuditDetailEntry(selectedBook: b)..conditionType = 4).toList();
     } catch (e) {
       AppToast.show("Lỗi tải dữ liệu");
     } finally {
@@ -90,7 +91,7 @@ class NewInventoryAuditController extends GetxController {
   Future<void> submit() async {
     if (auditDate.value.isEmpty) return _warn("Vui lòng chọn ngày kiểm kê");
     if (auditBoard.any((m) => m.nameController.text.trim().isEmpty)) return _warn("Vui lòng nhập đủ tên ban kiểm kê");
-    if (auditDetails.every((e) => e.selectedBook == null)) return _warn("Vui lòng chọn ít nhất một sách");
+    // if (auditDetails.every((e) => e.selectedBook == null)) return _warn("Vui lòng chọn ít nhất một sách");
 
     try {
       LoadingOverlay.show();

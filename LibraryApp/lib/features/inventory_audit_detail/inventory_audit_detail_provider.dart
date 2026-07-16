@@ -1,9 +1,20 @@
 import 'package:get/get.dart';
 import 'package:library_app/core/api_client.dart';
+import 'package:library_app/models/ressponses/book_detail_res.dart';
 import 'package:library_app/models/ressponses/inventory_audit_detail_res.dart';
 
 class InventoryAuditDetailProvider {
   final ApiClient _client = Get.find<ApiClient>();
+
+  // API: GET /api/books/search?page=1&pageSize=100
+  Future<List<BookDetailRes>> getBooks() async {
+    final response = await _client.dio.get('/books/search', queryParameters: {
+      'page': 1,
+      'pageSize': 100,
+    });
+    final data = ApiClient.asList(response.data);
+    return data.map((e) => BookDetailRes.fromJson(e)).toList();
+  }
 
   // API: GET /api/inventorychecks/{auditId}/progress
   // Output: [scannedCount, totalCount]
