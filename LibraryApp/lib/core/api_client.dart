@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
 import 'package:get/get.dart' hide Response;
 import 'app_config.dart';
 
@@ -21,9 +22,24 @@ class ApiClient extends GetxService {
         if (_token != null) {
           options.headers['Authorization'] = 'Bearer $_token';
         }
+        if (kDebugMode) {
+          debugPrint('[HTTP] -> ${options.method} ${options.uri} (token: ${_token != null})');
+        }
         handler.next(options);
       },
+      onResponse: (response, handler) {
+        if (kDebugMode) {
+          debugPrint('[HTTP] <- ${response.statusCode} ${response.requestOptions.uri}');
+        }
+        handler.next(response);
+      },
       onError: (error, handler) {
+        if (kDebugMode) {
+          debugPrint(
+            '[HTTP] xx ${error.requestOptions.method} ${error.requestOptions.uri} '
+            '=> ${error.type} ${error.response?.statusCode ?? ''} ${error.message}',
+          );
+        }
         handler.next(error);
       },
     ));

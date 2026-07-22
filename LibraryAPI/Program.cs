@@ -90,7 +90,12 @@ builder.Services.AddHangfire(config =>
 builder.Services.AddHangfireServer();
 
 // 8. Controllers + Swagger + CORS + HealthCheck
-builder.Services.AddControllers();
+// Yêu cầu tất cả API phải có JWT hợp lệ (đăng nhập), không ràng buộc theo Role cụ thể.
+// Các action cần công khai (login, register...) phải khai báo [AllowAnonymous] rõ ràng.
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter());
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {

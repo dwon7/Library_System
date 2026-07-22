@@ -7,6 +7,7 @@ import 'package:library_app/features/dashboard/components/chart_status_ratio.dar
 import 'package:library_app/features/dashboard/components/chart_top_borrowers.dart';
 import 'package:library_app/features/dashboard/components/chart_wrapper.dart';
 import 'package:library_app/features/dashboard/dashboard_controller.dart';
+import 'package:library_app/features/login/login_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
@@ -14,7 +15,11 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppHeader(title: 'Tổng quan'),
+      appBar: AppHeader(
+        title: 'Tổng quan',
+        icon: Icons.logout,
+        onTap: () => LoginController.logout(),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(12),
         children: [

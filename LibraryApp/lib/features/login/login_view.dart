@@ -22,8 +22,9 @@ class LoginView extends GetView<LoginController> {
             children: [
               TextFormField(
                 controller: controller.usernameController,
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  labelText: "Tên đăng nhập",
+                  labelText: "Email",
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
                 ),
               ),
@@ -55,19 +56,27 @@ class LoginView extends GetView<LoginController> {
               )),
               const SizedBox(height: 20),
 
-              ElevatedButton(
+              Obx(() => ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black87,
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   minimumSize: const Size(double.infinity, 0),
                 ),
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  controller.login();
-                },
-                child: const Text("Đăng nhập", style: TextStyle(fontSize: 16, color: Colors.white)),
-              ),
+                onPressed: controller.isLoading.value
+                    ? null
+                    : () {
+                        FocusScope.of(context).unfocus();
+                        controller.login();
+                      },
+                child: controller.isLoading.value
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                      )
+                    : const Text("Đăng nhập", style: TextStyle(fontSize: 16, color: Colors.white)),
+              )),
             ],
           ),
         ),
