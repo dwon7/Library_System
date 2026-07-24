@@ -87,6 +87,10 @@ class NewBorrowCardController extends GetxController {
       AppToast.show("Vui lòng chọn ngày hẹn trả");
       return;
     }
+    if (dueDate.value.compareTo(borrowDate.value) < 0) {
+      AppToast.show("Ngày hẹn trả phải sau ngày mượn");
+      return;
+    }
     if (borrowDetails.every((e) => e.selectedBook == null)) {
       AppToast.show("Vui lòng chọn ít nhất một sách");
       return;

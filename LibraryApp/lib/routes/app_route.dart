@@ -35,6 +35,9 @@ import 'package:library_app/features/new_inventory_ledger/new_inventory_ledger_v
 import 'package:library_app/features/book_edit/book_edit_controller.dart';
 import 'package:library_app/features/book_edit/book_edit_provider.dart';
 import 'package:library_app/features/book_edit/book_edit_view.dart';
+import 'package:library_app/features/new_book/new_book_controller.dart';
+import 'package:library_app/features/new_book/new_book_provider.dart';
+import 'package:library_app/features/new_book/new_book_view.dart';
 import 'package:library_app/features/new_inventory_audit/new_inventory_audit_controller.dart';
 import 'package:library_app/features/new_inventory_audit/new_inventory_audit_provider.dart';
 import 'package:library_app/features/new_inventory_audit/new_inventory_audit_view.dart';
@@ -171,6 +174,15 @@ class AppRoute {
         Get.lazyPut<BookEditController>(
           () => BookEditController(provider, bookId: bookId),
         );
+      }),
+    ),
+    GetPage(
+      name: AppPages.newBook,
+      page: () => const NewBookView(),
+      binding: BindingsBuilder(() {
+        final provider = NewBookProvider();
+        Get.lazyPut<NewBookProvider>(() => provider);
+        Get.lazyPut<NewBookController>(() => NewBookController(provider));
       }),
     ),
     GetPage(

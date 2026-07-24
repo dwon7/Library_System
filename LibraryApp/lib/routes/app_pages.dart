@@ -6,6 +6,7 @@ class AppPages {
   static const String login = '/login';
   static const String dashboard = '/dashboard';
   static const String books = '/books';
+  static const String newBook = '/books/new';
   static const String bookDetail = '/books/detail';
   static const String borrowCards = '/borrowCards';
   static const String borrowCardDetail = '/borrowCards/detail';

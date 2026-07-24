@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_app/common/widgets/add_fab.dart';
 import 'package:library_app/common/widgets/app_header.dart';
 import 'package:library_app/common/widgets/empty_state.dart';
 import 'package:library_app/common/widgets/search_text_field.dart';
@@ -8,12 +9,20 @@ import 'books_controller.dart';
 import 'components/book_detail_item.dart';
 import 'components/category_chip_item.dart';
 import '../../models/entities/category_entity.dart';
+import '../../routes/app_pages.dart';
 
 class BooksView extends GetView<BooksController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppHeader(title: "Danh sách sách"),
+      floatingActionButton: AddFab(
+        heroTag: 'fab-books',
+        onPressed: () async {
+          final result = await Get.toNamed(AppPages.newBook);
+          if (result == true) controller.loadData();
+        },
+      ),
       body: Column(
         children: [
           Padding(

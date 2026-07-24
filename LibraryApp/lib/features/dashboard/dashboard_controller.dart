@@ -32,10 +32,10 @@ class DashboardController extends GetxController {
     chart3Year.value = now.year;
     chart4Month.value = now.month;
     chart4Year.value = now.year;
-    WidgetsBinding.instance.addPostFrameCallback((_) => _loadAll());
+    WidgetsBinding.instance.addPostFrameCallback((_) => refreshAll());
   }
 
-  Future<void> _loadAll() async {
+  Future<void> refreshAll() async {
     await Future.wait([
       loadChart1(),
       loadChart2(),

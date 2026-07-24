@@ -9,4 +9,16 @@ class AppUtils {
         "${local.month.toString().padLeft(2, '0')}/"
         "${local.year}";
   }
+
+  /// Format số tiền, tách "." mỗi 3 chữ số (e.g. 1500000 → "1.500.000")
+  static String formatMoney(num? value) {
+    if (value == null) return '—';
+    final isNegative = value < 0;
+    final intStr = value.abs().truncate().toString();
+    final grouped = intStr.replaceAllMapped(
+      RegExp(r'(\d)(?=(\d{3})+$)'),
+      (m) => '${m[1]}.',
+    );
+    return isNegative ? '-$grouped' : grouped;
+  }
 }

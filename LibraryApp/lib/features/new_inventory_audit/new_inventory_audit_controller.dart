@@ -34,7 +34,7 @@ class NewInventoryAuditController extends GetxController {
   final auditId = "".obs;
   final books = <BookDetailRes>[].obs;
   final auditDate = "".obs;
-  final status = 1.obs;
+  final status = 0.obs;
   final notes = "".obs;
 
   final auditBoard = <AuditMemberEntry>[

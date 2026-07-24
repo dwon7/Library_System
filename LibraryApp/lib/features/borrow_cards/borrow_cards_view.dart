@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../common/widgets/add_fab.dart';
 import '../../common/widgets/app_header.dart';
 import '../../common/widgets/app_toast.dart';
 import '../../models/entities/borrow_card_detail_entity.dart';
@@ -15,17 +16,12 @@ class BorrowCardsView extends GetView<BorrowCardsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppHeader(title: "Phiếu mượn"),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: AddFab(
         heroTag: 'fab-borrow-cards',
-        backgroundColor: Colors.black87,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
         onPressed: () async {
           final result = await Get.toNamed(AppPages.newBorrowCard);
           if (result == true) controller.loadData();
         },
-        child: const Icon(Icons.add, color: Colors.white, size: 40,),
       ),
       body: RefreshIndicator(
         onRefresh: () async => controller.loadData(),
@@ -37,10 +33,10 @@ class BorrowCardsView extends GetView<BorrowCardsController> {
             children: [
               _buildStatusRow(),
               const SizedBox(height: 24),
-              _buildSection("Tất cả phiếu mượn", controller.allCards, controller.allCount),
               _buildSection("Đang mượn", controller.borrowingCards, controller.borrowingCount),
               _buildSection("Quá hạn", controller.overdueCards, controller.overdueCount),
               _buildSection("Hoàn thành", controller.completedCards, controller.completedCount),
+              _buildSection("Tất cả phiếu mượn", controller.allCards, controller.allCount),
             ],
           ),
         ),

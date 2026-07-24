@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../common/widgets/add_fab.dart';
 import '../../common/widgets/app_header.dart';
 import '../../common/widgets/app_toast.dart';
 import '../../models/entities/inventory_ledger_detail_entity.dart';
@@ -16,17 +17,12 @@ class InventoryLedgersView extends GetView<InventoryLedgersController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppHeader(title: "Nhập xuất kho"),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: AddFab(
         heroTag: 'fab-inventory-ledgers',
-        backgroundColor: Colors.black87,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
         onPressed: () async {
           final result = await Get.toNamed(AppPages.newInventoryLedger);
           if (result == true) controller.loadData();
         },
-        child: const Icon(Icons.add, color: Colors.white, size: 40),
       ),
       body: RefreshIndicator(
         onRefresh: () async => controller.loadData(),

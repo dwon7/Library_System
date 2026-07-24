@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../common/widgets/add_fab.dart';
 import '../../common/widgets/app_header.dart';
 import '../../common/widgets/app_toast.dart';
 import '../../models/entities/inventory_audit_detail_entity.dart';
@@ -16,16 +17,9 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppHeader(title: "Kiểm kê sách"),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: AddFab(
         heroTag: 'fab-inventory-audits',
-        backgroundColor: Colors.black87,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        onPressed: () {
-          _showDeleteDialog(context);
-        },
-        child: const Icon(Icons.add, color: Colors.white, size: 40),
+        onPressed: () => _showDeleteDialog(context),
       ),
       body: RefreshIndicator(
         onRefresh: () async => controller.loadData(),
@@ -37,8 +31,18 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
             children: [
               _buildStatusRow(),
               const SizedBox(height: 24),
-              _buildSection("Chưa hoàn thành", controller.incompleteAudits, controller.incompleteCount, 2),
-              _buildSection("Đã hoàn thành", controller.completedAudits, controller.completedCount, 1),
+              _buildSection(
+                "Chưa hoàn thành",
+                controller.incompleteAudits,
+                controller.incompleteCount,
+                2,
+              ),
+              _buildSection(
+                "Đã hoàn thành",
+                controller.completedAudits,
+                controller.completedCount,
+                1,
+              ),
             ],
           ),
         ),
@@ -47,13 +51,27 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
   }
 
   Widget _buildStatusRow() {
-    return Obx(() => Row(
-          children: [
-            Expanded(child: _buildStatusCard("Đã hoàn thành", controller.completedCount.value, AuditStatus.completed.color)),
-            const SizedBox(width: 12),
-            Expanded(child: _buildStatusCard("Chưa hoàn thành", controller.incompleteCount.value, AuditStatus.incomplete.color)),
-          ],
-        ));
+    return Obx(
+      () => Row(
+        children: [
+          Expanded(
+            child: _buildStatusCard(
+              "Chưa hoàn thành",
+              controller.incompleteCount.value,
+              AuditStatus.incomplete.color,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: _buildStatusCard(
+              "Đã hoàn thành",
+              controller.completedCount.value,
+              AuditStatus.completed.color,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildStatusCard(String label, int count, Color color) {
@@ -66,33 +84,65 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
       ),
       child: Column(
         children: [
-          Text("$count", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: color)),
+          Text(
+            "$count",
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(label, style: TextStyle(fontSize: 13, color: color, fontWeight: FontWeight.w500)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 13,
+              color: color,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildSection(String title, RxList<InventoryAuditDetailEntity> audits, RxInt totalCount, int status) {
+  Widget _buildSection(
+    String title,
+    RxList<InventoryAuditDetailEntity> audits,
+    RxInt totalCount,
+    int status,
+  ) {
     return Obx(() {
       if (audits.isEmpty) return const SizedBox.shrink();
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
-          ...audits.map((a) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: InventoryAuditItem(item: a),
-              )),
+          ...audits.map(
+            (a) => Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: InventoryAuditItem(item: a),
+            ),
+          ),
           if (totalCount.value > 4)
             GestureDetector(
               onTap: () => AppToast.show("Tính năng đang phát triển"),
               child: const Padding(
                 padding: EdgeInsets.only(top: 4, bottom: 16),
                 child: Center(
-                  child: Text("Xem thêm", style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, decoration: TextDecoration.underline, color: Colors.blueGrey)),
+                  child: Text(
+                    "Xem thêm",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontStyle: FontStyle.italic,
+                      decoration: TextDecoration.underline,
+                      color: Colors.blueGrey,
+                    ),
+                  ),
                 ),
               ),
             )
@@ -117,7 +167,9 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
               Text('Cảnh báo'),
             ],
           ),
-          content: const Text('Bạn đang có phiếu kiểm kê sách chưa hoàn thành, bạn có chắc chắn muốn tạo mới phiếu kiểm kê hay không?'),
+          content: const Text(
+            'Bạn đang có phiếu kiểm kê sách chưa hoàn thành, bạn có chắc chắn muốn tạo mới phiếu kiểm kê hay không?',
+          ),
           actions: <Widget>[
             // NÚT KHÔNG: Style nhẹ nhàng, viền xám, chữ xám
             OutlinedButton(

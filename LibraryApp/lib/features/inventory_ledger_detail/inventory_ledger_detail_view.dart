@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/app_header.dart';
 
+import '../../common/utils/app_utils.dart';
 import '../../common/widgets/app_toast.dart';
 import '../../models/ressponses/inventory_ledger_detail_res.dart';
 import '../../models/enum/ledger_type.dart';
@@ -112,7 +113,7 @@ class InventoryLedgerDetailView
           _buildDivider(),
           _buildRow(
             "Tổng tiền",
-            l.grandTotal != null ? "${l.grandTotal} đ" : null,
+            l.grandTotal != null ? "${AppUtils.formatMoney(l.grandTotal)} đ" : null,
           ),
           _buildDivider(),
           _buildRow("Ghi chú", l.notes),
@@ -145,11 +146,11 @@ class InventoryLedgerDetailView
             const SizedBox(height: 4),
             _buildRow("Nhà xuất bản", bookDetail?.publisher ?? ""),
             const SizedBox(height: 4),
-            _buildRow("Đơn giá", d.unitPrice?.toString()),
+            _buildRow("Đơn giá", d.unitPrice != null ? "${AppUtils.formatMoney(d.unitPrice)} đ" : null),
             const SizedBox(height: 4),
             _buildRow("Số lượng", d.quantity?.toString()),
             const SizedBox(height: 4),
-            _buildRow("Thành tiền", d.totalAmount?.toString()),
+            _buildRow("Thành tiền", d.totalAmount != null ? "${AppUtils.formatMoney(d.totalAmount)} đ" : null),
           ],
         ),
       );

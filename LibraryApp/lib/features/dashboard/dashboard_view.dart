@@ -20,17 +20,20 @@ class DashboardView extends GetView<DashboardController> {
         icon: Icons.logout,
         onTap: () => LoginController.logout(),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(12),
-        children: [
-          SizedBox(height: 310, child: _buildChart1()),
-          const SizedBox(height: 24),
-          SizedBox(height: 310, child: _buildChart2()),
-          const SizedBox(height: 24),
-          SizedBox(height: 310, child: _buildChart3()),
-          const SizedBox(height: 24),
-          SizedBox(height: 310, child: _buildChart4()),
-        ],
+      body: RefreshIndicator(
+        onRefresh: controller.refreshAll,
+        child: ListView(
+          padding: const EdgeInsets.all(12),
+          children: [
+            SizedBox(height: 310, child: _buildChart1()),
+            const SizedBox(height: 32),
+            SizedBox(height: 310, child: _buildChart2()),
+            const SizedBox(height: 32),
+            SizedBox(height: 310, child: _buildChart3()),
+            const SizedBox(height: 32),
+            SizedBox(height: 310, child: _buildChart4()),
+          ],
+        ),
       ),
     );
   }
