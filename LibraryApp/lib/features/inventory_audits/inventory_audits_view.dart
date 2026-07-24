@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../common/widgets/add_fab.dart';
 import '../../common/widgets/app_header.dart';
-import '../../common/widgets/app_toast.dart';
 import '../../models/entities/inventory_audit_detail_entity.dart';
 import '../../models/enum/audit_status.dart';
 import '../../routes/app_pages.dart';
@@ -122,15 +121,20 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
-          ...audits.map(
-            (a) => Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: InventoryAuditItem(item: a),
-            ),
-          ),
-          if (totalCount.value > 4)
+          ...audits
+              .take(5)
+              .map(
+                (a) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: InventoryAuditItem(item: a),
+                ),
+              ),
+          if (totalCount.value > 5)
             GestureDetector(
-              onTap: () => AppToast.show("Tính năng đang phát triển"),
+              onTap: () => Get.toNamed(
+                AppPages.listInventoryAudits,
+                arguments: {'status': status, 'title': title},
+              ),
               child: const Padding(
                 padding: EdgeInsets.only(top: 4, bottom: 16),
                 child: Center(

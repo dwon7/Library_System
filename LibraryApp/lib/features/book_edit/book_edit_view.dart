@@ -11,10 +11,9 @@ class BookEditView extends GetView<BookEditController> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        backgroundColor: Colors.grey.shade50,
         appBar: AppHeader(title: "Chỉnh sửa sách"),
         body: Obx(() {
           final book = controller.book.value;
@@ -29,66 +28,161 @@ class BookEditView extends GetView<BookEditController> {
   Widget _buildForm(BookDetailRes book) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionTitle("Thông tin chung"),
-          _buildTextField("Mã sách", book.bookId ?? '', enabled: false),
-          _buildTextField("Tiêu đề", book.title ?? '', enabled: false),
-          _buildEditField("Giá", controller.priceController, hint: "Nhập giá sách"),
-          _buildDivider(),
-          _buildDropdown<String>(
-            label: "Thể loại",
-            value: controller.selectedCategoryId.value,
-            items: controller.categories
-                .map((c) => DropdownMenuItem<String>(value: c.categoryId, child: Text(c.categoryName ?? '')))
-                .toList(),
-            onChanged: (v) => controller.selectedCategoryId.value = v,
+          _buildSectionCard(
+            icon: Icons.menu_book_outlined,
+            title: "Thông tin chung",
+            children: [
+              _buildTextField("Mã sách", book.bookId ?? '', enabled: false),
+              _buildTextField("Tiêu đề", book.title ?? '', enabled: false),
+              _buildEditField(
+                "Giá",
+                controller.priceController,
+                hint: "Nhập giá sách",
+              ),
+              _buildDropdown<String>(
+                label: "Thể loại",
+                value: controller.selectedCategoryId.value,
+                items: controller.categories
+                    .map(
+                      (c) => DropdownMenuItem<String>(
+                        value: c.categoryId,
+                        child: Text(c.categoryName ?? ''),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (v) => controller.selectedCategoryId.value = v,
+              ),
+              _buildDropdown<String>(
+                label: "Tác giả",
+                value: controller.selectedAuthorFullName.value,
+                items: controller.authors
+                    .map(
+                      (a) => DropdownMenuItem<String>(
+                        value: a.fullName,
+                        child: Text(a.fullName ?? ''),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (v) => controller.selectedAuthorFullName.value = v,
+              ),
+              _buildDropdown<String>(
+                label: "Trạng thái",
+                value: controller.selectedStatus.value,
+                items: controller.statusOptions
+                    .map(
+                      (s) => DropdownMenuItem(
+                        value: s,
+                        child: Text(_statusLabel(s)),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (v) => controller.selectedStatus.value = v,
+              ),
+              _buildTextField(
+                "Năm xuất bản",
+                book.publicationYear?.toString() ?? '',
+                enabled: false,
+              ),
+              _buildTextField(
+                "Nhà xuất bản",
+                book.publisher ?? '',
+                enabled: false,
+              ),
+              _buildTextField(
+                "Loại tài liệu",
+                book.documentType == "Physical" ? "Sách giấy" : "Sách điện tử",
+                enabled: false,
+                isLast: true,
+              ),
+            ],
           ),
-          _buildDivider(),
-          _buildDropdown<String>(
-            label: "Tác giả",
-            value: controller.selectedAuthorFullName.value,
-            items: controller.authors
-                .map((a) => DropdownMenuItem<String>(value: a.fullName, child: Text(a.fullName ?? '')))
-                .toList(),
-            onChanged: (v) => controller.selectedAuthorFullName.value = v,
+          const SizedBox(height: 16),
+          _buildSectionCard(
+            icon: Icons.warehouse_outlined,
+            title: "Thông tin kho",
+            children: [
+              _buildEditField(
+                "Vị trí kho",
+                controller.locationController,
+                hint: "Nhập vị trí kho",
+              ),
+              _buildEditField(
+                "Số lượng",
+                controller.quantityController,
+                hint: "Nhập số lượng",
+                keyboardType: TextInputType.number,
+                isLast: true,
+              ),
+            ],
           ),
-          _buildDivider(),
-          _buildDropdown<String>(
-            label: "Trạng thái",
-            value: controller.selectedStatus.value,
-            items: controller.statusOptions
-                .map((s) => DropdownMenuItem(value: s, child: Text(_statusLabel(s))))
-                .toList(),
-            onChanged: (v) => controller.selectedStatus.value = v,
-          ),
-          _buildDivider(),
-          _buildTextField("Năm xuất bản", book.publicationYear?.toString() ?? '', enabled: false),
-          _buildDivider(),
-          _buildTextField("Nhà xuất bản", book.publisher ?? '', enabled: false),
-          _buildDivider(),
-          _buildTextField("Loại tài liệu",
-              book.documentType == "Physical" ? "Sách giấy" : "Sách điện tử",
-              enabled: false),
-
-          _buildSectionTitle("Thông tin kho"),
-          _buildEditField("Vị trí kho", controller.locationController, hint: "Nhập vị trí kho"),
-          _buildDivider(),
-          _buildEditField("Số lượng", controller.quantityController,
-              hint: "Nhập số lượng", keyboardType: TextInputType.number),
-
           if (book.documentType == 'Digital') ...[
-            _buildSectionTitle("Thông tin học liệu số"),
-            _buildEditField("Định dạng", controller.fileFormatController, hint: "PDF, EPUB..."),
-            _buildDivider(),
-            _buildEditField("Dung lượng (MB)", controller.fileSizeController, hint: "VD: 15.2"),
-            _buildDivider(),
-            _buildEditField("Lượt tải", controller.downloadCountController,
-                hint: "Nhập số lượt tải", keyboardType: TextInputType.number),
+            const SizedBox(height: 16),
+            _buildSectionCard(
+              icon: Icons.cloud_outlined,
+              title: "Thông tin học liệu số",
+              children: [
+                _buildEditField(
+                  "Định dạng",
+                  controller.fileFormatController,
+                  hint: "PDF, EPUB...",
+                ),
+                _buildEditField(
+                  "Dung lượng (MB)",
+                  controller.fileSizeController,
+                  hint: "VD: 15.2",
+                ),
+                _buildEditField(
+                  "Lượt tải",
+                  controller.downloadCountController,
+                  hint: "Nhập số lượt tải",
+                  keyboardType: TextInputType.number,
+                  isLast: true,
+                ),
+              ],
+            ),
           ],
           const SizedBox(height: 80),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSectionCard({
+    required IconData icon,
+    required String title,
+    required List<Widget> children,
+  }) {
+    return Card(
+      elevation: 1,
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, size: 18, color: Colors.blue.shade600),
+                const SizedBox(width: 8),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade700,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            ...children,
+          ],
+        ),
       ),
     );
   }
@@ -116,10 +210,13 @@ class BookEditView extends GetView<BookEditController> {
                 side: const BorderSide(color: Colors.red),
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text("Xoá", style: TextStyle(fontSize: 15)),
+              child: const Text(
+                "Xoá",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+              ),
             ),
           ),
           const SizedBox(width: 16),
@@ -131,10 +228,13 @@ class BookEditView extends GetView<BookEditController> {
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text("Lưu", style: TextStyle(fontSize: 15)),
+              child: const Text(
+                "Lưu",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+              ),
             ),
           ),
         ],
@@ -143,35 +243,69 @@ class BookEditView extends GetView<BookEditController> {
   }
 
   void _confirmDelete(BuildContext context) {
-    Get.defaultDialog(
-      title: "Xác nhận xoá",
-      middleText: "Bạn có chắc chắn muốn xoá sách này?",
-      textConfirm: "Xoá",
-      textCancel: "Huỷ",
-      confirmTextColor: Colors.white,
-      onConfirm: () {
-        Get.back();
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Row(
+          children: [
+            Icon(Icons.warning_amber_rounded, color: Colors.red),
+            SizedBox(width: 8),
+            Text('Xác nhận xoá'),
+          ],
+        ),
+        content: const Text(
+          'Bạn có chắc chắn muốn xoá sách này? Hành động này không thể hoàn tác.',
+        ),
+        actions: [
+          OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Colors.grey[700],
+              side: BorderSide(color: Colors.grey[400]!),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            ),
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Không'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              elevation: 0,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            ),
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Xoá'),
+          ),
+        ],
+      ),
+    ).then((value) {
+      if (value == true && context.mounted) {
         controller.delete(context);
-      },
-    );
+      }
+    });
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildEditField(
+    String label,
+    TextEditingController? controller, {
+    bool enabled = true,
+    String? hint,
+    TextInputType? keyboardType,
+    bool isLast = false,
+  }) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, bottom: 8),
-      child: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-    );
-  }
-
-  Widget _buildEditField(String label, TextEditingController? controller, {bool enabled = true, String? hint, TextInputType? keyboardType}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.only(bottom: isLast ? 0 : 14),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             width: 110,
-            child: Text(label, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+            ),
           ),
           Expanded(
             child: TextField(
@@ -181,8 +315,14 @@ class BookEditView extends GetView<BookEditController> {
               style: const TextStyle(fontSize: 15),
               decoration: InputDecoration(
                 isDense: true,
-                contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 10,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
                 hintText: hint,
               ),
             ),
@@ -192,40 +332,60 @@ class BookEditView extends GetView<BookEditController> {
     );
   }
 
-  Widget _buildTextField(String label, String value, {bool enabled = true}) {
+  Widget _buildTextField(
+    String label,
+    String value, {
+    bool enabled = true,
+    bool isLast = false,
+  }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.only(bottom: isLast ? 0 : 14),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             width: 110,
-            child: Text(label, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+            ),
           ),
           Expanded(
-            child: Text(value, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+            child: Text(
+              value,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildDropdown<T>({required String label, required T? value, required List<DropdownMenuItem<T>> items, required ValueChanged<T?> onChanged}) {
+  Widget _buildDropdown<T>({
+    required String label,
+    required T? value,
+    required List<DropdownMenuItem<T>> items,
+    required ValueChanged<T?> onChanged,
+    bool isLast = false,
+  }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.only(bottom: isLast ? 0 : 14),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             width: 110,
-            child: Text(label, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+            ),
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey.shade300),
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(8),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<T>(
@@ -246,12 +406,14 @@ class BookEditView extends GetView<BookEditController> {
 
   String _statusLabel(String s) {
     switch (s) {
-      case 'available': return 'Có sẵn';
-      case 'borrowed': return 'Đang mượn';
-      case 'maintenance': return 'Bảo trì';
-      default: return s;
+      case 'available':
+        return 'Có sẵn';
+      case 'borrowed':
+        return 'Đang mượn';
+      case 'maintenance':
+        return 'Bảo trì';
+      default:
+        return s;
     }
   }
-
-  Widget _buildDivider() => const Divider(height: 1);
 }

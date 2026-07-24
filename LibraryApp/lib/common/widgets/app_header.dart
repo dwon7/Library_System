@@ -4,12 +4,14 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final IconData? icon;
   final VoidCallback? onTap;
+  final PreferredSizeWidget? bottom;
 
   const AppHeader({
     super.key,
     required this.title,
     this.icon,
     this.onTap,
+    this.bottom,
   });
 
   @override
@@ -51,9 +53,11 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
       ],
+      bottom: bottom,
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 8);
+  Size get preferredSize =>
+      Size.fromHeight(kToolbarHeight + 8 + (bottom?.preferredSize.height ?? 0));
 }

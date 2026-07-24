@@ -4,12 +4,14 @@ class SearchTextField extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onTapOutside;
+  final String hintText;
 
   const SearchTextField({
     super.key,
     required this.controller,
     this.onChanged,
     this.onTapOutside,
+    this.hintText = "Tìm kiếm sách...",
   });
 
   @override
@@ -20,7 +22,7 @@ class SearchTextField extends StatelessWidget {
       onChanged: onChanged,
       onTapOutside: (_) => onTapOutside?.call(),
       decoration: InputDecoration(
-        hintText: "Tìm kiếm sách...",
+        hintText: hintText,
         prefixIcon: const Icon(Icons.search, size: 20),
         suffixIcon: controller.text.isNotEmpty
             ? IconButton(
@@ -31,7 +33,10 @@ class SearchTextField extends StatelessWidget {
                 },
               )
             : null,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 10,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
