@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/app_toast.dart';
 import 'package:library_app/features/inventory_audit_detail/inventory_audit_detail_provider.dart';
+import 'package:library_app/features/inventory_audits/inventory_audits_controller.dart';
 import 'package:library_app/models/ressponses/book_detail_res.dart';
 import 'package:library_app/models/ressponses/inventory_audit_detail_res.dart';
 
@@ -16,7 +17,8 @@ class InventoryAuditDetailController extends GetxController {
   final uninventoriedBooks = <AuditDetail>[].obs;
   final books = <BookDetailRes>[].obs;
 
-  bool get isCompleted => totalCount.value > 0 && scannedCount.value >= totalCount.value;
+  bool get isCompleted =>
+      totalCount.value > 0 && scannedCount.value >= totalCount.value;
 
   @override
   void onInit() {
@@ -46,7 +48,10 @@ class InventoryAuditDetailController extends GetxController {
       if (success) {
         AppToast.show("Xoá thành công");
         await Future.delayed(const Duration(milliseconds: 500));
-        Get.back();
+        Get.until((route) => route.isFirst);
+        if (Get.isRegistered<InventoryAuditsController>()) {
+          Get.find<InventoryAuditsController>().loadData();
+        }
       } else {
         AppToast.show("Xoá thất bại");
       }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../common/utils/app_utils.dart';
+import '../../../common/widgets/delete_icon.dart';
 import '../../../models/ressponses/book_detail_res.dart';
 
 class BorrowDetailWidget extends StatelessWidget {
@@ -136,11 +137,7 @@ class BorrowDetailWidget extends StatelessWidget {
                 width: 25,
                 child: onDelete != null
                     ? IconButton(
-                        icon: const Icon(
-                          Icons.restore_from_trash_sharp,
-                          size: 20,
-                          color: Colors.black54,
-                        ),
+                        icon: const DeleteIcon(size: 20),
                         onPressed: onDelete,
                       )
                     : Container(),

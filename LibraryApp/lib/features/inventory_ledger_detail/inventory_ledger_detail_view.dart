@@ -17,7 +17,7 @@ class InventoryLedgerDetailView
     return Scaffold(
       appBar: AppHeader(
         title: "Chi tiết phiếu kho",
-        icon: Icons.delete_outline_outlined,
+        icon: Icons.delete_outline,
         onTap: () => _showDeleteDialog(context),
       ),
 
@@ -113,14 +113,18 @@ class InventoryLedgerDetailView
           _buildDivider(),
           _buildRow(
             "Tổng tiền",
-            l.grandTotal != null ? "${AppUtils.formatMoney(l.grandTotal)} đ" : null,
+            l.grandTotal != null
+                ? "${AppUtils.formatMoney(l.grandTotal)} đ"
+                : null,
           ),
           _buildDivider(),
           _buildRow("Ghi chú", l.notes),
 
           if (l.ledgerDetails != null && l.ledgerDetails!.isNotEmpty) ...[
             _buildSectionTitle("Chi tiết phiếu"),
-            ...l.ledgerDetails!.map((d) => _buildLedgerDetail(d, l.ledgerDetails!.indexOf(d))),
+            ...l.ledgerDetails!.map(
+              (d) => _buildLedgerDetail(d, l.ledgerDetails!.indexOf(d)),
+            ),
           ],
         ],
       ),
@@ -146,15 +150,24 @@ class InventoryLedgerDetailView
             const SizedBox(height: 4),
             _buildRow("Nhà xuất bản", bookDetail?.publisher ?? ""),
             const SizedBox(height: 4),
-            _buildRow("Đơn giá", d.unitPrice != null ? "${AppUtils.formatMoney(d.unitPrice)} đ" : null),
+            _buildRow(
+              "Đơn giá",
+              d.unitPrice != null
+                  ? "${AppUtils.formatMoney(d.unitPrice)} đ"
+                  : null,
+            ),
             const SizedBox(height: 4),
             _buildRow("Số lượng", d.quantity?.toString()),
             const SizedBox(height: 4),
-            _buildRow("Thành tiền", d.totalAmount != null ? "${AppUtils.formatMoney(d.totalAmount)} đ" : null),
+            _buildRow(
+              "Thành tiền",
+              d.totalAmount != null
+                  ? "${AppUtils.formatMoney(d.totalAmount)} đ"
+                  : null,
+            ),
           ],
         ),
       );
-
     });
   }
 

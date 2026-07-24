@@ -2,11 +2,11 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/app_toast.dart';
+import 'package:library_app/common/widgets/delete_icon.dart';
 import 'package:library_app/models/ressponses/inventory_audit_detail_res.dart';
 import 'inventory_audit_detail_controller.dart';
 
-class InventoryAuditDetailView
-    extends GetView<InventoryAuditDetailController> {
+class InventoryAuditDetailView extends GetView<InventoryAuditDetailController> {
   const InventoryAuditDetailView({super.key});
 
   @override
@@ -19,7 +19,7 @@ class InventoryAuditDetailView
           Obx(() {
             if (!controller.isCompleted) return const SizedBox.shrink();
             return IconButton(
-              icon: const Icon(Icons.delete),
+              icon: const DeleteIcon(),
               onPressed: () => _showDeleteDialog(context),
             );
           }),
@@ -27,20 +27,32 @@ class InventoryAuditDetailView
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        child: Obx(() => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildPieChart(),
-            const SizedBox(height: 24),
-            if (controller.isCompleted) ...[
-              ...controller.inventoriedBooks.map((book) => _buildBookItem(book)),
-            ] else ...[
-              _buildBookSection("Chưa kiểm kê", controller.uninventoriedBooks, controller.uninventoriedBooks),
-              const SizedBox(height: 16),
-              _buildBookSection("Đã kiểm kê", controller.inventoriedBooks, controller.inventoriedBooks),
+        child: Obx(
+          () => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildPieChart(),
+              const SizedBox(height: 24),
+              if (controller.isCompleted) ...[
+                ...controller.inventoriedBooks.map(
+                  (book) => _buildBookItem(book),
+                ),
+              ] else ...[
+                _buildBookSection(
+                  "Chưa kiểm kê",
+                  controller.uninventoriedBooks,
+                  controller.uninventoriedBooks,
+                ),
+                const SizedBox(height: 16),
+                _buildBookSection(
+                  "Đã kiểm kê",
+                  controller.inventoriedBooks,
+                  controller.inventoriedBooks,
+                ),
+              ],
             ],
-          ],
-        )),
+          ),
+        ),
       ),
     );
   }
@@ -55,7 +67,9 @@ class InventoryAuditDetailView
             Text('Cảnh báo'),
           ],
         ),
-        content: const Text('Bạn có chắc chắn muốn xoá phiếu kiểm kê này không?'),
+        content: const Text(
+          'Bạn có chắc chắn muốn xoá phiếu kiểm kê này không?',
+        ),
         actions: [
           OutlinedButton(
             style: OutlinedButton.styleFrom(
@@ -102,9 +116,10 @@ class InventoryAuditDetailView
                       title: '$scanned',
                       radius: 60,
                       titleStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   if (unscanned > 0)
                     PieChartSectionData(
@@ -113,9 +128,10 @@ class InventoryAuditDetailView
                       title: '$unscanned',
                       radius: 60,
                       titleStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                 ],
                 centerSpaceRadius: 40,
@@ -146,8 +162,7 @@ class InventoryAuditDetailView
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 4),
-        Text("$label: $count",
-            style: const TextStyle(fontSize: 13)),
+        Text("$label: $count", style: const TextStyle(fontSize: 13)),
       ],
     );
   }
@@ -159,14 +174,16 @@ class InventoryAuditDetailView
   ) {
     return Obx(() {
       if (books.isEmpty) return const SizedBox.shrink();
-      final displayBooks =
-          allBooks.length > 5 ? allBooks.sublist(0, 5) : allBooks;
+      final displayBooks = allBooks.length > 5
+          ? allBooks.sublist(0, 5)
+          : allBooks;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
           ...displayBooks.map((book) => _buildBookItem(book)),
           if (allBooks.length > 5)
@@ -208,16 +225,21 @@ class InventoryAuditDetailView
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(_findBookName(book.bookId),
-                    style: const TextStyle(fontWeight: FontWeight.w600)),
-                Text("SL: ${book.quantity ?? 0}",
-                    style:
-                        const TextStyle(fontSize: 13, color: Colors.grey)),
+                Text(
+                  _findBookName(book.bookId),
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "SL: ${book.quantity ?? 0}",
+                  style: const TextStyle(fontSize: 13, color: Colors.grey),
+                ),
               ],
             ),
           ),
-          Text(_conditionLabel(book.conditionType),
-              style: const TextStyle(fontSize: 13, color: Colors.grey)),
+          Text(
+            _conditionLabel(book.conditionType),
+            style: const TextStyle(fontSize: 13, color: Colors.grey),
+          ),
         ],
       ),
     );
@@ -231,11 +253,16 @@ class InventoryAuditDetailView
 
   String _conditionLabel(int? conditionType) {
     switch (conditionType) {
-      case 1: return "Còn sử dụng";
-      case 2: return "Rách nát";
-      case 3: return "Mất";
-      case 4: return "Chưa kiểm kê";
-      default: return "";
+      case 1:
+        return "Còn sử dụng";
+      case 2:
+        return "Rách nát";
+      case 3:
+        return "Mất";
+      case 4:
+        return "Chưa kiểm kê";
+      default:
+        return "";
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../common/widgets/add_fab.dart';
 import '../../common/widgets/app_header.dart';
+import '../../common/widgets/wave_background.dart';
 import '../../models/entities/borrow_card_detail_entity.dart';
 import '../../routes/app_pages.dart';
 import 'borrow_cards_controller.dart';
@@ -22,41 +23,43 @@ class BorrowCardsView extends GetView<BorrowCardsController> {
           if (result == true) controller.loadData();
         },
       ),
-      body: RefreshIndicator(
-        onRefresh: () async => controller.loadData(),
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildStatusRow(),
-              const SizedBox(height: 24),
-              _buildSection(
-                "Đang mượn",
-                controller.borrowingCards,
-                controller.borrowingCount,
-                2,
-              ),
-              _buildSection(
-                "Quá hạn",
-                controller.overdueCards,
-                controller.overdueCount,
-                3,
-              ),
-              _buildSection(
-                "Hoàn thành",
-                controller.completedCards,
-                controller.completedCount,
-                1,
-              ),
-              _buildSection(
-                "Tất cả phiếu mượn",
-                controller.allCards,
-                controller.allCount,
-                0,
-              ),
-            ],
+      body: WaveBackground(
+        child: RefreshIndicator(
+          onRefresh: () async => controller.loadData(),
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildStatusRow(),
+                const SizedBox(height: 24),
+                _buildSection(
+                  "Đang mượn",
+                  controller.borrowingCards,
+                  controller.borrowingCount,
+                  2,
+                ),
+                _buildSection(
+                  "Quá hạn",
+                  controller.overdueCards,
+                  controller.overdueCount,
+                  3,
+                ),
+                _buildSection(
+                  "Hoàn thành",
+                  controller.completedCards,
+                  controller.completedCount,
+                  1,
+                ),
+                _buildSection(
+                  "Tất cả phiếu mượn",
+                  controller.allCards,
+                  controller.allCount,
+                  0,
+                ),
+              ],
+            ),
           ),
         ),
       ),

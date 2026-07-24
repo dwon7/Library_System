@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/app_header.dart';
+import 'package:library_app/common/widgets/wave_background.dart';
 import 'package:library_app/features/dashboard/components/chart_borrow_count.dart';
 import 'package:library_app/features/dashboard/components/chart_category_ratio.dart';
 import 'package:library_app/features/dashboard/components/chart_status_ratio.dart';
@@ -20,19 +21,21 @@ class DashboardView extends GetView<DashboardController> {
         icon: Icons.logout,
         onTap: () => LoginController.logout(),
       ),
-      body: RefreshIndicator(
-        onRefresh: controller.refreshAll,
-        child: ListView(
-          padding: const EdgeInsets.all(12),
-          children: [
-            SizedBox(height: 310, child: _buildChart1()),
-            const SizedBox(height: 32),
-            SizedBox(height: 310, child: _buildChart2()),
-            const SizedBox(height: 32),
-            SizedBox(height: 310, child: _buildChart3()),
-            const SizedBox(height: 32),
-            SizedBox(height: 310, child: _buildChart4()),
-          ],
+      body: WaveBackground(
+        child: RefreshIndicator(
+          onRefresh: controller.refreshAll,
+          child: ListView(
+            padding: const EdgeInsets.all(12),
+            children: [
+              SizedBox(height: 310, child: _buildChart1()),
+              const SizedBox(height: 32),
+              SizedBox(height: 310, child: _buildChart2()),
+              const SizedBox(height: 32),
+              SizedBox(height: 310, child: _buildChart3()),
+              const SizedBox(height: 32),
+              SizedBox(height: 310, child: _buildChart4()),
+            ],
+          ),
         ),
       ),
     );

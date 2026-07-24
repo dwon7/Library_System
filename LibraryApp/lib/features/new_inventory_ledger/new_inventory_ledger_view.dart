@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/app_header.dart';
+import 'package:library_app/common/widgets/delete_icon.dart';
 
 import '../../common/utils/app_utils.dart';
 import '../../models/ressponses/book_detail_res.dart';
@@ -355,11 +356,7 @@ class NewInventoryLedgerView extends GetView<NewInventoryLedgerController> {
               ),
               if (controller.ledgerDetails.length > 1)
                 IconButton(
-                  icon: const Icon(
-                    Icons.delete_outline,
-                    size: 22,
-                    color: Colors.red,
-                  ),
+                  icon: const DeleteIcon(size: 22),
                   onPressed: () => controller.removeLedgerDetail(index),
                 ),
             ],
