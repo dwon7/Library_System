@@ -4,7 +4,6 @@ import 'package:library_app/common/widgets/add_fab.dart';
 import 'package:library_app/common/widgets/app_header.dart';
 import 'package:library_app/common/widgets/empty_state.dart';
 import 'package:library_app/common/widgets/search_text_field.dart';
-import 'package:library_app/common/widgets/wave_background.dart';
 
 import 'books_controller.dart';
 import 'components/book_detail_item.dart';
@@ -24,24 +23,22 @@ class BooksView extends GetView<BooksController> {
           if (result == true) controller.loadData();
         },
       ),
-      body: WaveBackground(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-              child: SearchTextField(
-                controller: TextEditingController(
-                  text: controller.searchText.value,
-                ),
-                onChanged: (v) => controller.onSearchChanged(v),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+            child: SearchTextField(
+              controller: TextEditingController(
+                text: controller.searchText.value,
               ),
+              onChanged: (v) => controller.onSearchChanged(v),
             ),
-            const SizedBox(height: 10),
-            _buildCategoryList(),
-            const SizedBox(height: 12),
-            Expanded(child: _buildBookGrid()),
-          ],
-        ),
+          ),
+          const SizedBox(height: 10),
+          _buildCategoryList(),
+          const SizedBox(height: 12),
+          Expanded(child: _buildBookGrid()),
+        ],
       ),
     );
   }

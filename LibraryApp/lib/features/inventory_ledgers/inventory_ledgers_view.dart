@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../common/widgets/add_fab.dart';
 import '../../common/widgets/app_header.dart';
-import '../../common/widgets/wave_background.dart';
 import '../../models/entities/inventory_ledger_detail_entity.dart';
 import '../../models/enum/ledger_type.dart';
 import '../../routes/app_pages.dart';
@@ -24,31 +23,29 @@ class InventoryLedgersView extends GetView<InventoryLedgersController> {
           if (result == true) controller.loadData();
         },
       ),
-      body: WaveBackground(
-        child: RefreshIndicator(
-          onRefresh: () async => controller.loadData(),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildStatusRow(),
-                const SizedBox(height: 24),
-                _buildSection(
-                  "Nhập kho",
-                  controller.importLedgers,
-                  controller.importCount,
-                  1,
-                ),
-                _buildSection(
-                  "Xuất kho",
-                  controller.exportLedgers,
-                  controller.exportCount,
-                  2,
-                ),
-              ],
-            ),
+      body: RefreshIndicator(
+        onRefresh: () async => controller.loadData(),
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildStatusRow(),
+              const SizedBox(height: 24),
+              _buildSection(
+                "Nhập kho",
+                controller.importLedgers,
+                controller.importCount,
+                1,
+              ),
+              _buildSection(
+                "Xuất kho",
+                controller.exportLedgers,
+                controller.exportCount,
+                2,
+              ),
+            ],
           ),
         ),
       ),

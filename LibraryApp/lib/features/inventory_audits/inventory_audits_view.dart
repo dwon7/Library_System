@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../common/widgets/add_fab.dart';
 import '../../common/widgets/app_header.dart';
-import '../../common/widgets/wave_background.dart';
 import '../../models/entities/inventory_audit_detail_entity.dart';
 import '../../models/enum/audit_status.dart';
 import '../../routes/app_pages.dart';
@@ -21,31 +20,29 @@ class InventoryAuditsView extends GetView<InventoryAuditsController> {
         heroTag: 'fab-inventory-audits',
         onPressed: () => _showDeleteDialog(context),
       ),
-      body: WaveBackground(
-        child: RefreshIndicator(
-          onRefresh: () async => controller.loadData(),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildStatusRow(),
-                const SizedBox(height: 24),
-                _buildSection(
-                  "Chưa hoàn thành",
-                  controller.incompleteAudits,
-                  controller.incompleteCount,
-                  2,
-                ),
-                _buildSection(
-                  "Đã hoàn thành",
-                  controller.completedAudits,
-                  controller.completedCount,
-                  1,
-                ),
-              ],
-            ),
+      body: RefreshIndicator(
+        onRefresh: () async => controller.loadData(),
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildStatusRow(),
+              const SizedBox(height: 24),
+              _buildSection(
+                "Chưa hoàn thành",
+                controller.incompleteAudits,
+                controller.incompleteCount,
+                2,
+              ),
+              _buildSection(
+                "Đã hoàn thành",
+                controller.completedAudits,
+                controller.completedCount,
+                1,
+              ),
+            ],
           ),
         ),
       ),
