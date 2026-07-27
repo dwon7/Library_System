@@ -8,4 +8,5 @@ public interface IStockTransactionService
     Task<int> GetCountByTypeAsync(int ledgerType);
     Task<List<StockTransactionResponseDto>> GetListByTypeAsync(int ledgerType);
     Task<string> GenerateLedgerIdAsync(int ledgerType);
+    Task<bool> DeleteAsync(string ledgerId);
 }

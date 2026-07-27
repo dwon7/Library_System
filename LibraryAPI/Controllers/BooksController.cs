@@ -20,6 +20,19 @@ public class BooksController : ControllerBase
         [FromQuery] int pageSize = 20)
         => Ok(await _service.SearchAsync(keyword, categoryId, page, pageSize));
 
+    [HttpGet("generate-id")]
+    public async Task<IActionResult> GenerateId()
+        => Ok(await _service.GenerateBookIdAsync());
+
+    [HttpGet("by-ids")]
+    public async Task<IActionResult> GetByIds([FromQuery] string ids)
+    {
+        var idList = (ids ?? string.Empty)
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .ToList();
+        return Ok(await _service.GetByIdsAsync(idList));
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(string id)
     {

@@ -263,10 +263,7 @@ class InventoryLedgerDetailView
     ).then((value) {
       // Xử lý kết quả sau khi dialog đóng
       if (value == true) {
-        // Thực hiện hàm xóa bản ghi của bạn ở đây
-        print("Người dùng đã chọn: ĐỒNG Ý XOÁ");
-      } else {
-        print("Người dùng đã chọn: KHÔNG XOÁ");
+        controller.deleteLedger();
       }
     });
   }

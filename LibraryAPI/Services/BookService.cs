@@ -40,7 +40,7 @@ public class BookService : IBookService
         var qrCode = $"QRSACH{count + 1:D3}";
         var book = new Book
         {
-            MaSach = $"SACH-{Guid.NewGuid().ToString("N")[..6].ToUpper()}",
+            MaSach = $"S{count + 1:D3}",
             QrCode = qrCode,
             TenTaiLieu = dto.Title,
             DanhMucId = dto.CategoryId,
@@ -73,6 +73,24 @@ public class BookService : IBookService
     }
 
     public async Task<bool> DeleteAsync(string id, string userId) => await _repo.SoftDeleteAsync(id);
+
+    public async Task<string> GenerateBookIdAsync()
+    {
+        var count = await _ctx.Books.CountDocumentsAsync(_ => true);
+        return $"S{count + 1:D3}";
+    }
+
+    public async Task<List<BookResponseDto>> GetByIdsAsync(List<string> ids)
+    {
+        if (ids.Count == 0) return new List<BookResponseDto>();
+        var books = await _ctx.Books.Find(b => ids.Contains(b.Id!) && !b.IsDeleted).ToListAsync();
+        var bookMap = books.ToDictionary(b => b.Id!, b => b);
+        // Trả về theo đúng thứ tự ids truyền vào để FE map theo index
+        return ids
+            .Where(id => bookMap.ContainsKey(id))
+            .Select(id => MapToDto(bookMap[id]))
+            .ToList();
+    }
 
     public static BookResponseDto MapToDto(Book b) => new()
     {

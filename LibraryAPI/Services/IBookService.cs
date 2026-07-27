@@ -8,4 +8,6 @@ public interface IBookService
     Task<BookResponseDto> CreateAsync(BookCreateDto dto, string userId);
     Task<bool> UpdateAsync(string id, BookUpdateDto dto, string userId);
     Task<bool> DeleteAsync(string id, string userId);
+    Task<string> GenerateBookIdAsync();
+    Task<List<BookResponseDto>> GetByIdsAsync(List<string> ids);
 }
