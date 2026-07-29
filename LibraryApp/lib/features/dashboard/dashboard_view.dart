@@ -7,6 +7,7 @@ import 'package:library_app/features/dashboard/components/chart_status_ratio.dar
 import 'package:library_app/features/dashboard/components/chart_top_borrowers.dart';
 import 'package:library_app/features/dashboard/components/chart_wrapper.dart';
 import 'package:library_app/features/dashboard/dashboard_controller.dart';
+import 'package:library_app/features/login/login_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
@@ -14,18 +15,25 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppHeader(title: 'Tổng quan'),
-      body: ListView(
-        padding: const EdgeInsets.all(12),
-        children: [
-          SizedBox(height: 310, child: _buildChart1()),
-          const SizedBox(height: 24),
-          SizedBox(height: 310, child: _buildChart2()),
-          const SizedBox(height: 24),
-          SizedBox(height: 310, child: _buildChart3()),
-          const SizedBox(height: 24),
-          SizedBox(height: 310, child: _buildChart4()),
-        ],
+      appBar: AppHeader(
+        title: 'Tổng quan',
+        icon: Icons.logout,
+        onTap: () => LoginController.logout(),
+      ),
+      body: RefreshIndicator(
+        onRefresh: controller.refreshAll,
+        child: ListView(
+          padding: const EdgeInsets.all(12),
+          children: [
+            SizedBox(height: 310, child: _buildChart1()),
+            const SizedBox(height: 32),
+            SizedBox(height: 310, child: _buildChart2()),
+            const SizedBox(height: 32),
+            SizedBox(height: 310, child: _buildChart3()),
+            const SizedBox(height: 32),
+            SizedBox(height: 310, child: _buildChart4()),
+          ],
+        ),
       ),
     );
   }

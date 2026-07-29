@@ -16,8 +16,9 @@ public static class InventoryStatus {
     public const int InProgress = 2; 
 }
 
-public static class BookCondition { 
-    public const int Good = 1; 
-    public const int Damaged = 2; 
-    public const int Lost = 3; 
+public static class BookCondition {
+    public const int Good = 1;
+    public const int Damaged = 2;
+    public const int Lost = 3;
+    public const int NotInventoried = 4;  // Chưa kiểm kê — trạng thái khởi tạo khi tạo phiếu
 }

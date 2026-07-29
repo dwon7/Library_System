@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../common/utils/app_utils.dart';
 import '../../../models/entities/inventory_ledger_detail_entity.dart';
 import '../../../models/enum/ledger_type.dart';
 import '../../../routes/app_pages.dart';
@@ -54,7 +55,7 @@ class InventoryLedgerItem extends StatelessWidget {
             children: [
               Text(item.transactionDate ?? "", style: const TextStyle(fontSize: 12, color: Colors.grey)),
               const SizedBox(height: 2),
-              Text("${item.grandTotal} đ", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: type.color)),
+              Text("${AppUtils.formatMoney(item.grandTotal)} đ", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: type.color)),
             ],
           ),
         ],

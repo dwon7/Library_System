@@ -49,6 +49,16 @@ public class StockTransactionService : IStockTransactionService
         return $"{prefix}-{(count + 1):D3}";
     }
 
+    public async Task<bool> DeleteAsync(string ledgerId)
+    {
+        var update = Builders<StockTransaction>.Update
+            .Set(t => t.IsDeleted, true)
+            .Set(t => t.UpdatedAt, DateTime.UtcNow);
+        var result = await _ctx.StockTransactions.UpdateOneAsync(
+            t => t.MaGiaoDich == ledgerId && !t.IsDeleted, update);
+        return result.ModifiedCount > 0;
+    }
+
     public async Task<(bool ok, string message, StockTransactionResponseDto? data)> CreateImportAsync(StockTransactionCreateDto dto, string userId)
     {
         var transaction = BuildEntity(dto, TransactionType.Import, userId);

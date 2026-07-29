@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/app_toast.dart';
 import 'package:library_app/common/widgets/loading_overlay.dart';
+import 'package:library_app/routes/app_pages.dart';
 
 import '../../models/ressponses/book_detail_res.dart';
 import '../../models/ressponses/inventory_audit_detail_res.dart';
@@ -33,7 +34,7 @@ class NewInventoryAuditController extends GetxController {
   final auditId = "".obs;
   final books = <BookDetailRes>[].obs;
   final auditDate = "".obs;
-  final status = 1.obs;
+  final status = 0.obs;
   final notes = "".obs;
 
   final auditBoard = <AuditMemberEntry>[
@@ -54,6 +55,7 @@ class NewInventoryAuditController extends GetxController {
       LoadingOverlay.show();
       auditId.value = await provider.generateAuditId();
       books.value = await provider.getBooks();
+      auditDetails.value = books.map((b) => AuditDetailEntry(selectedBook: b)..conditionType = 4).toList();
     } catch (e) {
       AppToast.show("Lỗi tải dữ liệu");
     } finally {
@@ -89,7 +91,7 @@ class NewInventoryAuditController extends GetxController {
   Future<void> submit() async {
     if (auditDate.value.isEmpty) return _warn("Vui lòng chọn ngày kiểm kê");
     if (auditBoard.any((m) => m.nameController.text.trim().isEmpty)) return _warn("Vui lòng nhập đủ tên ban kiểm kê");
-    if (auditDetails.every((e) => e.selectedBook == null)) return _warn("Vui lòng chọn ít nhất một sách");
+    // if (auditDetails.every((e) => e.selectedBook == null)) return _warn("Vui lòng chọn ít nhất một sách");
 
     try {
       LoadingOverlay.show();
@@ -118,7 +120,7 @@ class NewInventoryAuditController extends GetxController {
       LoadingOverlay.hide();
       AppToast.show("Thêm phiếu kiểm kê thành công");
       await Future.delayed(const Duration(milliseconds: 1500));
-      Get.back(result: true);
+      Get.offNamed(AppPages.qrscanner, arguments: auditId.value);
     } catch (e) {
       LoadingOverlay.hide();
       AppToast.show("Lỗi thêm phiếu kiểm kê");

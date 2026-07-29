@@ -11,6 +11,13 @@ public class ExceptionMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         try { await _next(context); }
+        catch (UnauthorizedAccessException ex)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            var response = new { message = ex.Message };
+            await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Unhandled exception");

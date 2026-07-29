@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/app_header.dart';
 
+import '../../common/utils/app_utils.dart';
 import '../../models/ressponses/book_detail_res.dart';
 import 'book_detail_controller.dart';
 
@@ -59,7 +60,7 @@ class BookDetailView extends GetView<BookDetailController> {
           _buildRow("Nhà xuất bản", book.publisher),
           _buildDivider(),
           // Giá sách
-          _buildRow("Giá sách", (book.price ?? "—").toString()),
+          _buildRow("Giá sách", book.price != null ? "${AppUtils.formatMoney(book.price)} đ" : null),
           _buildDivider(),
           // Tác giả
           _buildAuthors(book.authors),

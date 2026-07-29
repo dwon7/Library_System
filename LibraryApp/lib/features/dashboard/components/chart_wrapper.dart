@@ -25,49 +25,50 @@ class ChartWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      padding: const EdgeInsets.only(top: 4, right: 4, bottom: 8, left: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              if (showMonthDropdown) ...[
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8, right: 4, bottom: 8, left: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (title != null)
+                  Expanded(
+                    child: Text(
+                      title!,
+                      style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                // const SizedBox(width: 10),
+                if (showMonthDropdown) ...[
+                  _buildDropdown<int>(
+                    value: selectedMonth,
+                    items: List.generate(12, (i) => i + 1),
+                    itemLabel: (m) => 'T$m',
+                    onChanged: onMonthChanged,
+                  ),
+                  const SizedBox(width: 6),
+                ],
                 _buildDropdown<int>(
-                  value: selectedMonth,
-                  items: List.generate(12, (i) => i + 1),
-                  itemLabel: (m) => 'T$m',
-                  onChanged: onMonthChanged,
+                  value: selectedYear,
+                  items: _years,
+                  itemLabel: (y) => y.toString(),
+                  onChanged: onYearChanged,
                 ),
-                const SizedBox(width: 4),
               ],
-              _buildDropdown<int>(
-                value: selectedYear,
-                items: _years,
-                itemLabel: (y) => y.toString(),
-                onChanged: onYearChanged,
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Expanded(child: Padding(
-            padding: const EdgeInsets.only(right: 4),
-            child: chart,
-          )),
-          if (title != null) ...[
-            const SizedBox(height: 4),
-            Text(
-              title!,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
             ),
+            const SizedBox(height: 16),
+            Expanded(child: Padding(
+              padding: const EdgeInsets.only(right: 4),
+              child: chart,
+            )),
           ],
-        ],
+        ),
       ),
     );
   }
@@ -79,17 +80,17 @@ class ChartWrapper extends StatelessWidget {
     required ValueChanged<T> onChanged,
   }) {
     return Container(
-      height: 28,
-      padding: const EdgeInsets.symmetric(horizontal: 6),
+      height: 36,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(6),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<T>(
           value: value,
           isDense: true,
-          style: const TextStyle(fontSize: 11, color: Colors.black87),
+          style: const TextStyle(fontSize: 14, color: Colors.black87),
           items: items.map((item) {
             return DropdownMenuItem<T>(
               value: item,

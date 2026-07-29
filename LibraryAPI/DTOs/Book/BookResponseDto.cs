@@ -10,6 +10,7 @@ public class BookResponseDto
     public List<AuthorResponseDto> Authors { get; set; } = new();  
     public string DocumentType { get; set; } = null!;
     public string? BookCode { get; set; }
+    public string? QrCode { get; set; }
     public PhysicalInfoDto PhysicalInfo { get; set; } = new();
     public string Status { get; set; } = "available";  
 }

@@ -37,7 +37,7 @@ public class AuthService : IAuthService
     {
         var user = await _users.GetByEmailAsync(dto.Email);
         if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-            throw new Exception("Sai email hoặc mật khẩu");
+            throw new UnauthorizedAccessException("Sai email hoặc mật khẩu");
         return await IssueTokensAsync(user);
     }
 

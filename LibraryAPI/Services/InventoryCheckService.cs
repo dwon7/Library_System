@@ -3,6 +3,7 @@ using LibraryAPI.Domain.Enums;
 using LibraryAPI.DTOs.InventoryCheck;
 using LibraryAPI.Infrastructure;
 using LibraryAPI.Repositories;
+using MongoDB.Bson;
 using MongoDB.Driver;
 namespace LibraryAPI.Services;
 public class InventoryCheckService : IInventoryCheckService
@@ -39,7 +40,7 @@ public class InventoryCheckService : IInventoryCheckService
             {
                 SachId = k.BookId,
                 SoLuong = k.Quantity,
-                TinhTrangSach = k.ConditionType
+                TinhTrangSach = BookCondition.NotInventoried  // luôn khởi tạo là 4, chờ quét QR
             }).ToList(),
             TongSoLuongKiemKe = dto.TotalAuditedQuantity ?? dto.AuditDetails.Sum(k => k.Quantity),
             GhiChu = dto.Notes,
@@ -116,6 +117,98 @@ public class InventoryCheckService : IInventoryCheckService
             LostQuantity = inv.KetQuaChiTiet.Where(k => k.TinhTrangSach == BookCondition.Lost).Sum(k => k.SoLuong),
             UniqueBookCount = inv.KetQuaChiTiet.Select(k => k.SachId).Distinct().Count()
         };
+    }
+
+    public async Task<int[]> GetAuditProgressAsync(string auditId)
+    {
+        var inv = await _ctx.InventoryChecks
+            .Find(i => i.MaPhieuKiemKe == auditId && !i.IsDeleted)
+            .FirstOrDefaultAsync();
+        if (inv == null) return new[] { 0, 0 };
+
+        var distinctBooks = inv.KetQuaChiTiet.GroupBy(k => k.SachId).ToList();
+        var totalCount = distinctBooks.Count;
+        var scannedCount = distinctBooks
+            .Count(g => g.Any(k => k.TinhTrangSach != BookCondition.NotInventoried));
+        return new[] { scannedCount, totalCount };
+    }
+
+    public async Task<int> ScanQRAsync(string auditId, string qrValue)
+    {
+        var book = await _ctx.Books
+            .Find(b => b.QrCode == qrValue && !b.IsDeleted)
+            .FirstOrDefaultAsync();
+        if (book?.Id == null) return 2;
+
+        var docFilter = Builders<InventoryCheck>.Filter.And(
+            Builders<InventoryCheck>.Filter.Eq(i => i.MaPhieuKiemKe, auditId),
+            Builders<InventoryCheck>.Filter.Eq(i => i.IsDeleted, false),
+            Builders<InventoryCheck>.Filter.ElemMatch(
+                i => i.KetQuaChiTiet,
+                k => k.SachId == book.Id && k.TinhTrangSach == BookCondition.NotInventoried));
+
+        var arrayFilter = new BsonDocumentArrayFilterDefinition<BsonDocument>(
+            new BsonDocument
+            {
+                { "elem.sach_id", ObjectId.Parse(book.Id) },
+                { "elem.tinh_trang_sach", BookCondition.NotInventoried }
+            });
+
+        var update = Builders<InventoryCheck>.Update
+            .Set("ket_qua_chi_tiet.$[elem].tinh_trang_sach", BookCondition.Good)
+            .Set(i => i.UpdatedAt, DateTime.UtcNow);
+
+        var result = await _ctx.InventoryChecks.UpdateOneAsync(
+            docFilter, update, new UpdateOptions { ArrayFilters = new[] { arrayFilter } });
+        return result.ModifiedCount > 0 ? 1 : 2;
+    }
+
+    public async Task<bool> UpdateBookConditionAsync(string auditId, string bookId, int conditionType)
+    {
+        var docFilter = Builders<InventoryCheck>.Filter.And(
+            Builders<InventoryCheck>.Filter.Eq(i => i.MaPhieuKiemKe, auditId),
+            Builders<InventoryCheck>.Filter.Eq(i => i.IsDeleted, false));
+
+        var arrayFilter = new BsonDocumentArrayFilterDefinition<BsonDocument>(
+            new BsonDocument("elem.sach_id", ObjectId.Parse(bookId)));
+
+        var update = Builders<InventoryCheck>.Update
+            .Set("ket_qua_chi_tiet.$[elem].tinh_trang_sach", conditionType)
+            .Set(i => i.UpdatedAt, DateTime.UtcNow);
+
+        var result = await _ctx.InventoryChecks.UpdateOneAsync(
+            docFilter, update, new UpdateOptions { ArrayFilters = new[] { arrayFilter } });
+        return result.ModifiedCount > 0;
+    }
+
+    public async Task<List<AuditDetailResponseDto>> GetBooksByStatusAsync(string auditId, int status)
+    {
+        var inv = await _ctx.InventoryChecks
+            .Find(i => i.MaPhieuKiemKe == auditId && !i.IsDeleted)
+            .FirstOrDefaultAsync();
+        if (inv == null) return new List<AuditDetailResponseDto>();
+
+        // status=1: đã kiểm kê (tinh_trang != 4), status=2: chưa kiểm kê (tinh_trang == 4)
+        var filtered = status == 1
+            ? inv.KetQuaChiTiet.Where(k => k.TinhTrangSach != BookCondition.NotInventoried)
+            : inv.KetQuaChiTiet.Where(k => k.TinhTrangSach == BookCondition.NotInventoried);
+
+        return filtered.Select(k => new AuditDetailResponseDto
+        {
+            BookId = k.SachId,
+            Quantity = k.SoLuong,
+            ConditionType = k.TinhTrangSach
+        }).ToList();
+    }
+
+    public async Task<bool> DeleteAuditAsync(string auditId)
+    {
+        var update = Builders<InventoryCheck>.Update
+            .Set(i => i.IsDeleted, true)
+            .Set(i => i.UpdatedAt, DateTime.UtcNow);
+        var result = await _ctx.InventoryChecks.UpdateOneAsync(
+            i => i.MaPhieuKiemKe == auditId && !i.IsDeleted, update);
+        return result.ModifiedCount > 0;
     }
 
     private static InventoryCheckResponseDto MapToDto(InventoryCheck i) => new()

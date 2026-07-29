@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:library_app/core/api_client.dart';
 
+import '../../models/ressponses/book_detail_res.dart';
 import '../../models/ressponses/inventory_ledger_detail_res.dart';
 
 class InventoryLedgerDetailProvider {
@@ -17,14 +18,22 @@ class InventoryLedgerDetailProvider {
     }
   }
 
-  // TODO: getBooksByIds | Input: List<String> bookIds | Output: List<BookDetailRes>? | Lấy chi tiết 1 sách theo mã. null nếu không thấy
-  Future<List<BookDetailRes>?> getBooksByIds(List<String> bookIds) async {
-    await Future.delayed(const Duration(milliseconds: 500));
+  // deleteLedger | DELETE /api/stocktransactions/{ledgerId}
+  Future<bool> deleteLedger(String ledgerId) async {
+    final response = await _client.dio.delete('/stocktransactions/$ledgerId');
+    return ApiClient.asSuccess(response.data);
+  }
 
+  // getBooksByIds | GET /api/books/by-ids?ids= | Trả về theo đúng thứ tự bookIds truyền vào
+  Future<List<BookDetailRes>?> getBooksByIds(List<String> bookIds) async {
+    if (bookIds.isEmpty) return [];
     try {
-      return _storageService.books.where(
-            (book) => bookIds.contains(book.bookId),
-      ).toList();
+      final response = await _client.dio.get(
+        '/books/by-ids',
+        queryParameters: {'ids': bookIds.join(',')},
+      );
+      final data = ApiClient.asList(response.data);
+      return data.map((e) => BookDetailRes.fromJson(e)).toList();
     } catch (_) {
       return null;
     }

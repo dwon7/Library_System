@@ -80,12 +80,15 @@ class NewInventoryLedgerController extends GetxController {
     ledgerDetails.refresh();
   }
 
-  Future<void> submit() async {
-    if (transactionDate.value.isEmpty) return _warn("Vui lòng chọn ngày giao dịch");
-    if (staffInCharge.value.isEmpty) return _warn("Vui lòng nhập nhân viên");
-    if (partnerName.value.isEmpty) return _warn("Vui lòng nhập đối tác");
-    if (ledgerDetails.every((e) => e.selectedBook == null)) return _warn("Vui lòng chọn ít nhất một sách");
+  bool validate() {
+    if (transactionDate.value.isEmpty) { _warn("Vui lòng chọn ngày giao dịch"); return false; }
+    if (staffInCharge.value.isEmpty) { _warn("Vui lòng nhập nhân viên"); return false; }
+    if (partnerName.value.isEmpty) { _warn("Vui lòng nhập đối tác"); return false; }
+    if (ledgerDetails.every((e) => e.selectedBook == null)) { _warn("Vui lòng chọn ít nhất một sách"); return false; }
+    return true;
+  }
 
+  Future<void> submit() async {
     try {
       LoadingOverlay.show();
       int grandTotal = 0;

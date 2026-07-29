@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../common/utils/app_utils.dart';
+import '../../../common/widgets/delete_icon.dart';
 import '../../../models/ressponses/book_detail_res.dart';
 
 class BorrowDetailWidget extends StatelessWidget {
@@ -73,7 +75,7 @@ class BorrowDetailWidget extends StatelessWidget {
                       ),
                       child: Text(
                         selectedBook != null
-                            ? "${_formatPrice(_calcPrice(selectedBook!))} đ"
+                            ? "${AppUtils.formatMoney(_calcPrice(selectedBook!))} đ"
                             : "—",
                         style: TextStyle(
                           fontSize: 16,
@@ -135,11 +137,7 @@ class BorrowDetailWidget extends StatelessWidget {
                 width: 25,
                 child: onDelete != null
                     ? IconButton(
-                        icon: const Icon(
-                          Icons.restore_from_trash_sharp,
-                          size: 20,
-                          color: Colors.black54,
-                        ),
+                        icon: const DeleteIcon(size: 20),
                         onPressed: onDelete,
                       )
                     : Container(),
@@ -154,12 +152,5 @@ class BorrowDetailWidget extends StatelessWidget {
   int _calcPrice(BookDetailRes book) {
     int qty = book.physicalInfo?.totalQuantity ?? 0;
     return qty * 50000;
-  }
-
-  String _formatPrice(int price) {
-    return price.toString().replaceAllMapped(
-      RegExp(r'(\d)(?=(\d{3})+$)'),
-      (m) => '${m[1]}.',
-    );
   }
 }

@@ -38,6 +38,6 @@ public class InventoryDetail
     [BsonElement("sach_id")][BsonRepresentation(BsonType.ObjectId)] 
     public string SachId { get; set; } = null!;
     [BsonElement("so_luong")] public int SoLuong { get; set; }
-    /// <summary>1=Con su dung, 2=Rach/nat, 3=Mat</summary>
-    [BsonElement("tinh_trang_sach")] public int TinhTrangSach { get; set; } = 1;
+    /// <summary>1=Con su dung, 2=Rach/nat, 3=Mat, 4=Chua kiem ke</summary>
+    [BsonElement("tinh_trang_sach")] public int TinhTrangSach { get; set; } = 4;
 }

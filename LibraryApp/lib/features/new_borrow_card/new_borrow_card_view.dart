@@ -36,6 +36,7 @@ class NewBorrowCardView extends GetView<NewBorrowCardController> {
 
                   DropdownButtonFormField<UserDetailRes>(
                     value: controller.selectedUser.value,
+                    isExpanded: true,
                     decoration: InputDecoration(
                       labelText: "Độc giả",
                       border: OutlineInputBorder(
@@ -44,7 +45,10 @@ class NewBorrowCardView extends GetView<NewBorrowCardController> {
                     ),
                     items: controller.users.map((u) => DropdownMenuItem(
                       value: u,
-                      child: Text("${u.fullName ?? ""} (${u.userId ?? ""})"),
+                      child: Text(
+                        "${u.fullName ?? ""} (${u.userId ?? ""})",
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     )).toList(),
                     onChanged: (val) => controller.selectedUser.value = val,
                   ),

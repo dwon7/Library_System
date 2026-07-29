@@ -27,9 +27,9 @@ class NewInventoryAuditProvider {
     return books;
   }
 
-  // API #23: addAudit | POST /api/inventorychecks
-  Future<bool> addAudit(InventoryAuditDetailRes audit) async {
+  // API #23: addAudit | POST /api/inventorychecks → trả về auditId string (KK-XXX)
+  Future<String> addAudit(InventoryAuditDetailRes audit) async {
     final response = await _client.dio.post('/inventorychecks', data: audit.toJson());
-    return ApiClient.asSuccess(response.data);
+    return ApiClient.asString(response.data);
   }
 }

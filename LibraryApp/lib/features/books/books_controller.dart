@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_app/common/widgets/loading_overlay.dart';
@@ -30,15 +31,21 @@ class BooksController extends GetxController {
   void loadData() async {
     try {
       LoadingOverlay.show();
+      if (kDebugMode) debugPrint('[BooksController] loadData: bắt đầu getCategories()');
       categories.value = await provider.getCategories();
+      if (kDebugMode) debugPrint('[BooksController] loadData: getCategories() xong, bắt đầu getBooksByCategoryId()');
       books.value = await provider.getBooksByCategoryId(
         selectedCategory.value.categoryId ?? "-1",
         searchText.value,
       );
-    } catch (e) {
+      if (kDebugMode) debugPrint('[BooksController] loadData: getBooksByCategoryId() xong');
+    } catch (e, st) {
+      if (kDebugMode) debugPrint('[BooksController] loadData: LỖI $e\n$st');
       Get.snackbar("Lỗi", "Tải dữ liệu thất bại");
     } finally {
+      if (kDebugMode) debugPrint('[BooksController] loadData: vào finally, gọi LoadingOverlay.hide()');
       LoadingOverlay.hide();
+      if (kDebugMode) debugPrint('[BooksController] loadData: đã gọi xong LoadingOverlay.hide()');
     }
   }
 

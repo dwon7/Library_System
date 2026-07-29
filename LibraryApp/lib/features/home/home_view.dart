@@ -20,10 +20,6 @@ import '../inventory_ledgers/inventory_ledgers_controller.dart';
 import '../inventory_ledgers/inventory_ledgers_provider.dart';
 import 'home_controller.dart';
 
-// Import giao diện, controller, provider thực tế của 5 phân hệ
-// import '../overview/ui.dart';
-// import '../books/ui.dart'; ...
-
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
 
@@ -35,38 +31,56 @@ class HomeView extends GetView<HomeController> {
       // ĐÂY LÀ PHẦN BODY ĐÃ ĐƯỢC HOÀN THIỆN ĐẦY ĐỦ PAGES:
       body: Obx(() {
         final current = controller.currentTabIndex.value;
+        // Lưu ý: IndexedStack build TẤT CẢ children ngay cả khi chỉ 1 cái được hiển thị,
+        // nên chỉ tab đang xem mới được build widget thật (kèm gọi API); các tab còn lại
+        // dùng placeholder rỗng để tránh cả 5 tab cùng gọi API đồng thời khi vào Home.
         return IndexedStack(
           index: current,
           children: [
             // Tab 0: Tổng quan (Màn hình lưới 6 menu phụ của bạn hoặc Dashboard)
-            GetXTabWrapper<DashboardController>(
-              controllerBuilder: () => DashboardController(DashboardProvider()),
-              child: DashboardView(),
-            ),
+            if (current == 0)
+              GetXTabWrapper<DashboardController>(
+                controllerBuilder: () => DashboardController(DashboardProvider()),
+                child: DashboardView(),
+              )
+            else
+              const SizedBox.shrink(),
 
             // Tab 1: Quản lý Sách (Chỉ init 3 file của sách khi bấm trúng tab này)
-            GetXTabWrapper<BooksController>(
-              controllerBuilder: () => BooksController(BooksProvider()),
-              child: BooksView(),
-            ),
+            if (current == 1)
+              GetXTabWrapper<BooksController>(
+                controllerBuilder: () => BooksController(BooksProvider()),
+                child: BooksView(),
+              )
+            else
+              const SizedBox.shrink(),
 
             // Tab 2: Phiếu Mượn Sách
-            GetXTabWrapper<BorrowCardsController>(
-              controllerBuilder: () => BorrowCardsController(BorrowCardsProvider()),
-              child: BorrowCardsView(),
-            ),
+            if (current == 2)
+              GetXTabWrapper<BorrowCardsController>(
+                controllerBuilder: () => BorrowCardsController(BorrowCardsProvider()),
+                child: BorrowCardsView(),
+              )
+            else
+              const SizedBox.shrink(),
 
             // Tab 3: Phiếu Kiểm Kê
-            GetXTabWrapper<InventoryAuditsController>(
-              controllerBuilder: () => InventoryAuditsController(InventoryAuditsProvider()),
-              child: InventoryAuditsView(),
-            ),
+            if (current == 3)
+              GetXTabWrapper<InventoryAuditsController>(
+                controllerBuilder: () => InventoryAuditsController(InventoryAuditsProvider()),
+                child: InventoryAuditsView(),
+              )
+            else
+              const SizedBox.shrink(),
 
             // Tab 4: Nhập / Xuất Kho
-            GetXTabWrapper<InventoryLedgersController>(
-              controllerBuilder: () => InventoryLedgersController(InventoryLedgersProvider()),
-              child: InventoryLedgersView(),
-            ),
+            if (current == 4)
+              GetXTabWrapper<InventoryLedgersController>(
+                controllerBuilder: () => InventoryLedgersController(InventoryLedgersProvider()),
+                child: InventoryLedgersView(),
+              )
+            else
+              const SizedBox.shrink(),
           ],
         );
       }),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_app/common/widgets/add_fab.dart';
 import 'package:library_app/common/widgets/app_header.dart';
 import 'package:library_app/common/widgets/empty_state.dart';
 import 'package:library_app/common/widgets/search_text_field.dart';
@@ -8,18 +9,28 @@ import 'books_controller.dart';
 import 'components/book_detail_item.dart';
 import 'components/category_chip_item.dart';
 import '../../models/entities/category_entity.dart';
+import '../../routes/app_pages.dart';
 
 class BooksView extends GetView<BooksController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppHeader(title: "Danh sách sách"),
+      floatingActionButton: AddFab(
+        heroTag: 'fab-books',
+        onPressed: () async {
+          final result = await Get.toNamed(AppPages.newBook);
+          if (result == true) controller.loadData();
+        },
+      ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
             child: SearchTextField(
-              controller: TextEditingController(text: controller.searchText.value),
+              controller: TextEditingController(
+                text: controller.searchText.value,
+              ),
               onChanged: (v) => controller.onSearchChanged(v),
             ),
           ),
@@ -53,8 +64,7 @@ class BooksView extends GetView<BooksController> {
               return CategoryChipItem(
                 item: allCategory,
                 isSelected: isAllSelected,
-                onTap: () =>
-                    controller.updateSelectedCategory(allCategory),
+                onTap: () => controller.updateSelectedCategory(allCategory),
               );
             }
             final cat = controller.categories[index - 1];
@@ -62,7 +72,7 @@ class BooksView extends GetView<BooksController> {
               item: cat,
               isSelected:
                   controller.selectedCategory.value.categoryId ==
-                      cat.categoryId,
+                  cat.categoryId,
               onTap: () => controller.updateSelectedCategory(cat),
             );
           },
